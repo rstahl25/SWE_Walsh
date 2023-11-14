@@ -1,0 +1,12 @@
+body{
+    background: url("./img/clouds.jpeg") no-repeat center fixed;
+    background-size: cover;
+}
+.ground{
+    height: 150px;
+    background-color: rgb(130, 24, 24);
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    left: 0px;
+}
