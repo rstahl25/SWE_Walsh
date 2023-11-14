@@ -1,0 +1,62 @@
+.box {
+    background-color: #FF9B9B;
+    width: 3px;
+    border: 10px solid rgb(255, 0, 0, .5);
+    padding: 50px;
+  }
+  
+  .flex{
+    display: flex;
+    justify-content: center;
+  }
+  
+  .box:nth-child(2) {
+    width: 40px;
+  }
+  
+  
+  .col {
+    background-color: #9B9DFF;
+    width: 3px;
+    border: 10px solid rgb(0, 0, 255, .5);
+    padding: 50px;
+  }
+  
+  .flex2 {
+    display: flex;
+    justify-content: center;
+    writing-mode: vertical-lr;
+  }
+  
+  .block {
+    background-color: #D77B4A;
+    width: 3px;
+    border: 5px solid rgb(0, 0, 0, 1);
+    padding: 50px;
+  }
+  
+  .container {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    width: max-content;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .item {
+    background-color: #D77B4A;
+    width: 3px;
+    border: 5px solid rgb(0, 0, 0, 1);
+    padding: 50px;
+    margin: 10px;
+  }
+  
+  .num-1 {
+    background-color: #2FD4DC;
+    position: absolute;
+    left: -50px;
+    bottom: -50px;
+    z-index: 1;
+  }
+  
