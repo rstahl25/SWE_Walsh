@@ -1,3 +1,4 @@
+
 function setup() {
   createCanvas(windowWidth, windowHeight);
   rectMode(CENTER);
@@ -18,22 +19,12 @@ function game(){
   noStroke();
   fill(0)
   rect(1100, groundTop - height/6, 10, height/3)
+  
+  drawPlatform(950, (groundTop - (jumpHeight * 3) + 5), 130, 10, "#E79548");
 
-  // Platforms
-  stroke(0);
-  strokeWeight(3)
-  fill(231, 149, 72)
-  rect(950, groundTop - (jumpHeight * 3) + 5, 130, 10)
+  drawPlatform(750, (groundTop - (jumpHeight * 2) + 5), 130, 10, "#E79548");
 
-  stroke(0);
-  strokeWeight(3);
-  fill(231, 149, 72);
-  rect(750, groundTop - (jumpHeight * 2) + 5, 130, 10)
-
-  stroke(0);
-  strokeWeight(3);
-  fill(231, 149, 72);
-  rect(550, groundTop - (jumpHeight) + 5, 130, 10)
+  drawPlatform(550, (groundTop - (jumpHeight * 1) + 5), 130, 10, "#E79548");
 
   // Window frame
   noFill();
