@@ -3,16 +3,27 @@
   <head>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.8.0/p5.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.8.0/addons/p5.sound.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="title.css">
     <meta charset="utf-8" />
+
+    <style>
+      body {
+        background-image: url('./img/walsh.JPG');
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+      </style>
 
   </head>
   <body>
-    <main>
-    </main>
-    <script src="foreground.js"></script>
-    <script src="sketch.js"></script>
-    <script src="platform.js"></script>
+    <div class="page-container">
+      <h1 class="title">Walsh Univesrity Software App</h1>
+      <div class="game">
+        <button onclick="window.location.href='/game.html';">
+          Play Game!
+        </button>
+      </div>
+    </div>
     
   </body>
 </html>
