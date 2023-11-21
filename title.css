@@ -2,6 +2,10 @@ h1 {
     color: #E9C11F;
 }
 
+body {
+    background-image: url('./img/walsh.JPG');
+    padding-left: 60px;
+}
 .page-container{
     display:flex;
     flex-direction: column;
@@ -12,7 +16,6 @@ h1 {
     background-color: #8C8A87;
     border: 6px solid maroon;
     border-radius: 2rem;
-    
 }
 
 .game {
