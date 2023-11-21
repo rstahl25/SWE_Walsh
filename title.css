@@ -5,6 +5,7 @@ h1 {
 body {
     background-image: url('./img/walsh.JPG');
     padding-left: 60px;
+    overflow:hidden;
 }
 .page-container{
     display:flex;
