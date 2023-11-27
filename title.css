@@ -1,0 +1,38 @@
+h1 {
+    color: #E9C11F;
+}
+
+body {
+    background-image: url('./img/walsh.JPG');
+    padding-left: 60px;
+    overflow:hidden;
+}
+.page-container{
+    display:flex;
+    flex-direction: column;
+    margin: 21%;
+    height: 20vh;
+    width: 50vw;
+    justify-content: center;
+    align-items: center;
+    background-color: #8C8A87;
+    border: 6px solid maroon;
+    border-radius: 2rem;
+    overflow-wrap: break-word;
+}
+
+.game {
+    width: max-content;
+}
+
+button {
+    padding: 4px;
+    border: 3px solid black;
+    border-radius: .5rem;
+}
+
+button:hover {
+    background-color: black;
+    color: white;
+    border: 3px solid white;
+}
