@@ -2,6 +2,19 @@ h1 {
     color: #E9C11F;
 }
 
+a {
+    background-color: white;
+    border: 3px solid black;
+    border-radius: .5rem;
+    text-decoration: none;
+}
+
+a:hover {
+    background-color: black;
+    color: white;
+    border: 3px solid white;
+}
+
 body {
     background-image: url('./img/walsh.JPG');
     padding-left: 60px;
