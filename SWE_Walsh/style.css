@@ -6,6 +6,6 @@ canvas {
   display: block;
 }
 body{
-  background: url("./img/cloudsBackground.jpg") no-repeat center fixed;
+  background: url("../img/cloudsBackground.jpg") no-repeat center fixed;
   background-size: cover;
 }
