@@ -1,4 +1,6 @@
 //global variables for constructing end level building
+var grassHeight = 200;
+var groundTop = height - grassHeight;
 start_x = 1350;
 start_y = (groundTop - (grassHeight/2) - 150);
 
@@ -18,12 +20,10 @@ function brick(x, y, w, h) {
 // Game function
 function game(){
   // Grass
-  var grassHeight = 200;
   noStroke();
   fill(100, 200, 75);
   rect(width/2, height-(grassHeight/2), width, grassHeight);
 
-  var groundTop = height - grassHeight;
   var jumpHeight = height/12;
   // Wall
   noStroke();

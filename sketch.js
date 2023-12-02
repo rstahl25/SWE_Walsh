@@ -10,5 +10,7 @@ function draw() {
   // call function
   if(stage == 1){
     game();
+    drawPlayer();
+    keypressed();
   }
 }
