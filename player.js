@@ -6,7 +6,7 @@ var pY = 500;
 function displayPlayer() {
     stroke(0);
     strokeWeight(5);
-    fill(150, 0, 170);
+    fill('purple');
     rect(pX, pY, pWidth, pHeight);
 }
 
