@@ -2,8 +2,5 @@ let mySound = loadSound('Songs/Fluttery Sledge - 100 BPM - 1 - Drums - VapourTra
 
 function soundPlay() {
     soundFormats('wav');
-    if(mySound.isLoaded())
-    {
-        mySound.play();
-    }
+    mySound.play();
 }
