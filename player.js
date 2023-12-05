@@ -12,7 +12,13 @@ function displayPlayer() {
 
 function keyPressed() {
     if(keyIsDown(LEFT_ARROW)) {
-        pX -= 5;
+        if(pX <= 15) {   // Player reach leftmost boundary; Stop moving left.
+            pX = pX
+        }
+
+        else {
+            pX -= 5;
+        }
     }
 
     if(keyIsDown(RIGHT_ARROW)) {
