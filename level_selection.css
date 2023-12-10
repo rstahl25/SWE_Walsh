@@ -1,14 +1,15 @@
 h1 {
     color: #E9C11F;
+    margin-top: 0px;
 }
 
 a {
     background-color: white;
     border: 3px solid black;
-    color: maroon;
     border-radius: .5rem;
     text-decoration: none;
     padding: 5px;
+    margin: 0px 20px;
 }
 
 a:hover {
@@ -37,5 +38,13 @@ body {
 }
 
 .game {
-    width: max-content;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.back {
+    align-self: flex-start; 
+    margin-left: 40px;
 }
