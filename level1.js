@@ -20,6 +20,14 @@ function setup() {
   canvas = createCanvas(windowWidth, windowHeight);
   rectMode(CENTER);
   textAlign(CENTER);
+
+  // Global foreground variables
+  grass_Height = 200;
+  ground_Top = height - grass_Height;
+  jump_Height = height/12;
+  start_x = 1350;
+  start_y = (ground_Top - (grass_Height/2) - 150);
+
   ctx = canvas.drawingContext;
 
   // Set up key listeners.
@@ -45,6 +53,10 @@ function draw() {
   if(stage == 1){
     ctx.clearRect(0, 0, canvas.width, 560);
     game();
+    drawPlatform(950, (ground_Top - (jump_Height * 3) + 5), 130, 10, "#E79548");
+    drawPlatform(750, (ground_Top - (jump_Height * 2) + 5), 130, 10, "#E79548");
+    drawPlatform(550, (ground_Top - (jump_Height * 1) + 5), 130, 10, "#E79548");
+    drawEndGoal(ground_Top, grass_Height, start_x, start_y);
     player1.draw();
   }
 }
