@@ -24,20 +24,36 @@ class Player {
       else if(rightKey) {
         // Player moves right.
         this.xSpeed ++;
+
+        if(this.x >= screen.width - this.width) {
+          this.xSpeed = 0;
+        }
       }
 
       else if(leftKey) {
         // Player moves left.
         this.xSpeed --;
+
+        if(this.x <= this.width) {
+          this.xSpeed = 0;
+        }
       }
       // Vertical movement.
       if(upKey) {
         // Check if on ground.
-
-        this.ySpeed -= 15;
+        if(this.y <= this.minHeight && this.y >= (screen.height - (screen.height - 50))) {
+          this.ySpeed -= 100;
+        }
+        else {
+          this.ySpeed = 0;
+        }
       } 
 
       else if(!upKey && this.y >= this.minHeight) {
+        this.ySpeed = 0;
+      }
+
+      else if(upKey && this.y <= 200) {
         this.ySpeed = 0;
       }
 
@@ -70,7 +86,7 @@ class Player {
   draw() {
     stroke(0);
     strokeWeight(5);
-    fill(150, 0, 170);
+    fill(100);
     rect(this.x, this.y, this.width, this.height);
   }
 }
