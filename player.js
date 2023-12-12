@@ -105,3 +105,22 @@ class Player {
     rect(this.x, this.y, this.width, this.height);
   }
 }
+
+// chai test
+let player2 = new Player(500, 500);
+
+var assert = require('chai').assert
+  , should = require('chai').should();
+
+p2_active = player2.active;
+p2_height = player2.height;
+
+player2.should.be.a('object')
+console.log('pass')
+
+assert.typeOf(p2_active, 'boolean')
+console.log('pass')
+
+assert.typeOf(p2_height, 'number')
+console.log('pass');
+
