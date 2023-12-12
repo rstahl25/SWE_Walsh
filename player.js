@@ -49,16 +49,31 @@ class Player {
         }
       } 
 
-      else if(!upKey && this.y >= this.minHeight) {
-        this.ySpeed = 0;
+      if(this.y >= this.minHeight) {
+        this.y = this.minHeight;
       }
 
-      else if(upKey && this.y <= 200) {
-        this.ySpeed = 0;
-      }
+      if(upKey) {
+        // Check if on ground.
+        if(this.y <= this.minHeight && this.y >= (screen.height - (screen.height - 50))) {
+          this.ySpeed -= 100;
+        }
+        else {
+          this.ySpeed = 0;
+        }
+      } 
 
       else {
         this.ySpeed ++;
+      }
+
+      if(this.x >= (950 - 130/2) && this.x <= (1080 - 130/2) && this.y <= this.minHeight - 200) {
+        if(this.y < this.minHeight - 200 && this.ySpeed >= this.ySpeed) {
+          this.ySpeed ++;
+        /*if(this.y <= this.minHeight - 200) {
+          this.y = this.minHeight - 200;
+          }*/
+        }
       }
 
       // Correct player speed.
