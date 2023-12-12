@@ -67,14 +67,40 @@ class Player {
         this.ySpeed ++;
       }
 
-      if(this.x >= (950 - 130/2) && this.x <= (1080 - 130/2) && this.y <= this.minHeight - 200) {
-        if(this.y < this.minHeight - 200 && this.ySpeed >= this.ySpeed) {
-          this.ySpeed ++;
-        /*if(this.y <= this.minHeight - 200) {
+      if(this.x >= (950 - 130/2) && this.x <= (1080 - 130/2) && this.y <= this.minHeight - 200 && this.y >= this.minHeight - 300) {
           this.y = this.minHeight - 200;
-          }*/
-        }
+          if(upKey) {
+            this.y = this.y - 100;
+          }
+          else if(!upKey) {
+            this.ySpeed = 0;
+          }
       }
+
+      if(this.x >= (750 - 130/2) && this.x <= (880 - 130/2) && this.y <= this.minHeight - 140 && this.y >= this.minHeight - 180) {
+        this.y = this.minHeight - 140;
+        if(upKey) {
+          this.y = this.y - 100;
+        }
+        else if(!upKey) {
+          this.ySpeed = 0;
+        }
+    }
+
+    if(this.x >= (550 - 130/2) && this.x <= (680 - 130/2) && this.y <= this.minHeight - 80 && this.y >= this.minHeight - 110) {
+      this.y = this.minHeight - 80;
+      if(upKey) {
+        this.y = this.y - 100;
+      }
+      else if(!upKey) {
+        this.ySpeed = 0;
+      }
+    }
+
+    if(this.x >= 1070)
+    {
+      this.x = 1070;
+    }
 
       // Correct player speed.
       if(this.xSpeed >= this.maxSpeed) {
