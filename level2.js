@@ -10,7 +10,7 @@ function setup() {
     platform.width = 100;
     platform.height = 20;
     platform.collider = 's';
-    platform.rotation = 35;
+    platform.rotation = 15;
 
     ball = new Sprite();
     ball.diameter = 100;
