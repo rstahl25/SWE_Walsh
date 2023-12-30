@@ -1,7 +1,7 @@
 // Set up sprite variables for level
 let platform1, platform2, platform3, wall, char, grass;
 
-// Set up variables for player rendering
+// Set up variables for player starting position
 var p1X = 130;
 var p1Y = 525;
 
