@@ -20,6 +20,7 @@ function setup() {
     start_x = 1350;
     start_y = (ground_Top - (grass_Height/2) - 150);
 
+    // Create platforms
     platform1 = new Sprite(windowWidth/1.75, (ground_Top - (jump_Height * 3) + 5), 140, 10, 's');
     platform1.color = '#E79548';
 
@@ -29,19 +30,24 @@ function setup() {
     platform3 = new Sprite(windowWidth/3.25, (ground_Top - (jump_Height * 1) + 5), 140, 10, 's');
     platform3.color = '#E79548';
 
+    // Create wall obstacle
     wall = new Sprite(windowWidth/1.4, (ground_Top - height/6), 10, height/2, 's');
     wall.color = 'black';
 
+    // Create player sprite
     player = new Sprite(p1X, p1Y, 30, 'd');
 
+    // Create grass platform
     grass = new Sprite(windowWidth/2, windowHeight, windowWidth, windowHeight/2.5, 's');
     grass.color = 'green'
 
-
+    // Establish world gravity
     world.gravity.y = 10;
 }
 
 function draw() {
+
+    // Allow player horizontal movement
     if(kb.pressing('left')) {
         player.vel.x = -5;
     } else if (kb.pressing('right')) {
@@ -50,6 +56,7 @@ function draw() {
         player.vel.x = 0;
     }
        
+    // Allow player vertical movement with jump limitation
     if (kb.presses('up') && (player.colliding(grass))) {
       player.bearing = -90;
       player.applyForce(400);
