@@ -49,12 +49,11 @@ function draw() {
     } else {
         player.vel.x = 0;
     }
-
-    if(kb.pressing('up')) {
-        player.vel.y = -10;
-    } else {
-        player.vel.y = 5;
+       
+    if (kb.presses('up')) {
+      player.bearing = -90;
+      player.applyForce(400);
     }
-
+    
     clear()
 }
