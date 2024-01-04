@@ -20,16 +20,16 @@ function setup() {
     start_x = 1350;
     start_y = (ground_Top - (grass_Height/2) - 150);
 
-    platform1 = new Sprite(950, (ground_Top - (jump_Height * 3) + 5), 140, 10, 's');
+    platform1 = new Sprite(windowWidth/1.75, (ground_Top - (jump_Height * 3) + 5), 140, 10, 's');
     platform1.color = '#E79548';
 
-    platform2 = new Sprite(700, (ground_Top - (jump_Height * 2) + 5), 140, 10, 's');
+    platform2 = new Sprite(windowWidth/2.25, (ground_Top - (jump_Height * 2) + 5), 140, 10, 's');
     platform2.color = '#E79548';
 
-    platform3 = new Sprite(450, (ground_Top - (jump_Height * 1) + 5), 140, 10, 's');
+    platform3 = new Sprite(windowWidth/3.25, (ground_Top - (jump_Height * 1) + 5), 140, 10, 's');
     platform3.color = '#E79548';
 
-    wall = new Sprite(1100, (ground_Top - height/6), 10, height/2, 's');
+    wall = new Sprite(windowWidth/1.4, (ground_Top - height/6), 10, height/2, 's');
     wall.color = 'black';
 
     char = new Sprite(p1X, p1Y, 60, 120, 'd');
