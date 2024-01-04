@@ -36,10 +36,12 @@ function setup() {
 
     // Create player sprite
     player = new Sprite(p1X, p1Y, 30, 'd');
+    player.color = 'maroon'
 
     // Create grass platform
     grass = new Sprite(windowWidth/2, windowHeight, windowWidth, windowHeight/2.5, 's');
     grass.color = 'green'
+
 
     // Establish world gravity
     world.gravity.y = 10;
@@ -76,6 +78,9 @@ function draw() {
         player.bearing = -90;
         player.applyForce(400);
     }
-    
-    clear()
+
+    clear();
+
+    // Render end goal building
+    drawEndGoal(ground_Top, grass_Height, start_x, start_y);
 }
