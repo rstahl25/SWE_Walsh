@@ -50,9 +50,24 @@ function draw() {
         player.vel.x = 0;
     }
        
-    if (kb.presses('up')) {
+    if (kb.presses('up') && (player.colliding(grass))) {
       player.bearing = -90;
       player.applyForce(400);
+    }
+
+    if (kb.presses('up') && (player.colliding(platform3))) {
+        player.bearing = -90;
+        player.applyForce(400);
+    }
+
+    if (kb.presses('up') && (player.colliding(platform2))) {
+        player.bearing = -90;
+        player.applyForce(400);
+    }
+
+    if (kb.presses('up') && (player.colliding(platform1))) {
+        player.bearing = -90;
+        player.applyForce(400);
     }
     
     clear()
