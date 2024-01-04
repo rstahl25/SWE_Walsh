@@ -1,5 +1,5 @@
 // Set up sprite variables for level
-let platform1, platform2, platform3, wall, char, grass;
+let platform1, platform2, platform3, wall, player, grass;
 
 // Set up variables for player starting position
 var p1X = 130;
@@ -32,7 +32,7 @@ function setup() {
     wall = new Sprite(windowWidth/1.4, (ground_Top - height/6), 10, height/2, 's');
     wall.color = 'black';
 
-    char = new Sprite(p1X, p1Y, 60, 120, 'd');
+    player = new Sprite(p1X, p1Y, 30, 'd');
 
     grass = new Sprite(windowWidth/2, windowHeight, windowWidth, windowHeight/2.5, 's');
     grass.color = 'green'
@@ -42,5 +42,19 @@ function setup() {
 }
 
 function draw() {
+    if(kb.pressing('left')) {
+        player.vel.x = -5;
+    } else if (kb.pressing('right')) {
+        player.vel.x = 5;
+    } else {
+        player.vel.x = 0;
+    }
+
+    if(kb.pressing('up')) {
+        player.vel.y = -10;
+    } else {
+        player.vel.y = 5;
+    }
+
     clear()
 }
