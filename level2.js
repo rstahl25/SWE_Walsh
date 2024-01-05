@@ -45,6 +45,7 @@ function setup() {
 
     // Establish world gravity
     world.gravity.y = 10;
+
 }
 
 function draw() {
@@ -83,4 +84,13 @@ function draw() {
 
     // Render end goal building
     drawEndGoal(ground_Top, grass_Height, start_x, start_y);
+
+    if(player.collides(platform1)) {
+        let div = createDiv('Victory!');
+        div.position(windowWidth/2, windowHeight/2);
+        div.style('color', 200);
+        let a = createA('https://urban-waffle-9pg44vvj6p62p7jp-8000.app.github.dev/level_selection.html', 'Level Selection');
+        a.position(windowWidth/2, windowHeight/2 + 20);
+    }
 }
+
