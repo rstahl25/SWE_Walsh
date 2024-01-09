@@ -35,7 +35,9 @@ function setup() {
     wall.color = 'black';
 
     // Create player sprite
-    player = new Sprite(p1X, p1Y, 30, 'd');
+    player = new Sprite(p1X, p1Y, 30, 40, 'd');
+    player.rotationLock = true;
+    //player.img = 'img/walsh.JPG'
     player.color = 'maroon'
 
     // Create grass platform
@@ -52,9 +54,17 @@ function draw() {
 
     // Allow player horizontal movement
     if(kb.pressing('left')) {
-        player.vel.x = -5;
+        if(player.x < 10) {
+            player.vel.x = 5;
+        } else {
+            player.vel.x = -5;
+        }
     } else if (kb.pressing('right')) {
-        player.vel.x = 5;
+        if(player.x > windowWidth - 10) {
+            player.vel.x = -5;
+        } else {
+            player.vel.x = 5;
+        }
     } else {
         player.vel.x = 0;
     }
@@ -62,22 +72,22 @@ function draw() {
     // Allow player vertical movement with jump limitation
     if (kb.presses('up') && (player.colliding(grass))) {
       player.bearing = -90;
-      player.applyForce(400);
+      player.applyForce(700);
     }
 
     if (kb.presses('up') && (player.colliding(platform3))) {
         player.bearing = -90;
-        player.applyForce(400);
+        player.applyForce(700);
     }
 
     if (kb.presses('up') && (player.colliding(platform2))) {
         player.bearing = -90;
-        player.applyForce(400);
+        player.applyForce(700);
     }
 
     if (kb.presses('up') && (player.colliding(platform1))) {
         player.bearing = -90;
-        player.applyForce(400);
+        player.applyForce(700);
     }
 
     clear();
