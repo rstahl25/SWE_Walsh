@@ -48,6 +48,10 @@ function setup() {
     grass = new Sprite(windowWidth/2, windowHeight, windowWidth, windowHeight/2.5, 's');
     grass.color = 'green'
 
+    // Create Instructions for Tutorial
+    arrowKeyInstructions = new Sprite(windowWidth/3, windowWidth/6, 'static');
+    arrowKeyInstructions.img = 'img/arrowInstruction.png';
+    arrowKeyInstructions.layer = 0;
 
     // Establish world gravity
     world.gravity.y = 10;
@@ -55,6 +59,8 @@ function setup() {
 }
 
 function draw() {
+    // Allow player to pass through the tutorial
+    player.overlaps(arrowKeyInstructions);
 
     // Allow player horizontal movement
     if(kb.pressing('left')) {
