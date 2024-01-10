@@ -1,100 +1,102 @@
-// Drawing variables.
-var canvas;
-var ctx;
+// Set up sprite variables for level
+let platform1, platform2, platform3, wall, player, grass;
 
-// Input variables.
-var upKey;
-var downKey;
-var rightKey;
-var leftKey;
-
-// Game variables
-var stage = 1;
-var p1X = 30;
+// Set up variables for player starting position
+var p1X = 130;
 var p1Y = 525;
-let player1;
-var gameloop;
+
+
 
 function setup() {
-  // Create canvas and context elements.
-  canvas = createCanvas(windowWidth, windowHeight);
-  rectMode(CENTER);
-  textAlign(CENTER);
+    // Create canvas
+    canvas = createCanvas(windowWidth, windowHeight);
+    rectMode(CENTER);
+    textAlign(CENTER);
 
-  // Global foreground variables
-  grass_Height = 200;
-  ground_Top = height - grass_Height;
-  jump_Height = height/12;
-  start_x = 1350;
-  start_y = (ground_Top - (grass_Height/2) - 150);
+    // Global foreground variables
+    grass_Height = 200;
+    ground_Top = height - grass_Height;
+    jump_Height = height/12;
+    start_x = 1350;
+    start_y = (ground_Top - (grass_Height/2) - 150);
 
-  ctx = canvas.drawingContext;
+    // Create platforms
+    platform1 = new Sprite(windowWidth/1.75, (ground_Top - (jump_Height * 3) + 5), 140, 10, 's');
+    platform1.color = '#E79548';
+    platform1.friction = 0;
 
-  // Set up key listeners.
-  setupInputs();
+    platform2 = new Sprite(windowWidth/2.25, (ground_Top - (jump_Height * 2) + 5), 140, 10, 's');
+    platform2.color = '#E79548';
+    platform2.friction = 0;
 
-  // Create new player object.
-  player1 = new Player(p1X, p1Y,);
+    platform3 = new Sprite(windowWidth/3.25, (ground_Top - (jump_Height * 1) + 5), 140, 10, 's');
+    platform3.color = '#E79548';
+    platform3.friction = 0;
 
-  // Start game loop.
-  gameloop = setInterval(step, 1000/30);
-}
+    // Create wall obstacle
+    wall = new Sprite(windowWidth/1.4, (ground_Top - height/6), 10, height/2, 's');
+    wall.color = 'black';
+    wall.friction = 0;
 
-function step() {
-  // Step player.
-  player1.step();
+    // Create player sprite
+    player = new Sprite(p1X, p1Y, 30, 40, 'd');
+    player.rotationLock = true;
+    //player.img = 'img/walsh.JPG'
+    player.color = 'maroon'
 
-  // Draw everything.
-  draw();
+    // Create grass platform
+    grass = new Sprite(windowWidth/2, windowHeight, windowWidth, windowHeight/2.5, 's');
+    grass.color = 'green'
+
+
+    // Establish world gravity
+    world.gravity.y = 10;
+
 }
 
 function draw() {
-  // Call function
-  if(stage == 1){
-    ctx.clearRect(0, 0, canvas.width, 560);
-    game();
-    drawPlatform(950, (ground_Top - (jump_Height * 3) + 5), 130, 10, "#E79548");
-    drawPlatform(750, (ground_Top - (jump_Height * 2) + 5), 130, 10, "#E79548");
-    drawPlatform(550, (ground_Top - (jump_Height * 1) + 5), 130, 10, "#E79548");
+
+    // Allow player horizontal movement
+    if(kb.pressing('left')) {
+        if(player.x < 10) {
+            player.vel.x = 5;
+        } else {
+            player.vel.x = -5;
+        }
+    } else if (kb.pressing('right')) {
+        if(player.x > windowWidth - 10) {
+            player.vel.x = -5;
+        } else {
+            player.vel.x = 5;
+        }
+    } else {
+        player.vel.x = 0;
+    }
+       
+    // Allow player vertical movement with jump limitation
+    if (kb.presses('up') && (player.colliding(grass))) {
+      player.bearing = -90;
+      player.applyForce(700);
+    }
+
+    if (kb.presses('up') && (player.colliding(platform3))) {
+        player.bearing = -90;
+        player.applyForce(700);
+    }
+
+    if (kb.presses('up') && (player.colliding(platform2))) {
+        player.bearing = -90;
+        player.applyForce(700);
+    }
+
+    if (kb.presses('up') && (player.colliding(platform1))) {
+        player.bearing = -90;
+        player.applyForce(700);
+    }
+
+    clear();
+
+    // Render end goal building
     drawEndGoal(ground_Top, grass_Height, start_x, start_y);
-    player1.draw();
-  }
 }
 
-function setupInputs() {
-  document.addEventListener("keydown", function(event) {
-    if(event.key === "ArrowUp") {
-      upKey = true;
-    }
-
-    else if(event.key === "ArrowLeft") {
-      leftKey = true;
-    }
-
-    else if(event.key === "ArrowDown") {
-      downKey = true;
-    }
-
-    else if(event.key === "ArrowRight") {
-      rightKey = true;
-    }
-  });
-
-  document.addEventListener("keyup", function(event) {
-    if(event.key === "ArrowUp") {
-      upKey = false;
-    }
-
-    else if(event.key === "ArrowLeft") {
-      leftKey = false;
-    }
-
-    else if(event.key === "ArrowDown") {
-      downKey = false;
-    }
-
-    else if(event.key === "ArrowRight") {
-      rightKey = false;
-    }
-  });
-}
