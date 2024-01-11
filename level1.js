@@ -42,12 +42,21 @@ function setup() {
     player = new Sprite(p1X, p1Y, 30, 40, 'd');
     player.rotationLock = true;
     //player.img = 'img/walsh.JPG'
+    player.layer = 10;
     player.color = 'maroon'
 
     // Create grass platform
     grass = new Sprite(windowWidth/2, windowHeight, windowWidth, windowHeight/2.5, 's');
     grass.color = 'green'
 
+    end_struct = new Sprite(windowWidth/1.11, (ground_Top - height/5), 300, 600);
+    end_struct.collider = 'none';
+    end_struct.debug = true;
+    end_struct.layer = 1;
+    end_struct.img = 'img/MicrosoftTeams-image.png';
+    if((end_struct.h/wall.h) > 1) {
+        end_struct.scale *= (wall.h/end_struct.h) + 0.05;
+    }
 
     // Establish world gravity
     world.gravity.y = 10;
@@ -97,6 +106,6 @@ function draw() {
     clear();
 
     // Render end goal building
-    drawEndGoal(ground_Top, grass_Height, start_x, start_y);
+    //drawEndGoal(ground_Top, grass_Height, start_x, start_y);
 }
 
