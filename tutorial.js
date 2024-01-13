@@ -1,5 +1,5 @@
 // Set up sprite variables for level
-let platform3, wall, player, grass, grass2, lava;
+let platform1, platform2, platform3, wall, player, grass;
 
 // Set up variables for player starting position
 var p1X = 130;
@@ -19,39 +19,34 @@ function setup() {
     jump_Height = height/12;
     start_x = 1350;
     start_y = (ground_Top - (grass_Height/2) - 150);
-    let windowWidthRemaining = windowWidth;
 
+    // Create platforms
+    platform1 = new Sprite(windowWidth/1.75, (ground_Top - (jump_Height * 3) + 5), 140, 10, 's');
+    platform1.color = '#E79548';
+    platform1.friction = 0;
+
+    platform2 = new Sprite(windowWidth/2.25, (ground_Top - (jump_Height * 2) + 5), 140, 10, 's');
+    platform2.color = '#E79548';
+    platform2.friction = 0;
+
+    platform3 = new Sprite(windowWidth/3.25, (ground_Top - (jump_Height * 1) + 5), 140, 10, 's');
+    platform3.color = '#E79548';
+    platform3.friction = 0;
+
+    // Create wall obstacle
+    wall = new Sprite(windowWidth/1.4, (ground_Top - height/6), 10, height/2, 's');
+    wall.color = 'black';
+    wall.friction = 0;
 
     // Create player sprite
     player = new Sprite(p1X, p1Y, 30, 40, 'd');
     player.rotationLock = true;
     //player.img = 'img/walsh.JPG'
-    player.color = 'blue'
+    player.color = 'maroon'
 
     // Create grass platform
-    // the positioning of the separated platform must be a starting x value 
-    //    of half the platform's width since the (x,y) is based on the center of the sprite
-    grass = new Sprite(windowWidth/8, windowHeight, windowWidth/4, windowHeight/2.5, 's');
+    grass = new Sprite(windowWidth/2, windowHeight, windowWidth, windowHeight/2.5, 's');
     grass.color = 'green'
-    grass.friction = 0;
-    let grassEnd = ((windowWidth/8 + windowWidth/4))
-    windowWidthRemaining -= (windowWidth/4);
-
-    // Create lava obstacle
-    lava = new Sprite(grassEnd, windowHeight, windowWidth/4, windowHeight/32, 's')
-    lava.color = 'red'
-    windowWidthRemaining -= (windowWidth/4)
-    let lavaEnd = grassEnd + (windowWidth/8 + windowWidth/4)
-
-    //Create second grass platform
-    grass2 = new Sprite(lavaEnd, windowHeight, windowWidthRemaining, windowHeight/2.5, 's')
-    grass2.color = 'green'
-    grass2.friction = 0;
-
-    // Create platforms
-    platform = new Sprite(grassEnd, (windowHeight - windowHeight/5), windowWidth/25, 10, 's');
-    platform.color = '#E79548';
-    platform.friction = 0;
 
 
     // Establish world gravity
@@ -81,22 +76,22 @@ function draw() {
     // Allow player vertical movement with jump limitation
     if (kb.presses('up') && (player.colliding(grass))) {
       player.bearing = -90;
-      player.applyForce(350);
+      player.applyForce(700);
     }
 
-    if (kb.presses('up') && (player.colliding(platform))) {
+    if (kb.presses('up') && (player.colliding(platform3))) {
         player.bearing = -90;
-        player.applyForce(350);
+        player.applyForce(700);
     }
 
-    if (kb.presses('up') && (player.colliding(grass2))) {
+    if (kb.presses('up') && (player.colliding(platform2))) {
         player.bearing = -90;
-        player.applyForce(350);
+        player.applyForce(700);
     }
 
-    if(player.collides(lava)) {
-        player.x = p1X;
-        player.y = p1Y;
+    if (kb.presses('up') && (player.colliding(platform1))) {
+        player.bearing = -90;
+        player.applyForce(700);
     }
 
     clear();
