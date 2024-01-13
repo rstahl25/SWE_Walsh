@@ -20,12 +20,6 @@ function setup() {
     start_x = 1350;
     start_y = (ground_Top - (grass_Height/2) - 150);
     let windowWidthRemaining = windowWidth;
-    
-
-    // Create platforms
-    platform = new Sprite(windowWidth/3.25, (ground_Top - (jump_Height * 1) + 5), 140, 10, 's');
-    platform.color = '#E79548';
-    platform.friction = 0;
 
 
     // Create player sprite
@@ -40,14 +34,24 @@ function setup() {
     grass = new Sprite(windowWidth/8, windowHeight, windowWidth/4, windowHeight/2.5, 's');
     grass.color = 'green'
     grass.friction = 0;
-    let grassEnd = (windowWidth - (windowWidth/8 + windowWidth/4))
+    let grassEnd = ((windowWidth/8 + windowWidth/4))
     windowWidthRemaining -= (windowWidth/4);
 
-    grass2 = new Sprite(windowWidth, windowHeight, windowWidthRemaining, windowHeight/2.5, 's')
-    grass2.color = 'grey'
-
-    lava = new Sprite(grassEnd, windowHeight, windowWidthRemaining, windowHeight/32, 's')
+    // Create lava obstacle
+    lava = new Sprite(grassEnd, windowHeight, windowWidth/4, windowHeight/32, 's')
     lava.color = 'red'
+    windowWidthRemaining -= (windowWidth/4)
+    let lavaEnd = grassEnd + (windowWidth/8 + windowWidth/4)
+
+    //Create second grass platform
+    grass2 = new Sprite(lavaEnd, windowHeight, windowWidthRemaining, windowHeight/2.5, 's')
+    grass2.color = 'green'
+    grass2.friction = 0;
+
+    // Create platforms
+    platform = new Sprite(grassEnd, (windowHeight - windowHeight/5), windowWidth/25, 10, 's');
+    platform.color = '#E79548';
+    platform.friction = 0;
 
 
     // Establish world gravity
@@ -77,12 +81,22 @@ function draw() {
     // Allow player vertical movement with jump limitation
     if (kb.presses('up') && (player.colliding(grass))) {
       player.bearing = -90;
-      player.applyForce(700);
+      player.applyForce(350);
     }
 
     if (kb.presses('up') && (player.colliding(platform))) {
         player.bearing = -90;
-        player.applyForce(700);
+        player.applyForce(350);
+    }
+
+    if (kb.presses('up') && (player.colliding(grass2))) {
+        player.bearing = -90;
+        player.applyForce(350);
+    }
+
+    if(player.collides(lava)) {
+        player.x = p1X;
+        player.y = p1Y;
     }
 
     clear();
