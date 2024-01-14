@@ -1,11 +1,5 @@
 // Set up sprite variables for level
-let platform3, wall, player, grass, grass2, lava;
-
-// Set up variables for player starting position
-var p1X = 130;
-var p1Y = 525;
-
-
+let platform, platform1, platform2, goal, wall, player, grass, grass2, lava;
 
 function setup() {
     // Create canvas
@@ -19,6 +13,8 @@ function setup() {
     jump_Height = height/12;
     start_x = 1350;
     start_y = (ground_Top - (grass_Height/2) - 150);
+    p1X = windowWidth/20;
+    p1Y = windowHeight - windowHeight/3;
     let windowWidthRemaining = windowWidth;
 
 
@@ -53,6 +49,19 @@ function setup() {
     platform.color = '#E79548';
     platform.friction = 0;
 
+    platform1 = new Sprite(windowWidth - windowWidth/2.5, (windowHeight - windowHeight/3.5), windowWidth/25, 10, 's');
+    platform1.color = '#E79548';
+    platform1.friction = 0;
+
+    platform2 = new Sprite(windowWidth - windowWidth/3.5, (windowHeight - windowHeight/2.75), windowWidth/25, 10, 's');
+    platform2.color = '#E79548';
+    platform2.friction = 0;
+
+    //Create goal platform
+    goal = new Sprite(windowWidth - windowWidth/10, (windowHeight - windowHeight/2.25), windowWidth/5, 10, 's');
+    goal.color = 'black';
+    goal.friction = 0;
+
 
     // Establish world gravity
     world.gravity.y = 10;
@@ -81,17 +90,32 @@ function draw() {
     // Allow player vertical movement with jump limitation
     if (kb.presses('up') && (player.colliding(grass))) {
       player.bearing = -90;
-      player.applyForce(350);
+      player.applyForce(550);
     }
 
     if (kb.presses('up') && (player.colliding(platform))) {
         player.bearing = -90;
-        player.applyForce(350);
+        player.applyForce(550);
+    }
+
+    if (kb.presses('up') && (player.colliding(platform1))) {
+        player.bearing = -90;
+        player.applyForce(550);
+    }
+
+    if (kb.presses('up') && (player.colliding(platform2))) {
+        player.bearing = -90;
+        player.applyForce(550);
     }
 
     if (kb.presses('up') && (player.colliding(grass2))) {
         player.bearing = -90;
-        player.applyForce(350);
+        player.applyForce(550);
+    }
+
+    if (kb.presses('up') && (player.colliding(goal))) {
+        player.bearing = -90;
+        player.applyForce(550);
     }
 
     if(player.collides(lava)) {
@@ -100,8 +124,5 @@ function draw() {
     }
 
     clear();
-
-    // Render end goal building
-    drawEndGoal(ground_Top, grass_Height, start_x, start_y);
 }
 
