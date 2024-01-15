@@ -8,6 +8,9 @@ let imgTutorial
 var p1X = 130;
 var p1Y = 525;
 
+// Set up variable to allow user to pause game.
+var pause = false;
+
 function preload() {
     imgTutorial = loadImage('img/arrowInstruction.png');
 }
@@ -108,6 +111,32 @@ function draw() {
         player.bearing = -90;
         player.applyForce(700);
     }
+
+    // Allow user to pause and resume game.
+    if(kb.presses('Space')) {
+        if(pause === true) {
+            pause = false;
+        }
+
+        else {
+            pause = true;
+        }
+    }
+
+    if(pause === true) {
+        player.sleeping = true;
+        removeElements();
+        let p = createElement('h2', 'Game Paused. Press SPACE to continue.');
+        p.position(windowWidth/2, 30);
+    }
+
+    else {
+        player.sleeping = false;
+        removeElements();
+        let r = createElement('h2', 'Press SPACE to pause');
+        r.position(50, 10);
+    }
+
 
     clear();
 
