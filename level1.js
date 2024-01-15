@@ -1,17 +1,5 @@
 // Set up sprite variables for level
-let platform1, platform2, platform3, wall, player, grass;
-
-// creates tutorial image
-let imgTutorial
-
-// Set up variables for player starting position
-var p1X = 130;
-var p1Y = 525;
-
-function preload() {
-    imgTutorial = loadImage('img/arrowInstruction.png');
-}
-
+let platform, platform1, platform2, goal, wall, player, grass, grass2, lava;
 
 function setup() {
     // Create canvas
@@ -25,40 +13,55 @@ function setup() {
     jump_Height = height/12;
     start_x = 1350;
     start_y = (ground_Top - (grass_Height/2) - 150);
+    p1X = windowWidth/20;
+    p1Y = windowHeight - windowHeight/3;
+    let windowWidthRemaining = windowWidth;
 
-    // Create platforms
-    platform1 = new Sprite(windowWidth/1.75, (ground_Top - (jump_Height * 3) + 5), 140, 10, 's');
-    platform1.color = '#E79548';
-    platform1.friction = 0;
-
-    platform2 = new Sprite(windowWidth/2.25, (ground_Top - (jump_Height * 2) + 5), 140, 10, 's');
-    platform2.color = '#E79548';
-    platform2.friction = 0;
-
-    platform3 = new Sprite(windowWidth/3.25, (ground_Top - (jump_Height * 1) + 5), 140, 10, 's');
-    platform3.color = '#E79548';
-    platform3.friction = 0;
-
-    // Create wall obstacle
-    wall = new Sprite(windowWidth/1.4, (ground_Top - height/6), 10, height/2, 's');
-    wall.color = 'black';
-    wall.friction = 0;
 
     // Create player sprite
     player = new Sprite(p1X, p1Y, 30, 40, 'd');
     player.rotationLock = true;
     //player.img = 'img/walsh.JPG'
-    player.color = 'maroon'
+    player.color = 'blue'
 
     // Create grass platform
-    grass = new Sprite(windowWidth/2, windowHeight, windowWidth, windowHeight/2.5, 's');
+    // the positioning of the separated platform must be a starting x value 
+    //    of half the platform's width since the (x,y) is based on the center of the sprite
+    grass = new Sprite(windowWidth/8, windowHeight, windowWidth/4, windowHeight/2.5, 's');
     grass.color = 'green'
+    grass.friction = 0;
+    let grassEnd = ((windowWidth/8 + windowWidth/4))
+    windowWidthRemaining -= (windowWidth/4);
 
-    // Create Instructions for Tutorial
-    imgTutorial.resize(350, 0);
-    arrowKeyInstructions = new Sprite(windowWidth/3, windowHeight/3, 'static');
-    arrowKeyInstructions.img = imgTutorial;
-    arrowKeyInstructions.layer = 0;
+    // Create lava obstacle
+    lava = new Sprite(grassEnd, windowHeight, windowWidth/4, windowHeight/32, 's')
+    lava.color = 'red'
+    windowWidthRemaining -= (windowWidth/4)
+    let lavaEnd = grassEnd + (windowWidth/8 + windowWidth/4)
+
+    //Create second grass platform
+    grass2 = new Sprite(lavaEnd, windowHeight, windowWidthRemaining, windowHeight/2.5, 's')
+    grass2.color = 'green'
+    grass2.friction = 0;
+
+    // Create platforms
+    platform = new Sprite(grassEnd, (windowHeight - windowHeight/5), windowWidth/25, 10, 's');
+    platform.color = '#E79548';
+    platform.friction = 0;
+
+    platform1 = new Sprite(windowWidth - windowWidth/2.5, (windowHeight - windowHeight/3.5), windowWidth/25, 10, 's');
+    platform1.color = '#E79548';
+    platform1.friction = 0;
+
+    platform2 = new Sprite(windowWidth - windowWidth/3.5, (windowHeight - windowHeight/2.75), windowWidth/25, 10, 's');
+    platform2.color = '#E79548';
+    platform2.friction = 0;
+
+    //Create goal platform
+    goal = new Sprite(windowWidth - windowWidth/10, (windowHeight - windowHeight/2.25), windowWidth/5, 10, 's');
+    goal.color = 'black';
+    goal.friction = 0;
+
 
     // Establish world gravity
     world.gravity.y = 10;
@@ -66,8 +69,6 @@ function setup() {
 }
 
 function draw() {
-    // Allow player to pass through the tutorial
-    player.overlaps(arrowKeyInstructions);
 
     // Allow player horizontal movement
     if(kb.pressing('left')) {
@@ -89,27 +90,39 @@ function draw() {
     // Allow player vertical movement with jump limitation
     if (kb.presses('up') && (player.colliding(grass))) {
       player.bearing = -90;
-      player.applyForce(700);
+      player.applyForce(550);
     }
 
-    if (kb.presses('up') && (player.colliding(platform3))) {
+    if (kb.presses('up') && (player.colliding(platform))) {
         player.bearing = -90;
-        player.applyForce(700);
-    }
-
-    if (kb.presses('up') && (player.colliding(platform2))) {
-        player.bearing = -90;
-        player.applyForce(700);
+        player.applyForce(550);
     }
 
     if (kb.presses('up') && (player.colliding(platform1))) {
         player.bearing = -90;
-        player.applyForce(700);
+        player.applyForce(550);
+    }
+
+    if (kb.presses('up') && (player.colliding(platform2))) {
+        player.bearing = -90;
+        player.applyForce(550);
+    }
+
+    if (kb.presses('up') && (player.colliding(grass2))) {
+        player.bearing = -90;
+        player.applyForce(550);
+    }
+
+    if (kb.presses('up') && (player.colliding(goal))) {
+        player.bearing = -90;
+        player.applyForce(550);
+    }
+
+    if(player.collides(lava)) {
+        player.x = p1X;
+        player.y = p1Y;
     }
 
     clear();
-
-    // Render end goal building
-    drawEndGoal(ground_Top, grass_Height, start_x, start_y);
 }
 
