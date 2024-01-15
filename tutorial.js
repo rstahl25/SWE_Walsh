@@ -20,11 +20,6 @@ function setup() {
     textAlign(CENTER);
 
     // Global foreground variables
-    grass_Height = 200;
-    ground_Top = height - grass_Height;
-    jump_Height = height/12;
-    start_x = 1350;
-    start_y = (ground_Top - (grass_Height/2) - 150);
     p1X = windowWidth/20;
     p1Y = windowHeight - windowHeight/3;
 
@@ -56,7 +51,7 @@ function setup() {
     grass = new Sprite(windowWidth/2, windowHeight, windowWidth, windowHeight/2.5, 's');
     grass.color = 'green'
 
-    end_struct = new Sprite(windowWidth/1.11, (ground_Top - height/5.6), 300, 600);
+    end_struct = new Sprite(windowWidth/1.11, (windowHeight - windowHeight/2.25), 200, 550);
     end_struct.collider = 'none';
     end_struct.debug = true;
     end_struct.layer = 1;
