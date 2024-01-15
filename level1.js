@@ -1,10 +1,16 @@
 // Set up sprite variables for level
 let platform1, platform2, platform3, wall, player, grass;
 
+// creates tutorial image
+let imgTutorial
+
 // Set up variables for player starting position
 var p1X = 130;
 var p1Y = 525;
 
+function preload() {
+    imgTutorial = loadImage('img/arrowInstruction.png');
+}
 
 
 function setup() {
@@ -48,6 +54,11 @@ function setup() {
     grass = new Sprite(windowWidth/2, windowHeight, windowWidth, windowHeight/2.5, 's');
     grass.color = 'green'
 
+    // Create Instructions for Tutorial
+    imgTutorial.resize(350, 0);
+    arrowKeyInstructions = new Sprite(windowWidth/3, windowHeight/3, 'static');
+    arrowKeyInstructions.img = imgTutorial;
+    arrowKeyInstructions.layer = 0;
 
     // Establish world gravity
     world.gravity.y = 10;
@@ -55,6 +66,8 @@ function setup() {
 }
 
 function draw() {
+    // Allow player to pass through the tutorial
+    player.overlaps(arrowKeyInstructions);
 
     // Allow player horizontal movement
     if(kb.pressing('left')) {
