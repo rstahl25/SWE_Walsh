@@ -56,6 +56,18 @@ function setup() {
     grass = new Sprite(windowWidth/2, windowHeight, windowWidth, windowHeight/2.5, 's');
     grass.color = 'green'
 
+    end_struct = new Sprite(windowWidth/1.11, (ground_Top - height/5.6), 300, 600);
+    end_struct.collider = 'none';
+    end_struct.debug = true;
+    end_struct.layer = 1;
+    end_struct.img = 'img/goal1.png';
+    if((end_struct.h/wall.h) > 1) {
+        end_struct.scale *= (wall.h/end_struct.h) + 0.05;
+    }
+    if((end_struct.h/wall.h) > 1) {
+        end_struct.scale *= (wall.h/end_struct.h) + 0.05;
+    }
+
     // Create Instructions for Tutorial
     imgTutorial.resize(350, 0);
     arrowKeyInstructions = new Sprite(windowWidth/3, windowHeight/3, 'static');
@@ -112,6 +124,6 @@ function draw() {
     clear();
 
     // Render end goal building
-    drawEndGoal(ground_Top, grass_Height, start_x, start_y);
+    //drawEndGoal(ground_Top, grass_Height, start_x, start_y);
 }
 
