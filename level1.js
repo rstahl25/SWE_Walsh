@@ -1,6 +1,9 @@
 // Set up sprite variables for level
 let platform, platform1, platform2, goal, wall, player, grass, grass2, lava;
 
+// Set up variable to allow user to pause/resume game.
+var pause = false;
+
 function setup() {
     // Create canvas
     canvas = createCanvas(windowWidth, windowHeight);
@@ -122,6 +125,37 @@ function draw() {
         player.x = p1X;
         player.y = p1Y;
     }
+
+    // Allow user to pause and resume game using SPACE.
+    if (kb.presses('Space')) {
+        if (pause === true) {
+            pause = false;
+        }
+
+        else {
+            pause = true;
+        }
+    }
+
+    if (pause === true) {
+        player.sleeping = true;
+        removeElements();
+        let p1 = createElement('h2', 'Game Paused');
+        p1.position(windowWidth/2, (windowHeight/2) - 20);
+        p1.attribute('align', 'center');
+        let p2 = createElement('h2', 'Press SPACE to Resume');
+        p2.position(windowWidth/2, (windowHeight/2) + 20);
+        p2.attribute('align', 'center');
+    }
+
+    else {
+        player.sleeping = false;
+        removeElements();
+        let r = createElement('h2', 'Press SPACE to Pause');
+        r.position(50, 10);
+        r.attribute('align', 'center');
+    }
+
 
     clear();
 }
