@@ -11,4 +11,5 @@ jobs:
         uses: actions/checkout@v2
       - run: |
           echo hello from the testing script
-          
+          npm install chai
+          node level1.js
