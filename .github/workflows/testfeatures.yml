@@ -12,3 +12,4 @@ jobs:
       - run: |
           echo hello from the testing script
           npm install --save-dev chai
+          node level1.js
