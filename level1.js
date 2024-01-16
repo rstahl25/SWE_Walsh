@@ -16,17 +16,19 @@ function createObject (name, x, y, width, height, color, friction, image, dynami
     return object;
 }
 
-function createScene(windowWidth, windowHeight) {
-    let scene = []
-    scene.push(createObject('grass', windowWidth/8, windowHeight, windowWidth/4, windowHeight/2.5, 'green', 0, null, false));
-    scene.push(createObject('lava', (windowWidth/8 + windowWidth/4), windowHeight, windowWidth/4, windowHeight/32, 'red', 0, null, false))
-    return scene;
+function createObjects(windowWidth, windowHeight) {
+    let objects = []
+    objects.push(createObject('grass', windowWidth/8, windowHeight, windowWidth/4, windowHeight/2.5, 'green', 0, null, false));
+    objects.push(createObject('lava', (windowWidth/8 + windowWidth/4), windowHeight, windowWidth/4, windowHeight/32, 'red', 0, null, false))
+    return objects;
 }
 
 // Set up variable to allow user to pause/resume game.
 var pause = false;
 
-function setupScene(windowWidth, windowHeight, scene) {
+function setupScene(windowWidth, windowHeight, objects) {
+    scene = {}
+    scene.objects = objects
     createCanvas(windowWidth, windowHeight);
     rectMode(CENTER);
     textAlign(CENTER);
@@ -37,7 +39,7 @@ function setupScene(windowWidth, windowHeight, scene) {
     let grassEnd = ((windowWidth/8 + windowWidth/4))
     //windowWidthRemaining -= (windowWidth/4);
 
-    for(var i = 0; i < scene.length; i++) {
+    for(var i = 0; i < scene.objects.length; i++) {
         object = scene[i];
         sprite = new Sprite(object.x, object.y, object.width, object.height, object.dynamic);
         sprite.color = object.color;
@@ -46,7 +48,7 @@ function setupScene(windowWidth, windowHeight, scene) {
 }
 
 function setup() {
-    scene = createScene(windowWidth, windowHeight)
+    scene = createObjects(windowWidth, windowHeight)
     setupScene(windowWidth, windowHeight, scene);
 }
 
@@ -236,10 +238,10 @@ function test_createObject () {
     console.log('Create object tested')
 }
 
-function test_createScene() {
+function test_createObjects() {
     windowWidth = 1100
     windowHeight = 900
-    let scene = createScene(windowWidth, windowHeight)
+    let scene = createObjects(windowWidth, windowHeight)
     chai.assert.typeOf(scene, 'array')
     chai.assert.typeOf(scene[0], 'object')
     chai.assert.equal(scene[0].name, 'grass')
@@ -256,5 +258,5 @@ function test_createScene() {
 if(typeof window == "undefined") {
     //test_setup()
     test_createObject();
-    test_createScene();
+    test_createObjects();
 }
