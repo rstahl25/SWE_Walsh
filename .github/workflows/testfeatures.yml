@@ -1,0 +1,15 @@
+name: feature testing
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test_features:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout files
+        uses: actions/checkout@v2
+      - run: |
+          echo hello from the testing script
+          npm install --save-dev chai
+          node level1.js
