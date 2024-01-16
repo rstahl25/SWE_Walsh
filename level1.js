@@ -210,7 +210,7 @@ let assert, should, chai;
 
 if(typeof window == 'undefined') {
 
-    chai = import('chai')
+    chai = require('chai')
     assert = chai.assert
     should = chai.should();
 }
