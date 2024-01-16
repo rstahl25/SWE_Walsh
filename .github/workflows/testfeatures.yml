@@ -1,0 +1,14 @@
+name: feature testing
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test_features:
+    runs_on: ubuntu_latest
+    steps:
+      - name: checkout files
+        uses: actions/checkout@v2
+      - run: |
+          echo hello from the testing script
+          
