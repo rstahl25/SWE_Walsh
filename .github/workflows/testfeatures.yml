@@ -5,7 +5,7 @@ on:
 
 jobs:
   test_features:
-    runs_on: ubuntu_latest
+    runs-on: ubuntu_latest
     steps:
       - name: checkout files
         uses: actions/checkout@v2
