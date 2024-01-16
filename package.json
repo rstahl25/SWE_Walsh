@@ -1,7 +1,6 @@
 {
   "dependencies": {
     "chai": "^4.4.1",
-    "p5play": "^3.18.9",
-    "type": "module"
+    "p5play": "^3.18.9"
   }
 }
