@@ -55,8 +55,9 @@ function setup() {
     grass.color = 'green'
 
     end_struct = new Sprite(windowWidth/1.11, (windowHeight - windowHeight/2.25), 200, 550);
-    end_struct.collider = 'none';
+    end_struct.collider = 's';
     end_struct.debug = true;
+    end_struct.friction = 0;
     end_struct.layer = 1;
     end_struct.img = 'img/goal1.png';
     if((end_struct.h/wall.h) > 1) {
@@ -133,7 +134,7 @@ function draw() {
 
     if (pause === true) {
         player.sleeping = true;
-        removeElements();
+        //removeElements();
         let p1 = createElement('h2', 'Game Paused');
         p1.position(windowWidth/2, (windowHeight/2) - 20);
         p1.attribute('align', 'center');
@@ -144,21 +145,36 @@ function draw() {
 
     else {
         player.sleeping = false;
-        removeElements();
+        //removeElements();
         let r = createElement('h2', 'Press SPACE to Pause');
         r.position(50, 10);
         r.attribute('align', 'center');
     }
 
-    if(player.collides(platform1)) {
-        let div = createDiv('Victory!');
-        div.position(windowWidth/2, windowHeight/2);
-        div.style('color', 200);
-        let a = createA('https://literate-adventure-vxj7744qqpjh7x4-8000.app.github.dev/level_selection.html', 'Level Selection', );
-        a.position(windowWidth/2, windowHeight/2 + 20);
-    } else {
-     clear()
-    }
+    if(player.collides(end_struct)) {
+        player.collider = 's';
+        let h2 = createElement('h2', 'Victory!');
+        h2.position((windowWidth - windowWidth/8), windowHeight/9);
+        let a = createA('https://orange-yodel-97qxjrqgx65hpx6j-8000.app.github.dev/level_selection.html', 'Level Selection');
+        a.position((windowWidth - windowWidth/6), windowHeight/9 + 50);
+        a.style('color', 'maroon');
+        a.style('text-decoration', 'none')
+        a.style('background-color', 'white')
+        a.style('border: 3px solid black')
+        a.style('border-radius: 0.5rem')
+        a.style('padding: 5px')
+
+        let a2 = createA('https://orange-yodel-97qxjrqgx65hpx6j-8000.app.github.dev/level1.html', 'Level 1');
+        a2.position((windowWidth - windowWidth/12), windowHeight/9 + 50)
+        a2.style('color', 'maroon');
+        a2.style('text-decoration', 'none')
+        a2.style('background-color', 'white')
+        a2.style('border: 3px solid black')
+        a2.style('border-radius: 0.5rem')
+        a2.style('padding: 5px')
+    } 
+
+    clear()
 
 }
 
