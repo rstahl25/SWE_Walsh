@@ -9,6 +9,10 @@ jobs:
     steps:
       - name: checkout files
         uses: actions/checkout@v2
+      - name: setup node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 20.10.0
       - run: |
           echo hello from the testing script
           npm install --save-dev chai
