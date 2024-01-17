@@ -2,32 +2,44 @@
 let platform, platform1, platform2, goal, wall, player, grass, grass2, lava;
 
 
-function createObject (name, x, y, width, height, color, friction, image, dynamic, vel_x, vel_y) {
-    object = {
-        name: name,
-        x: x,
-        y: y,
-        width: width,
-        height: height,
-        color: color,
-        friction: friction,
-        image: image,
-        dynamic: dynamic,
-        vel_x: vel_x,
-        vel_y: vel_y
-    }
-    return object;
+function createSprite (x, y, width, height, collider, colorString, friction, image) {
+
+    sprite = new Sprite (
+        x,
+        y,
+        width,
+        height,
+        collider,
+    );
+    sprite.color = colorString;
+    sprite.friction = friction;
+    sprite.image = image;
+    return sprite;
+    // object = {
+    //     name: name,
+    //     x: x,
+    //     y: y,
+    //     width: width,
+    //     height: height,
+    //     color: color,
+    //     friction: friction,
+    //     image: image,
+    //     dynamic: dynamic,
+    //     vel_x: vel_x,
+    //     vel_y: vel_y
+    // }
+    // return object;
 }
 
 function createObjects(windowWidth, windowHeight) {
     let objects = []
-    objects.push(createObject('grass', windowWidth/8, windowHeight, windowWidth/4, windowHeight/2.5, 'green', 0, null, 's', 0, 0));
-    objects.push(createObject('lava', (windowWidth/8 + windowWidth/4), windowHeight, windowWidth/4, windowHeight/32, 'red', 0, null, 's', 0, 0))
-    objects.push(createObject('grass2', (windowWidth/4 + windowWidth/2), windowHeight, (windowWidth - windowWidth/2), windowHeight/2.5, 'green', 0, null, 's', 0, 0))
-    objects.push(createObject('platform', (windowWidth/8 + windowWidth/4), (windowHeight - windowHeight/5), windowWidth/25, 10, '#E79548', 0, null, 's', 0, 0))
-    objects.push(createObject('platform2', (windowWidth - windowWidth/3.5), (windowHeight - windowHeight/2.75), windowWidth/25, 10, '#E79548', 0, null, 's', 0, 0))
-    objects.push(createObject('platform1', (windowWidth - windowWidth/2.5), (windowHeight - windowHeight/3.5), windowWidth/25, 10, '#E79548', 0, null, 's', 0, 0))
-    objects.push(createObject('goal', (windowWidth - windowWidth/10), (windowHeight - windowHeight/2.25), windowWidth/5, 10, 'black', 0, null, 's', 0, 0))
+    objects.push(createSprite(windowWidth/8, windowHeight, windowWidth/4, windowHeight/2.5, 's', "green", 0, null)); //grass
+    objects.push(createSprite((windowWidth/8 + windowWidth/4), windowHeight, windowWidth/4, windowHeight/32, 's', 'red', 0, null)) //lava
+    objects.push(createSprite((windowWidth/4 + windowWidth/2), windowHeight, (windowWidth - windowWidth/2), windowHeight/2.5, 's', 'green', 0, null)) // lava2
+    objects.push(createSprite((windowWidth/8 + windowWidth/4), (windowHeight - windowHeight/5), windowWidth/25, 10, 's', '#E79548', 0, null)) //platform
+    objects.push(createSprite((windowWidth - windowWidth/3.5), (windowHeight - windowHeight/2.75), windowWidth/25, 10, 's', '#E79548', 0, null)) // platform2
+    objects.push(createSprite((windowWidth - windowWidth/2.5), (windowHeight - windowHeight/3.5), windowWidth/25, 10, 's', '#E79548', 0, null))
+    objects.push(createSprite((windowWidth - windowWidth/10), (windowHeight - windowHeight/2.25), windowWidth/5, 10, 's', 'black', 0, null)) //platform1
     //objects.push(createObject('player', windowWidth/20, (windowHeight - windowHeight/3), 30, 40, 'blue', 0, null, 'd', 0, 0))
     return objects;
 }
@@ -48,12 +60,12 @@ function setupScene(windowWidth, windowHeight, objects) {
 
 
 
-    for(var i = 0; i < objects.length; i++) {
-        var object = objects[i];
-        sprite = new Sprite(object.x, object.y, object.width, object.height, object.dynamic);
-        sprite.color = object.color;
-        sprite.friction = object.friction;
-    }
+    // for(var i = 0; i < objects.length; i++) {
+    //     var object = objects[i];
+    //     sprite = new Sprite(object.x, object.y, object.width, object.height, object.dynamic);
+    //     sprite.color = object.color;
+    //     sprite.friction = object.friction;
+    // }
 
 
 
@@ -66,8 +78,6 @@ function setup() {
     scene = createObjects(windowWidth, windowHeight)
     setupScene(windowWidth, windowHeight, scene);
 
-    draw()
-    
 }
 
 
@@ -174,8 +184,8 @@ function test_setup() {
     console.log('Setup tested')
 }
 
-function test_createObject () {
-    var myObject = createObject('grass', 500, 700, 250, 320, 'green', 0, null, false)
+function test_createSprite () {
+    var myObject = createSprite('grass', 500, 700, 250, 320, 'green', 0, null, false)
     chai.assert.typeOf(myObject, 'object')
     chai.assert.equal(myObject.name, 'grass')
     chai.assert.equal(myObject.x, 500)
@@ -209,6 +219,6 @@ function test_createObjects() {
 
 if(typeof window == "undefined") {
     //test_setup()
-    test_createObject();
+    test_createSprite();
     test_createObjects();
 }
