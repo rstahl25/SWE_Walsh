@@ -1,6 +1,4 @@
 // Set up sprite variables for level
-let platform, platform1, platform2, goal, wall, player, grass, grass2, lava;
-
 let objects = []
 let objectNames = []
 
