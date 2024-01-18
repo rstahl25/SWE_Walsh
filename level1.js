@@ -3,7 +3,7 @@ let objects = []
 let objectNames = []
 
 
-function createObject (name, x, y, width, height, color, friction, image, dynamic, vel_x, vel_y) {
+function createObject (name, x, y, width, height, color, friction, image, dynamic) {
     object = {
         name: name,
         x: x,
@@ -14,8 +14,6 @@ function createObject (name, x, y, width, height, color, friction, image, dynami
         friction: friction,
         image: image,
         dynamic: dynamic,
-        vel_x: vel_x,
-        vel_y: vel_y
     }
     objectNames.push(name)
     return object;
@@ -23,14 +21,14 @@ function createObject (name, x, y, width, height, color, friction, image, dynami
 
 function createObjects(windowWidth, windowHeight) {
     objects = []
-    objects.push(createObject('grass', windowWidth/8, windowHeight, windowWidth/4, windowHeight/2.5, 'green', 0, null, 's', 0, 0));
-    objects.push(createObject('lava', (windowWidth/8 + windowWidth/4), windowHeight, windowWidth/4, windowHeight/32, 'red', 0, null, 's', 0, 0))
-    objects.push(createObject('grass2', (windowWidth/4 + windowWidth/2), windowHeight, (windowWidth - windowWidth/2), windowHeight/2.5, 'green', 0, null, 's', 0, 0))
-    objects.push(createObject('platform', (windowWidth/8 + windowWidth/4), (windowHeight - windowHeight/5), windowWidth/25, 10, '#E79548', 0, null, 's', 0, 0))
-    objects.push(createObject('platform2', (windowWidth - windowWidth/3.5), (windowHeight - windowHeight/2.75), windowWidth/25, 10, '#E79548', 0, null, 's', 0, 0))
-    objects.push(createObject('platform1', (windowWidth - windowWidth/2.5), (windowHeight - windowHeight/3.5), windowWidth/25, 10, '#E79548', 0, null, 's', 0, 0))
-    objects.push(createObject('goal', (windowWidth - windowWidth/10), (windowHeight - windowHeight/2.25), windowWidth/5, 10, 'black', 0, null, 's', 0, 0))
-    objects.push(createObject('player', windowWidth/20, (windowHeight - windowHeight/3), 30, 40, 'blue', 0, null, 'd', 0, 0))
+    objects.push(createObject('grass', windowWidth/8, windowHeight, windowWidth/4, windowHeight/2.5, 'green', 0, null, 's'));
+    objects.push(createObject('lava', (windowWidth/8 + windowWidth/4), windowHeight, windowWidth/4, windowHeight/32, 'red', 0, null, 's'))
+    objects.push(createObject('grass2', (windowWidth/4 + windowWidth/2), windowHeight, (windowWidth - windowWidth/2), windowHeight/2.5, 'green', 0, null, 's'))
+    objects.push(createObject('platform', (windowWidth/8 + windowWidth/4), (windowHeight - windowHeight/5), windowWidth/25, 10, '#E79548', 0, null, 's'))
+    objects.push(createObject('platform2', (windowWidth - windowWidth/3.5), (windowHeight - windowHeight/2.75), windowWidth/25, 10, '#E79548', 0, null, 's'))
+    objects.push(createObject('platform1', (windowWidth - windowWidth/2.5), (windowHeight - windowHeight/3.5), windowWidth/25, 10, '#E79548', 0, null, 's'))
+    objects.push(createObject('goal', (windowWidth - windowWidth/10), (windowHeight - windowHeight/2.25), windowWidth/5, 10, 'black', 0, null, 's'))
+    objects.push(createObject('player', windowWidth/20, (windowHeight - windowHeight/3), 30, 40, 'blue', 0, null, 'd'))
     return objects;
 }
 
@@ -58,7 +56,6 @@ function setupScene(windowWidth, windowHeight, objects) {
     // console.log(objects)
     // console.log(objectNames)
     // console.log(objects[objectNames.indexOf('player')])
-
 
 
     // Establish world gravity
