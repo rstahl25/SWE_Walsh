@@ -15,9 +15,10 @@ jobs:
         with:
           node-version: 20.10.0
       - run: |
-          echo hello from the testing script
-          cat package.json
-          npm install chai
-          node --version
-          # cat node_modules/chai/chai.js
-          node level1.js
+          ls -la
+          # echo hello from the testing script
+          # cat package.json
+          # npm install chai
+          # node --version
+          # # cat node_modules/chai/chai.js
+          # node level1.js
