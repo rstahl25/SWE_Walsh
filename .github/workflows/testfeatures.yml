@@ -15,6 +15,7 @@ jobs:
           node-version: 20.10.0
       - run: |
           echo hello from the testing script
+          cat package.json
           npm install --save-dev chai
           node --version
           node level1.js
