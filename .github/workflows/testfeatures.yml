@@ -19,5 +19,5 @@ jobs:
           cat package.json
           npm install chai
           node --version
-          cat node_modules/chai/chai.js
+          # cat node_modules/chai/chai.js
           node level1.js
