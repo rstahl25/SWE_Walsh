@@ -20,6 +20,7 @@ jobs:
           npm install
           ls -la
           ls node_modules
+          node level1.js
 
           # echo hello from the testing script
           # cat package.json
