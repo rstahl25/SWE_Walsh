@@ -233,4 +233,5 @@ if(typeof window == "undefined") {
     test_createObjects();
     test_movement();
     console.log("New tests successful")
+    console.log("Private branch test")
 }
