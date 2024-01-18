@@ -14,8 +14,13 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 20.10.0
-      - run: |
+      - name: install node_modules
+        run: |
           ls -la
+          npm init
+          ls -la
+          ls node_modules
+
           # echo hello from the testing script
           # cat package.json
           # npm install chai
