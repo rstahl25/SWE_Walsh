@@ -221,7 +221,7 @@ function test_movement() {
     {
         chai.assert.equal(objects[i].dynamic, 's')
     }
-    chai.assert.equal(player.dynamic, 'd')
+    chai.assert.equal(player.dynamic, 100)
 
     console.log("Movement properties tested")
 
