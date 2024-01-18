@@ -224,6 +224,7 @@ function test_movement() {
     chai.assert.equal(player.dynamic, 'd')
 
     console.log("Movement properties tested")
+
 }
 
 if(typeof window == "undefined") {
@@ -231,4 +232,5 @@ if(typeof window == "undefined") {
     test_createObject();
     test_createObjects();
     test_movement();
+    console.log("New tests successful")
 }
