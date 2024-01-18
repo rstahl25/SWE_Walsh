@@ -212,8 +212,23 @@ function test_createObjects() {
     console.log('Create scene tested')
 }
 
+function test_movement() {
+    //console.log(objects)
+    let player = objects[7]
+    //console.log(player)
+
+    for(var i = 0; i < objects.length - 1; objects++)
+    {
+        chai.assert.equal(objects[i].dynamic, 's')
+    }
+    chai.assert.equal(player.dynamic, 'd')
+
+    console.log("Movement properties tested")
+}
+
 if(typeof window == "undefined") {
     //test_setup()
     test_createObject();
     test_createObjects();
+    test_movement();
 }
