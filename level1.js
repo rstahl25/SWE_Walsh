@@ -1,6 +1,7 @@
 // Set up sprite variables for level
 let objects = []
 let objectNames = []
+let p1, p2, r;
 
 
 function createObject (name, x, y, width, height, color, friction, image, dynamic) {
@@ -69,6 +70,22 @@ function setup() {
 
     p1X = windowWidth/20;
     p1Y = windowHeight - windowHeight/3;
+
+    // Create elements to display if the game is paused or not.
+    p1 = createElement('h2', 'Game Paused');
+    p1.position(windowWidth/2, (windowHeight/2) - 20);
+    p1.attribute('align', 'center');
+    p1.hide();
+
+    p2 = createElement('h2', 'Press SPACE to Resume');
+    p2.position(windowWidth/2, (windowHeight/2) + 20);
+    p2.attribute('align', 'center');
+    p2.hide();
+
+    r = createElement('h2', 'Press SPACE to Pause');
+    r.position(50, 15);
+    r.attribute('align', 'center');
+    r.show();
 }
 
 
@@ -144,21 +161,16 @@ function draw() {
 
     if (pause === true) {
         objects[objectNames.indexOf('player')].sleeping = true;
-        removeElements();
-        let p1 = createElement('h2', 'Game Paused');
-        p1.position(windowWidth/2, (windowHeight/2) - 20);
-        p1.attribute('align', 'center');
-        let p2 = createElement('h2', 'Press SPACE to Resume');
-        p2.position(windowWidth/2, (windowHeight/2) + 20);
-        p2.attribute('align', 'center');
+        p1.show();
+        p2.show();
+        r.hide();
     }
 
     else {
         objects[objectNames.indexOf('player')].sleeping = false;
-        removeElements();
-        let r = createElement('h2', 'Press SPACE to Pause');
-        r.position(50, 10);
-        r.attribute('align', 'center');
+        p1.hide();
+        p2.hide();
+        r.show();
     }
 
 

@@ -11,6 +11,9 @@ var p1Y = 525;
 // Set up variable to allow user to pause and resume game.
 var pause = false;
 
+// Set up elements to display if game is paused or not.
+let p1, p2, r;
+
 function preload() {
     imgTutorial = loadImage('img/arrowInstruction.png');
 }
@@ -75,6 +78,22 @@ function setup() {
     // Establish world gravity
     world.gravity.y = 10;
 
+    // Create elements to display if the game is paused or not.
+    p1 = createElement('h2', 'Game Paused');
+    p1.position(windowWidth/2, (windowHeight/2) - 20);
+    p1.attribute('align', 'center');
+    p1.hide();
+
+    p2 = createElement('h2', 'Press SPACE to Resume');
+    p2.position(windowWidth/2, (windowHeight/2) + 20);
+    p2.attribute('align', 'center');
+    p2.hide();
+
+    r = createElement('h2', 'Press SPACE to Pause');
+    r.position(50, 15);
+    r.attribute('align', 'center');
+    r.show();
+
 }
 
 function draw() {
@@ -132,23 +151,17 @@ function draw() {
 
     if (pause === true) {
         player.sleeping = true;
-        removeElements();
-        let p1 = createElement('h2', 'Game Paused');
-        p1.position(windowWidth/2, (windowHeight/2) - 20);
-        p1.attribute('align', 'center');
-        let p2 = createElement('h2', 'Press SPACE to Resume');
-        p2.position(windowWidth/2, (windowHeight/2) + 20);
-        p2.attribute('align', 'center');
+        p1.show();
+        p2.show();
+        r.hide();
     }
 
     else {
         player.sleeping = false;
-        removeElements();
-        let r = createElement('h2', 'Press SPACE to Pause');
-        r.position(50, 10);
-        r.attribute('align', 'center');
+        p1.hide();
+        p2.hide();
+        r.show();
     }
-
     clear();
 
     // Render end goal building
