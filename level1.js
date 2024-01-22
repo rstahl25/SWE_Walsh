@@ -5,7 +5,7 @@ let p1, p2, r;
 
 
 function createObject (name, x, y, width, height, color, friction, image, dynamic) {
-    object = {
+    var object = {
         name: name,
         x: x,
         y: y,
@@ -30,6 +30,7 @@ function createObjects(windowWidth, windowHeight) {
     objects.push(createObject('platform1', (windowWidth - windowWidth/2.5), (windowHeight - windowHeight/3.5), windowWidth/25, 10, '#E79548', 0, null, 's'))
     objects.push(createObject('goal', (windowWidth - windowWidth/10), (windowHeight - windowHeight/2.25), windowWidth/5, 10, 'black', 0, null, 's'))
     objects.push(createObject('player', windowWidth/20, (windowHeight - windowHeight/3), 30, 40, 'blue', 0, null, 'd'))
+    objects.push(createObject('endStructure', (windowWidth - windowWidth/10), (windowHeight - windowHeight/1.65), windowWidth/1.5, windowHeight*2, 0, 0, 'img/goal2.png', 's'))
     return objects;
 }
 
@@ -44,12 +45,18 @@ function setupScene(windowWidth, windowHeight, objects) {
 
 
     for(var i = 0; i < objects.length; i++) {
-        var object = objects[i];
-        sprite = new Sprite(object.x, object.y, object.width, object.height, object.dynamic);
-        sprite.color = object.color;
-        sprite.friction = object.friction;
+        var new_object = objects[i];
+        sprite = new Sprite(new_object.x, new_object.y, new_object.width, new_object.height, new_object.dynamic);
+        sprite.color = new_object.color;
+        sprite.friction = new_object.friction;
+        sprite.img = new_object.image
         if(i == 7) {
             sprite.rotationLock = true;
+        }
+        if(i == 8) {
+            sprite.scale = 0.15
+            //sprite.debug = true;
+            sprite.layer = 1;
         }
         objects[i] = sprite
     }
@@ -173,6 +180,31 @@ function draw() {
         r.show();
     }
 
+    // Put in logic for victory condition
+
+    if(objects[objectNames.indexOf('player')].collides(objects[objectNames.indexOf('endStructure')])) {
+        objects[objectNames.indexOf('player')].collider = 's';
+        let h2 = createElement('h2', 'Victory!');
+        h2.position((windowWidth - windowWidth/8), windowHeight/9);
+        let a = createA('https://rstahl25.github.io/SWE_Walsh/level_selection.html', 'Level Selection');
+        a.position((windowWidth - windowWidth/6), windowHeight/9 + 50);
+        a.style('color', 'maroon');
+        a.style('text-decoration', 'none')
+        a.style('background-color', 'white')
+        a.style('border: 3px solid black')
+        a.style('border-radius: 0.5rem')
+        a.style('padding: 5px')
+
+        let a2 = createA('https://rstahl25.github.io/SWE_Walsh/level2.html', 'Level 2');
+        a2.position((windowWidth - windowWidth/12), windowHeight/9 + 50)
+        a2.style('color', 'maroon');
+        a2.style('text-decoration', 'none')
+        a2.style('background-color', 'white')
+        a2.style('border: 3px solid black')
+        a2.style('border-radius: 0.5rem')
+        a2.style('padding: 5px')
+    } 
+
 
     clear();
 }
@@ -184,6 +216,10 @@ if(typeof window == 'undefined') {
     chai = require('chai')
     assert = chai.assert
     should = chai.should();
+
+    test_createObject();
+    test_createObjects();
+    test_sprite_qualities();
 }
 
 function test_setup() {
@@ -224,10 +260,12 @@ function test_createObjects() {
     console.log('Create scene tested')
 }
 
-function test_movement() {
+function test_sprite_qualities() {
     //console.log(objects)
     let player = objects[7]
+    let endGoal = objects[8]
     //console.log(player)
+    //console.log(endGoal)
 
     for(var i = 0; i < objects.length - 1; objects++)
     {
@@ -235,15 +273,12 @@ function test_movement() {
     }
     chai.assert.equal(player.dynamic, 'd')
 
-    console.log("Movement properties tested")
+    console.log("Player movement properties tested")
+    console.log("Static collider of all other sprites tested")
+
+    chai.assert.equal(endGoal.image, 'img/goal2.png')
+
+    console.log("End goal tested")
 
 }
 
-if(typeof window == "undefined") {
-    //test_setup()
-    test_createObject();
-    test_createObjects();
-    test_movement();
-    console.log("New tests successful")
-    console.log("Private branch test")
-}
