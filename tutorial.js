@@ -1,82 +1,83 @@
 // Set up sprite variables for level
-let platform1, platform2, platform3, wall, player, grass;
+let objects = []
+let objectNames = []
+let p1, p2, r;
 
-// creates tutorial image
-let imgTutorial
+function createObject (name, x, y, width, height, color, friction, image, dynamic) {
+    object = {
+        name: name,
+        x: x,
+        y: y,
+        width: width,
+        height: height,
+        color: color,
+        friction: friction,
+        image: image,
+        dynamic: dynamic,
+    }
+    objectNames.push(name)
+    return object;
+}
 
-// Set up variables for player starting position
-var p1X = 130;
-var p1Y = 525;
+function createObjects(windowWidth, windowHeight) {
+    objects = []
+    objects.push(createObject('player', windowWidth/20, (windowHeight - windowHeight/3), 30, 40, 'maroon', 0, null, 'd'))
+    objects.push(createObject('platform1', windowWidth/1.75, (windowHeight - windowHeight/1.75), 140, 10, '#E79548', 0, null, 's'))
+    objects.push(createObject('platform2', windowWidth/2.25, (windowHeight - windowHeight/2.25), 140, 10, '#E79548', 0, null, 's'))
+    objects.push(createObject('platform3', windowWidth/3.25, (windowHeight - windowHeight/3), 140, 10, '#E79548', 0, null, 's'))
+    objects.push(createObject('wall', windowWidth/1.45, (windowHeight - windowHeight/2.25), 10, windowHeight/2, 'black', 0, null, 's'))
+    objects.push(createObject('wall2', windowWidth/1.3, windowHeight/4, 10, windowHeight/2, 'black', 0, null, 's'))
+    objects.push(createObject('grass', windowWidth/2, windowHeight, windowWidth, windowHeight/2.5, 'green', 0, null, 's'))
+    objects.push(createObject('goal', windowWidth/1.11, (windowHeight - windowHeight/2.25), 50, 550, 0, 0, 'img/goal1.png', 's'))
+    objects.push(createObject('instructions', windowWidth/3.5, (windowHeight - windowHeight/1.5), 200, 200, 0, 0, 'img/arrowInstruction.png', 's'))
+    return objects;
+}
 
 // Set up variable to allow user to pause and resume game.
 var pause = false;
 
-// Set up elements to display if game is paused or not.
-let p1, p2, r;
-
-function preload() {
-    imgTutorial = loadImage('img/arrowInstruction.png');
-}
-
-
-function setup() {
-    // Create canvas
-    canvas = createCanvas(windowWidth, windowHeight);
+function setupScene(windowWidth, windowHeight, objects) {
+    scene = {}
+    createCanvas(windowWidth, windowHeight);
     rectMode(CENTER);
     textAlign(CENTER);
 
-    // Global foreground variables
-    p1X = windowWidth/20;
-    p1Y = windowHeight - windowHeight/3;
-
-    // Create platforms
-    platform1 = new Sprite(windowWidth/1.75, (windowHeight - windowHeight/1.75), 140, 10, 's');
-    platform1.color = '#E79548';
-    platform1.friction = 0;
-
-    platform2 = new Sprite(windowWidth/2.25, (windowHeight - windowHeight/2.25), 140, 10, 's');
-    platform2.color = '#E79548';
-    platform2.friction = 0;
-
-    platform3 = new Sprite(windowWidth/3.25, (windowHeight - windowHeight/3), 140, 10, 's');
-    platform3.color = '#E79548';
-    platform3.friction = 0;
-
-    // Create wall obstacle
-    wall = new Sprite(windowWidth/1.4, (windowHeight - windowHeight/2.25), 10, windowHeight/2, 's');
-    wall.color = 'black';
-    wall.friction = 0;
-
-    // Create player sprite
-    player = new Sprite(p1X, p1Y, 30, 40, 'd');
-    player.rotationLock = true;
-    //player.img = 'img/walsh.JPG'
-    player.color = 'maroon'
-
-    // Create grass platform
-    grass = new Sprite(windowWidth/2, windowHeight, windowWidth, windowHeight/2.5, 's');
-    grass.color = 'green'
-
-    end_struct = new Sprite(windowWidth/1.11, (windowHeight - windowHeight/2.25), 200, 550);
-    end_struct.collider = 'none';
-    end_struct.debug = true;
-    end_struct.layer = 1;
-    end_struct.img = 'img/goal1.png';
-    if((end_struct.h/wall.h) > 1) {
-        end_struct.scale *= (wall.h/end_struct.h) + 0.05;
-    }
-    if((end_struct.h/wall.h) > 1) {
-        end_struct.scale *= (wall.h/end_struct.h) + 0.05;
+    for(var i = 0; i < objects.length; i++) {
+        var object = objects[i];
+        sprite = new Sprite(object.x, object.y, object.width, object.height, object.dynamic);
+        sprite.color = object.color;
+        sprite.friction = object.friction;
+        if(object.name == 'player') {
+            sprite.rotationLock = true;
+        }
+        if(object.name == 'goal'){
+            sprite.layer = 0;
+            sprite.img = object.image;
+        }
+        if(object.name == 'instructions'){
+            sprite.layer = 0;
+            sprite.img = object.image;
+            sprite.collider = 'none';
+        }
+        objects[i] = sprite
     }
 
-    // Create Instructions for Tutorial
-    imgTutorial.resize(350, 0);
-    arrowKeyInstructions = new Sprite(windowWidth/3, windowHeight/3, 'static');
-    arrowKeyInstructions.img = imgTutorial;
-    arrowKeyInstructions.layer = 0;
+    console.log(objects)
+    console.log(objectNames)
+    // console.log(objects[objectNames.indexOf('player')])
+
 
     // Establish world gravity
     world.gravity.y = 10;
+    
+}
+
+function setup() {
+    scene = createObjects(windowWidth, windowHeight)
+    setupScene(windowWidth, windowHeight, scene);
+
+    p1X = windowWidth/20;
+    p1Y = windowHeight - windowHeight/3;
 
     // Create elements to display if the game is paused or not.
     p1 = createElement('h2', 'Game Paused');
@@ -93,49 +94,50 @@ function setup() {
     r.position(50, 15);
     r.attribute('align', 'center');
     r.show();
-
 }
 
 function draw() {
-    // Allow player to pass through the tutorial
-    player.overlaps(arrowKeyInstructions);
+//     // console.log(objects[0])
+//     // console.log(objects[1])
+//     //console.log(objects[7])
 
     // Allow player horizontal movement
     if(kb.pressing('left')) {
-        if(player.x < 10) {
-            player.vel.x = 5;
+        if(objects[objectNames.indexOf('player')].x < 10) {
+            objects[objectNames.indexOf('player')].vel.x = 5;
         } else {
-            player.vel.x = -5;
+            objects[objectNames.indexOf('player')].vel.x = -5;
         }
     } else if (kb.pressing('right')) {
-        if(player.x > windowWidth - 10) {
-            player.vel.x = -5;
+        if(objects[objectNames.indexOf('player')].x > windowWidth - 10) {
+            objects[objectNames.indexOf('player')].vel.x = -5;
         } else {
-            player.vel.x = 5;
+            objects[objectNames.indexOf('player')].vel.x = 5;
         }
     } else {
-        player.vel.x = 0;
+        objects[objectNames.indexOf('player')].vel.x = 0;
     }
        
     // Allow player vertical movement with jump limitation
-    if (kb.presses('up') && (player.colliding(grass))) {
-      player.bearing = -90;
-      player.applyForce(700);
+    if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('grass')]))) {
+        objects[objectNames.indexOf('player')].bearing = -90;
+        objects[objectNames.indexOf('player')].applyForce(650);
     }
-
-    if (kb.presses('up') && (player.colliding(platform3))) {
-        player.bearing = -90;
-        player.applyForce(700);
+    if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform1')]))) {
+        objects[objectNames.indexOf('player')].bearing = -90;
+        objects[objectNames.indexOf('player')].applyForce(650);
     }
-
-    if (kb.presses('up') && (player.colliding(platform2))) {
-        player.bearing = -90;
-        player.applyForce(700);
+    if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform2')]))) {
+        objects[objectNames.indexOf('player')].bearing = -90;
+        objects[objectNames.indexOf('player')].applyForce(650);
     }
-
-    if (kb.presses('up') && (player.colliding(platform1))) {
-        player.bearing = -90;
-        player.applyForce(700);
+    if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform3')]))) {
+        objects[objectNames.indexOf('player')].bearing = -90;
+        objects[objectNames.indexOf('player')].applyForce(650);
+    }
+    if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('goal')]))) {
+        objects[objectNames.indexOf('player')].bearing = -90;
+        objects[objectNames.indexOf('player')].applyForce(650);
     }
 
     // Allow user to pause and resume game using SPACE.
@@ -150,21 +152,142 @@ function draw() {
     }
 
     if (pause === true) {
-        player.sleeping = true;
+        objects[objectNames.indexOf('player')].sleeping = true;
         p1.show();
         p2.show();
         r.hide();
     }
 
     else {
-        player.sleeping = false;
+        objects[objectNames.indexOf('player')].sleeping = false;
         p1.hide();
         p2.hide();
         r.show();
     }
-    clear();
 
-    // Render end goal building
-    //drawEndGoal(ground_Top, grass_Height, start_x, start_y);
+    if((objects[objectNames.indexOf('goal')].h/objects[objectNames.indexOf('wall')].h) > 1) {
+        objects[objectNames.indexOf('goal')].scale *= (objects[objectNames.indexOf('wall')].h/objects[objectNames.indexOf('goal')].h) + 0.05;
+        objects[objectNames.indexOf('instructions')].scale *= (objects[objectNames.indexOf('wall')].h/14)/objects[objectNames.indexOf('instructions')].h;
+    }
+
+    // Put in logic for victory condition
+
+    if(objects[objectNames.indexOf('player')].collides(objects[objectNames.indexOf('goal')])) {
+        objects[objectNames.indexOf('player')].collider = 's';
+        let h2 = createElement('h2', 'Victory!');
+        h2.position((windowWidth - windowWidth/8), windowHeight/9);
+        let a = createA('https://rstahl25.github.io/SWE_Walsh/level_selection.html', 'Level Selection');
+        a.position((windowWidth - windowWidth/6), windowHeight/9 + 50);
+        a.style('color', 'maroon');
+        a.style('text-decoration', 'none')
+        a.style('background-color', 'white')
+        a.style('border: 3px solid black')
+        a.style('border-radius: 0.5rem')
+        a.style('padding: 5px')
+
+        let a2 = createA('https://rstahl25.github.io/SWE_Walsh/level1.html', 'Level 1');
+        a2.position((windowWidth - windowWidth/12), windowHeight/9 + 50)
+        a2.style('color', 'maroon');
+        a2.style('text-decoration', 'none')
+        a2.style('background-color', 'white')
+        a2.style('border: 3px solid black')
+        a2.style('border-radius: 0.5rem')
+        a2.style('padding: 5px')
+    } 
+
+    clear();
 }
 
+//RUN TESTS//
+
+let assert, should, chai;
+
+if(typeof window == 'undefined') {
+
+    chai = require('chai')
+    assert = chai.assert
+    should = chai.should();
+}
+
+function test_setup() {
+    setup();
+    console.log('Setup tested')
+}
+
+function test_createObject () {
+    var myObject = createObject('grass', 500, 700, 250, 320, 'green', 0, null, false)
+    chai.assert.typeOf(myObject, 'object')
+    chai.assert.equal(myObject.name, 'grass')
+    chai.assert.equal(myObject.x, 500)
+    chai.assert.equal(myObject.y, 700)
+    chai.assert.equal(myObject.width, 250)
+    chai.assert.equal(myObject.height, 320)
+    chai.assert.equal(myObject.color, 'green')
+    chai.assert.equal(myObject.friction, 0)
+    chai.assert.equal(myObject.image, null)
+    chai.assert.equal(myObject.dynamic, false)
+
+    console.log('Create object tested')
+}
+
+function test_createObjects() {
+    windowWidth = 1100
+    windowHeight = 900
+    let scene = createObjects(windowWidth, windowHeight)
+    chai.assert.typeOf(scene, 'array')
+    chai.assert.typeOf(scene[0], 'object')
+    chai.assert.equal(scene[0].name, 'player')
+
+    for(i = 0; i < scene.length; i++) {
+        if(scene[i].name == 'grass') {
+            chai.assert.equal(scene[i].color, 'green')
+        }
+        if(scene[i].name == 'platform1') {
+            chai.assert.equal(scene[i].friction, 0)
+        }
+        if(scene[i].name == 'platform2') {
+            chai.assert.equal(scene[i].color, '#E79548')
+        }
+        if(scene[i].name == 'platform3') {
+            chai.assert.equal(scene[i].dynamic, 's')
+        }
+        if(scene[i].name == 'wall') {
+            chai.assert.equal(scene[i].image, null)
+        }
+        if(scene[i].name == 'wall2') {
+            chai.assert.equal(scene[i].color, 'black')
+        }
+        if(scene[i].name == 'goal') {
+            chai.assert.equal(scene[i].image, 'img/goal1.png')
+        }
+        if(scene[i].name == 'player') {
+            chai.assert.equal(scene[i].dynamic, 'd')
+        }
+        if(scene[i].name == 'instructions') {
+            chai.assert.equal(scene[i].image, 'img/arrowInstruction.png')
+        }
+    }
+    console.log('Create scene tested')
+}
+
+function test_movement() {
+    //console.log(objects)
+    let player = objects[0]
+    //console.log(player)
+
+    for(var i = 1; i < objects.length - 1; objects++)
+    {
+        chai.assert.equal(objects[i].dynamic, 's')
+    }
+    chai.assert.equal(player.dynamic, 'd')
+
+    console.log("Movement properties tested")
+}
+
+if(typeof window == "undefined") {
+    // test_setup()
+    test_createObject();
+    test_createObjects();
+    test_movement();
+    console.log("tutorial.js tests successful")
+}
