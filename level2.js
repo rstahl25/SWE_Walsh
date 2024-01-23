@@ -26,10 +26,10 @@ function createObjects(windowWidth, windowHeight) {
     objects.push(createObject('lava', (windowWidth/8 + windowWidth/2.75), (windowHeight + windowHeight/8), windowWidth/2.1, windowHeight/4, 'red', 0, null, 's'))
     objects.push(createObject('grass2', (windowWidth - windowWidth/16), windowHeight, (windowWidth - windowWidth/2), windowHeight/0.9, 'green', 0, null, 's'))
     objects.push(createObject('platform', (windowWidth/8 + windowWidth/5), (windowHeight - windowHeight/3.4), windowWidth/25, 10, '#E79548', 0, null, 's'))
-    objects.push(createObject('platform2', (windowWidth/8 + windowWidth/2.25), (windowHeight - windowHeight/4.4), windowWidth/25, 10, '#E79548', 0, null, 's'))
-    objects.push(createObject('platform1', (windowWidth/8 + windowWidth/3.3), (windowHeight - windowHeight/2.5), windowWidth/25, 10, '#E79548', 0, null, 's'))
-    objects.push(createObject('platform3', (windowWidth/8 + windowWidth/2.4), (windowHeight - windowHeight/2), windowWidth/25, 10, '#E79548', 0, null, 's'))
-    objects.push(createObject('platform4', (windowWidth - windowWidth/2.75), (windowHeight - windowHeight/2.3), windowWidth/25, 10, '#E79548', 0, null, 's'))
+    objects.push(createObject('platform2', (windowWidth/8 + windowWidth/2.25), (windowHeight - windowHeight/4.4), windowWidth/20, 10, '#E79548', 0, null, 's'))
+    objects.push(createObject('platform1', (windowWidth/8 + windowWidth/3.3), (windowHeight - windowHeight/2.5), windowWidth/15, 10, '#E79548', 0, null, 's'))
+    objects.push(createObject('platform3', (windowWidth/8 + windowWidth/2.4), (windowHeight - windowHeight/2), windowWidth/35, 10, '#E79548', 0, null, 's'))
+    objects.push(createObject('platform4', (windowWidth - windowWidth/2.75), (windowHeight - windowHeight/2.3), windowWidth/45, 10, '#E79548', 0, null, 's'))
     objects.push(createObject('platform5', (windowWidth - windowWidth/2), (windowHeight - windowHeight/3.2), windowWidth/25, 10, '#E79548', 0, null, 's'))
     objects.push(createObject('player', windowWidth/20, (windowHeight - windowHeight/3), 30, 40, 'blue', 0, null, 'd'))
     objects.push(createObject('endStructure', (windowWidth - windowWidth/10), (windowHeight - (windowHeight - windowHeight/2.82)), windowWidth/1.5, windowHeight*2, 0, 0, 'img/goal3.png', 's'))
@@ -222,7 +222,7 @@ function draw() {
         a2.style('padding: 5px')
     } 
 
-    if(camera.x >= ((objects[objectNames.indexOf('endStructure')]).x + windowWidth/3)) {
+    if(camera.x >= ((objects[objectNames.indexOf('endStructure')]).x + windowWidth/3.5)) {
         camera.x = camera.x;
     }
 
@@ -288,8 +288,8 @@ function test_createObjects() {
 
 function test_sprite_qualities() {
     //console.log(objects)
-    let player = objects[7]
-    let endGoal = objects[8]
+    let player = objects[9]
+    let endGoal = objects[10]
     //console.log(player)
     //console.log(endGoal)
 
@@ -302,7 +302,7 @@ function test_sprite_qualities() {
     console.log("Player movement properties tested")
     console.log("Static collider of all other sprites tested")
 
-    chai.assert.equal(endGoal.image, 'img/goal2.png')
+    chai.assert.equal(endGoal.image, 'img/goal3.png')
 
     console.log("End goal tested")
 
