@@ -30,7 +30,7 @@ function createObjects(windowWidth, windowHeight) {
     objects.push(createObject('platform1', (windowWidth - windowWidth/2.5), (windowHeight - windowHeight/3.5), windowWidth/25, 10, '#E79548', 0, null, 's'))
     objects.push(createObject('goal', (windowWidth - windowWidth/10), (windowHeight - windowHeight/2.25), windowWidth/5, 10, 'black', 0, null, 's'))
     objects.push(createObject('player', windowWidth/20, (windowHeight - windowHeight/3), 30, 40, 'blue', 0, null, 'd'))
-    objects.push(createObject('endStructure', (windowWidth - windowWidth/10), (windowHeight - windowHeight/1.65), windowWidth/1.5, windowHeight*2, 0, 0, 'img/goal2.png', 's'))
+    objects.push(createObject('endStructure', (windowWidth - windowWidth/10), (windowHeight - windowHeight/1.65), windowWidth/1.5, windowHeight*2, 0, 0, 'img/goal1.png', 's'))
     return objects;
 }
 
