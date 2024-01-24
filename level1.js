@@ -276,7 +276,7 @@ function test_sprite_qualities() {
     console.log("Player movement properties tested")
     console.log("Static collider of all other sprites tested")
 
-    chai.assert.equal(endGoal.image, 'img/goal2.png')
+    chai.assert.equal(endGoal.image, 'img/goal1.png')
 
     console.log("End goal tested")
 

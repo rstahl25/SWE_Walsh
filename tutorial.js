@@ -258,7 +258,7 @@ function test_createObjects() {
             chai.assert.equal(scene[i].color, 'black')
         }
         if(scene[i].name == 'goal') {
-            chai.assert.equal(scene[i].image, 'img/goal1.png')
+            chai.assert.equal(scene[i].image, 'img/goalT.png')
         }
         if(scene[i].name == 'player') {
             chai.assert.equal(scene[i].dynamic, 'd')
