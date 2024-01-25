@@ -1,51 +1,84 @@
+body {
+    background-color: whitesmoke;
+    background-image: url('/img/Picture1.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 99% 99%;
+    align-items: center;
+    justify-content: center;
+}
+
 h1 {
-    color: #E9C11F;
-    margin-top: 0px;
+    color: goldenrod;
+    font-size: 5vw;
+    text-decoration: underline;
+    text-align: center;
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: maroon;
+}
+
+.header-row{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 a {
-    background-color: white;
-    border: 3px solid black;
-    color: maroon;
-    border-radius: .5rem;
-    text-decoration: none;
-    padding: 5px;
-    margin: 0px 20px;
-}
-
-a:hover {
-    background-color: black;
-    color: white;
-    border: 3px solid white;
-}
-
-body {
-    background-image: url('./img/walsh.JPG');
-    padding-left: 60px;
-    overflow:hidden;
-}
-.page-container{
-    display:flex;
-    flex-direction: column;
-    margin: 21%;
-    height: 20vh;
-    width: 50vw;
-    justify-content: center;
-    align-items: center;
-    background-color: #8C8A87;
-    border: 6px solid maroon;
-    border-radius: 2rem;
-    overflow-wrap: break-word;
-}
-
-.game {
     display: flex;
-    flex-direction: row;
+    height: 6vh;
+    width: 3.5vw;
     align-items: center;
     justify-content: center;
-}
+    position: fixed;
+    background-color: lightgray;
+    color: black;
+    font-weight: bold;
+    font-size: 2.5vh;
+    text-decoration-line: none;
+    opacity: 0.8;
+    border: none;
+    border-radius: 100px;
 
-.back {
-    align-self: flex-start; 
-    margin-left: 40px;
+    &.lvlTut {
+        bottom: 39.5vh;
+        right: 56.75vw;
+    }
+    &.lvlOne {
+        bottom: 40vh;
+        right: 29.75vw;
+    }
+    &.lvlTwo {
+        bottom: 50.5vh;
+        right: 45vw;
+    }
+    &.founders {
+        bottom: 53.5vh;
+        right: 7vw;
+    }
+    &.barrette {
+        bottom: 29.25vh;
+        right: 48vw;
+    }
+
+    &:hover {
+        background-color: grey;
+        opacity: 1;
+        color: white;
+        transition-duration: 0.4s;
+    }
+
+    &.back {
+        background-color: maroon;
+        color: goldenrod;
+        opacity: 0.9;
+        font-size: 2vw;
+        height: 6vw;
+        width: 6vw;
+        margin-left: 1vw;
+        &:hover {
+            background-color: darkred;
+            color: yellow;
+            transition-duration: 0.4s;
+        }
+    }
 }
