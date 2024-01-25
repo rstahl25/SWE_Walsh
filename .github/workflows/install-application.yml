@@ -1,0 +1,21 @@
+name: install application
+
+on:
+  workflow_dispatch:
+
+jobs:
+  install_static_application_on_server:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install SSH key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.WALSH_SWE }}
+          name: id_rsa
+          known_hosts: ${{ secrets.KNOWN_HOSTS }}
+      - name: checkout files
+        uses: actions/checkout@v2
+      - name: Check Python
+        run: |
+          ssh root@www.walsh-jumper.com python --version
+
