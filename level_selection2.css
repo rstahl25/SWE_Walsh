@@ -1,0 +1,84 @@
+body {
+    background-color: whitesmoke;
+    background-image: url('/img/Picture1.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 99% 99%;
+    align-items: center;
+    justify-content: center;
+}
+
+h1 {
+    color: goldenrod;
+    font-size: 5vw;
+    text-decoration: underline;
+    text-align: center;
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: maroon;
+}
+
+.header-row{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+a {
+    display: flex;
+    height: 6vh;
+    width: 3.5vw;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    background-color: lightgray;
+    color: black;
+    font-weight: bold;
+    font-size: 2.5vh;
+    text-decoration-line: none;
+    opacity: 0.8;
+    border: none;
+    border-radius: 100px;
+
+    &.lvlTut {
+        bottom: 39.5vh;
+        right: 56.75vw;
+    }
+    &.lvlOne {
+        bottom: 40vh;
+        right: 29.75vw;
+    }
+    &.lvlTwo {
+        bottom: 50.5vh;
+        right: 45vw;
+    }
+    &.founders {
+        bottom: 53.5vh;
+        right: 7vw;
+    }
+    &.barrette {
+        bottom: 29.25vh;
+        right: 48vw;
+    }
+
+    &:hover {
+        background-color: grey;
+        opacity: 1;
+        color: white;
+        transition-duration: 0.4s;
+    }
+
+    &.back {
+        background-color: maroon;
+        color: goldenrod;
+        opacity: 0.9;
+        font-size: 2vw;
+        height: 6vw;
+        width: 6vw;
+        margin-left: 1vw;
+        &:hover {
+            background-color: darkred;
+            color: yellow;
+            transition-duration: 0.4s;
+        }
+    }
+}
