@@ -28,7 +28,7 @@ function createObjects(windowWidth, windowHeight) {
     objects.push(createObject('wall', windowWidth/1.45, (windowHeight - windowHeight/2.25), 10, windowHeight/2, 'black', 0, null, 's'))
     objects.push(createObject('wall2', windowWidth/1.3, windowHeight/4, 10, windowHeight/2, 'black', 0, null, 's'))
     objects.push(createObject('grass', windowWidth/2, windowHeight, windowWidth, windowHeight/2.5, 'green', 0, null, 's'))
-    objects.push(createObject('goal', windowWidth/1.11, (windowHeight - windowHeight/2.25), 50, 550, 0, 0, 'img/goal1.png', 's'))
+    objects.push(createObject('goal', windowWidth/1.11, (windowHeight - windowHeight/2.25), 50, 550, 0, 0, 'img/goalT.png', 's'))
     objects.push(createObject('instructions', windowWidth/3.5, (windowHeight - windowHeight/1.5), 200, 200, 0, 0, 'img/arrowInstruction.png', 's'))
     return objects;
 }
@@ -258,7 +258,7 @@ function test_createObjects() {
             chai.assert.equal(scene[i].color, 'black')
         }
         if(scene[i].name == 'goal') {
-            chai.assert.equal(scene[i].image, 'img/goal1.png')
+            chai.assert.equal(scene[i].image, 'img/goalT.png')
         }
         if(scene[i].name == 'player') {
             chai.assert.equal(scene[i].dynamic, 'd')
