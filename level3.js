@@ -23,8 +23,8 @@ function createObject (name, x, y, width, height, color, friction, image, dynami
 function createObjects(windowWidth, windowHeight) {
     objects = []
     objects.push(createObject('grass', windowWidth/8, windowHeight, windowWidth/4, windowHeight/2.5, 'green', 0, null, 's'));
-    objects.push(createObject('lava', (windowWidth/8 + windowWidth/4), windowHeight, windowWidth/4, windowHeight/32, 'red', 0, null, 's'))
-    objects.push(createObject('grass2', (windowWidth/4 + windowWidth/2), windowHeight, (windowWidth - windowWidth/2), windowHeight/2.5, 'green', 0, null, 's'))
+    objects.push(createObject('lava', (windowWidth/6 + windowWidth/3), windowHeight, windowWidth/2, windowHeight/32, 'red', 0, null, 's'))
+    objects.push(createObject('grass2', (windowWidth - windowWidth/8), windowHeight, windowWidth/4, windowHeight/2.5, 'green', 0, null, 's'))
     objects.push(createObject('platform', (windowWidth/8 + windowWidth/4), (windowHeight - windowHeight/5), windowWidth/25, 10, '#E79548', 0, null, 's'))
     objects.push(createObject('platform2', (windowWidth - windowWidth/3.5), (windowHeight - windowHeight/2.75), windowWidth/25, 10, '#E79548', 0, null, 's'))
     objects.push(createObject('platform1', (windowWidth - windowWidth/2.5), (windowHeight - windowHeight/3.5), windowWidth/25, 10, '#E79548', 0, null, 's'))
