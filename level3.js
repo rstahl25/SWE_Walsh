@@ -50,11 +50,11 @@ function setupScene(windowWidth, windowHeight, objects) {
         sprite.color = new_object.color;
         sprite.friction = new_object.friction;
         sprite.img = new_object.image
-        if(i == 7) {
+        if(new_object.name == "player") {
             sprite.rotationLock = true;
         }
-        if(i == 8) {
-            sprite.scale = 0.15
+        if(new_object.name == "endStructure") {
+            sprite.scale = 0.2
             //sprite.debug = true;
             sprite.layer = 1;
         }
