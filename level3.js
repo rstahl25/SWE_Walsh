@@ -26,11 +26,10 @@ function createObjects(windowWidth, windowHeight) {
     objects.push(createObject('lava', (windowWidth/6 + windowWidth/3), windowHeight, windowWidth/2, windowHeight/32, 'red', 0, null, 's'))
     objects.push(createObject('grass2', (windowWidth - windowWidth/8), windowHeight, windowWidth/4, windowHeight/2.5, 'green', 0, null, 's'))
     objects.push(createObject('platform', (windowWidth/8 + windowWidth/4), (windowHeight - windowHeight/5), windowWidth/25, 10, '#E79548', 0, null, 's'))
-    objects.push(createObject('platform2', (windowWidth - windowWidth/3.5), (windowHeight - windowHeight/2.75), windowWidth/25, 10, '#E79548', 0, null, 's'))
-    objects.push(createObject('platform1', (windowWidth - windowWidth/2.5), (windowHeight - windowHeight/3.5), windowWidth/25, 10, '#E79548', 0, null, 's'))
-    objects.push(createObject('goal', (windowWidth - windowWidth/10), (windowHeight - windowHeight/2.25), windowWidth/5, 10, 'black', 0, null, 's'))
+    objects.push(createObject('wall1', (windowWidth - windowWidth/3.5), (windowHeight - windowHeight/4), 10, windowHeight/10, 'red', 0, null, 's'))
+    objects.push(createObject('platform1', (windowWidth - windowWidth/2.5), (windowHeight - windowHeight/5), windowWidth/25, 10, '#E79548', 0, null, 's'))
     objects.push(createObject('player', windowWidth/20, (windowHeight - windowHeight/3), 30, 40, 'blue', 0, null, 'd'))
-    objects.push(createObject('endStructure', (windowWidth - windowWidth/10), (windowHeight - windowHeight/1.65), windowWidth/1.5, windowHeight*2, 0, 0, 'img/goal3.png', 's'))
+    objects.push(createObject('endStructure', (windowWidth - windowWidth/10), (windowHeight - windowHeight/3.25), windowWidth/1.5, windowHeight, 0, 0, 'img/goal3.png', 's'))
     return objects;
 }
 
@@ -55,7 +54,7 @@ function setupScene(windowWidth, windowHeight, objects) {
         }
         if(new_object.name == "endStructure") {
             sprite.scale = 0.2
-            //sprite.debug = true;
+            sprite.debug = true;
             sprite.layer = 1;
         }
         objects[i] = sprite
@@ -132,22 +131,17 @@ function draw() {
         objects[objectNames.indexOf('player')].applyForce(550);
     }
 
-    if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform2')]))) {
-        objects[objectNames.indexOf('player')].bearing = -90;
-        objects[objectNames.indexOf('player')].applyForce(550);
-    }
-
     if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('grass2')]))) {
         objects[objectNames.indexOf('player')].bearing = -90;
         objects[objectNames.indexOf('player')].applyForce(550);
     }
 
-    if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('goal')]))) {
-        objects[objectNames.indexOf('player')].bearing = -90;
-        objects[objectNames.indexOf('player')].applyForce(550);
+    if(objects[objectNames.indexOf('player')].collides(objects[objectNames.indexOf('lava')])) {
+        objects[objectNames.indexOf('player')].x = p1X;
+        objects[objectNames.indexOf('player')].y = p1Y;
     }
 
-    if(objects[objectNames.indexOf('player')].collides(objects[objectNames.indexOf('lava')])) {
+    if(objects[objectNames.indexOf('player')].collides(objects[objectNames.indexOf('wall1')])) {
         objects[objectNames.indexOf('player')].x = p1X;
         objects[objectNames.indexOf('player')].y = p1Y;
     }
