@@ -64,6 +64,8 @@ function setupScene(windowWidth, windowHeight, objects) {
     // console.log(objects)
     // console.log(objectNames)
     // console.log(objects[objectNames.indexOf('player')])
+
+    world.gravity.y = 10;
 }
 
 function setup() {
