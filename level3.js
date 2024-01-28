@@ -265,8 +265,8 @@ function test_createObjects() {
 
 function test_sprite_qualities() {
     //console.log(objects)
-    let player = objects[7]
-    let endGoal = objects[8]
+    let player = objects[8]
+    let endGoal = objects[9]
     //console.log(player)
     //console.log(endGoal)
 
