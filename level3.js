@@ -26,7 +26,9 @@ function createObjects(windowWidth, windowHeight) {
     objects.push(createObject('lava', (windowWidth/6 + windowWidth/3), windowHeight, windowWidth/2, windowHeight/32, 'red', 0, null, 's'))
     objects.push(createObject('grass2', (windowWidth - windowWidth/8), windowHeight, windowWidth/4, windowHeight/2.5, 'green', 0, null, 's'))
     objects.push(createObject('platform', (windowWidth/8 + windowWidth/4), (windowHeight - windowHeight/5), windowWidth/25, 10, '#E79548', 0, null, 's'))
-    objects.push(createObject('wall1', (windowWidth - windowWidth/3.5), (windowHeight - windowHeight/4), 10, windowHeight/10, 'red', 0, null, 's'))
+    objects.push(createObject('wall1', (windowWidth - windowWidth/3.5), (windowHeight - windowHeight/4), 10, windowHeight/7.6, 'red', 0, null, 's'))
+    objects.push(createObject('wall2', (windowWidth - windowWidth/1.95), (windowHeight - windowHeight/4), 10, windowHeight/7.6, 'red', 0, null, 's'))
+    objects.push(createObject('wall3', (windowWidth - windowWidth/1.4), (windowHeight - windowHeight/4), 10, windowHeight/7.6, 'red', 0, null, 's'))
     objects.push(createObject('platform1', (windowWidth - windowWidth/2.5), (windowHeight - windowHeight/5), windowWidth/25, 10, '#E79548', 0, null, 's'))
     objects.push(createObject('player', windowWidth/20, (windowHeight - windowHeight/3), 30, 40, 'blue', 0, null, 'd'))
     objects.push(createObject('endStructure', (windowWidth - windowWidth/10), (windowHeight - windowHeight/3.25), windowWidth/1.5, windowHeight, 0, 0, 'img/goal3.png', 's'))
@@ -142,6 +144,16 @@ function draw() {
     }
 
     if(objects[objectNames.indexOf('player')].collides(objects[objectNames.indexOf('wall1')])) {
+        objects[objectNames.indexOf('player')].x = p1X;
+        objects[objectNames.indexOf('player')].y = p1Y;
+    }
+
+    if(objects[objectNames.indexOf('player')].collides(objects[objectNames.indexOf('wall2')])) {
+        objects[objectNames.indexOf('player')].x = p1X;
+        objects[objectNames.indexOf('player')].y = p1Y;
+    }
+
+    if(objects[objectNames.indexOf('player')].collides(objects[objectNames.indexOf('wall3')])) {
         objects[objectNames.indexOf('player')].x = p1X;
         objects[objectNames.indexOf('player')].y = p1Y;
     }
