@@ -219,6 +219,11 @@ function draw() {
         r.show();
     }
 
+    // Fix bounce bug for platform
+    if(objects[objectNames.indexOf('player')].collides(objects[objectNames.indexOf('platform4')])) {
+        objects[objectNames.indexOf('player')].vel.y = -10
+    }
+
     // Put in logic for victory condition
 
     if(objects[objectNames.indexOf('player')].collides(objects[objectNames.indexOf('endStructure')])) {
@@ -243,6 +248,8 @@ function draw() {
         a2.style('border-radius: 0.5rem')
         a2.style('padding: 5px')
     } 
+
+    
 
     if(camera.x >= ((objects[objectNames.indexOf('endStructure')]).x + windowWidth/2)) {
         camera.x = camera.x;
