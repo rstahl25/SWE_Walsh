@@ -26,9 +26,9 @@ function createObjects(windowWidth, windowHeight) {
     objects.push(createObject('lava', (windowWidth/6 + windowWidth/3), windowHeight, windowWidth/2, windowHeight/32, 'red', 0, null, 's'))
     objects.push(createObject('grass2', (windowWidth - windowWidth/8), windowHeight, windowWidth/4, windowHeight/2.5, 'green', 0, null, 's'))
     objects.push(createObject('platform', (windowWidth/8 + windowWidth/4), (windowHeight - windowHeight/5), windowWidth/25, 10, '#E79548', 0, null, 's'))
-    objects.push(createObject('wall1', (windowWidth - windowWidth/3.5), (windowHeight - windowHeight/4), 10, windowHeight/7.6, 'red', 0, null, 's'))
-    objects.push(createObject('wall2', (windowWidth - windowWidth/1.95), (windowHeight - windowHeight/4), 10, windowHeight/7.6, 'red', 0, null, 's'))
-    objects.push(createObject('wall3', (windowWidth - windowWidth/1.4), (windowHeight - windowHeight/4), 10, windowHeight/7.6, 'red', 0, null, 's'))
+    objects.push(createObject('wall1', (windowWidth - windowWidth/3.5), (windowHeight - windowHeight/4), 10, windowHeight/9.5, 'red', 0, null, 's'))
+    objects.push(createObject('wall2', (windowWidth - windowWidth/1.95), (windowHeight - windowHeight/4), 10, windowHeight/9.5, 'red', 0, null, 's'))
+    objects.push(createObject('wall3', (windowWidth - windowWidth/1.4), (windowHeight - windowHeight/4), 10, windowHeight/9.5, 'red', 0, null, 's'))
     objects.push(createObject('platform1', (windowWidth - windowWidth/2.5), (windowHeight - windowHeight/5), windowWidth/25, 10, '#E79548', 0, null, 's'))
     objects.push(createObject('player', windowWidth/20, (windowHeight - windowHeight/3), 30, 40, 'blue', 0, null, 'd'))
     objects.push(createObject('endStructure', (windowWidth - windowWidth/10), (windowHeight - windowHeight/3.25), windowWidth/1.5, windowHeight, 0, 0, 'img/goal3.png', 's'))
@@ -56,19 +56,11 @@ function setupScene(windowWidth, windowHeight, objects) {
         }
         if(new_object.name == "endStructure") {
             sprite.scale = 0.2
-            sprite.debug = true;
+            //sprite.debug = true;
             sprite.layer = 1;
         }
         objects[i] = sprite
     }
-
-    platform1 = new Sprite(windowWidth/7, (windowHeight - windowHeight/3.5), 100, 10, 'k');
-    platform1.color = 'black';
-
-    wrapper = new Sprite(windowWidth/7, (windowHeight - windowHeight/3.5), 110, 15, 'd');
-    wrapper.color = 'yellow';
-    wrapper.shape = 'chain';
-
     // console.log(objects)
     // console.log(objectNames)
     // console.log(objects[objectNames.indexOf('player')])
@@ -79,8 +71,6 @@ function setupScene(windowWidth, windowHeight, objects) {
 function setup() {
     scene = createObjects(windowWidth, windowHeight)
     setupScene(windowWidth, windowHeight, scene);
-
-    movement_seq();
 
     p1X = windowWidth/20;
     p1Y = windowHeight - windowHeight/3;
@@ -100,13 +90,6 @@ function setup() {
     r.position(50, 15);
     r.attribute('align', 'center');
     r.show();
-}
-
-async function movement_seq() {
-    await platform1.move(200);
-    await delay(1000);
-    await platform1.move(-200);
-    movement_seq(); 
 }
 
 function draw() {
@@ -134,11 +117,6 @@ function draw() {
        
     // Allow player vertical movement with jump limitation
     if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('grass')]))) {
-        objects[objectNames.indexOf('player')].bearing = -90;
-        objects[objectNames.indexOf('player')].applyForce(550);
-    }
-
-    if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(platform1))) {
         objects[objectNames.indexOf('player')].bearing = -90;
         objects[objectNames.indexOf('player')].applyForce(550);
     }
@@ -218,7 +196,7 @@ function draw() {
         a.style('border-radius: 0.5rem')
         a.style('padding: 5px')
 
-        let a2 = createA('https://rstahl25.github.io/SWE_Walsh/level2.html', 'Level 2');
+        let a2 = createA('https://rstahl25.github.io/SWE_Walsh/level3.html', 'Level 3');
         a2.position((windowWidth - windowWidth/12), windowHeight/9 + 50)
         a2.style('color', 'maroon');
         a2.style('text-decoration', 'none')
