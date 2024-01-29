@@ -239,7 +239,7 @@ function draw() {
         a.style('border-radius: 0.5rem')
         a.style('padding: 5px')
 
-        let a2 = createA('https://rstahl25.github.io/SWE_Walsh/level3.html', 'Level 4');
+        let a2 = createA('https://rstahl25.github.io/SWE_Walsh/level4.html', 'Level 4');
         a2.position((windowWidth - windowWidth/1.15), windowHeight/9 + 50)
         a2.style('color', 'maroon');
         a2.style('text-decoration', 'none')
