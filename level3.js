@@ -62,6 +62,13 @@ function setupScene(windowWidth, windowHeight, objects) {
         objects[i] = sprite
     }
 
+    platform1 = new Sprite(windowWidth/7, (windowHeight - windowHeight/3.5), 100, 10, 'k');
+    platform1.color = 'black';
+
+    wrapper = new Sprite(windowWidth/7, (windowHeight - windowHeight/3.5), 110, 15, 'd');
+    wrapper.color = 'yellow';
+    wrapper.shape = 'chain';
+
     // console.log(objects)
     // console.log(objectNames)
     // console.log(objects[objectNames.indexOf('player')])
@@ -72,6 +79,8 @@ function setupScene(windowWidth, windowHeight, objects) {
 function setup() {
     scene = createObjects(windowWidth, windowHeight)
     setupScene(windowWidth, windowHeight, scene);
+
+    movement_seq();
 
     p1X = windowWidth/20;
     p1Y = windowHeight - windowHeight/3;
@@ -93,6 +102,12 @@ function setup() {
     r.show();
 }
 
+async function movement_seq() {
+    await platform1.move(200);
+    await delay(1000);
+    await platform1.move(-200);
+    movement_seq(); 
+}
 
 function draw() {
 
@@ -119,6 +134,11 @@ function draw() {
        
     // Allow player vertical movement with jump limitation
     if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('grass')]))) {
+        objects[objectNames.indexOf('player')].bearing = -90;
+        objects[objectNames.indexOf('player')].applyForce(550);
+    }
+
+    if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(platform1))) {
         objects[objectNames.indexOf('player')].bearing = -90;
         objects[objectNames.indexOf('player')].applyForce(550);
     }
