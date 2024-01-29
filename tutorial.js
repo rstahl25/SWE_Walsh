@@ -47,6 +47,7 @@ function setupScene(windowWidth, windowHeight, objects) {
         sprite = new Sprite(object.x, object.y, object.width, object.height, object.dynamic);
         sprite.color = object.color;
         sprite.friction = object.friction;
+        sprite.bounciness = 0;
         if(object.name == 'player') {
             sprite.rotationLock = true;
         }
