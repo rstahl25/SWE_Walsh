@@ -10,7 +10,7 @@ jobs:
       - name: Install SSH key
         uses: shimataro/ssh-key-action@v2
         with:
-          key: ${{ secrets.WALSH_SWE }}
+          key: ${{ secrets.WALSH_SSH }}
           name: id_rsa
           known_hosts: ${{ secrets.KNOWN_HOSTS }}
       - name: checkout files
@@ -18,4 +18,26 @@ jobs:
       - name: Check Python
         run: |
           ssh root@www.walsh-jumper.com python --version
+      - name: Copy files
+        run: |
+          ssh root@www.walsh-jumper.com mkdir -p site
+          scp index.html root@www.walsh-jumper.com:site
+          scp style.css root@www.walsh-jumper.com:site
+          scp title.css root@www.walsh-jumper.com:site
+          scp level_selection.html root@www.walsh-jumper.com:site
+          scp level_selection.css root@www.walsh-jumper.com:site
+          scp maintenance.html root@www.walsh-jumper.com:site
+          scp tutorial.html root@www.walsh-jumper.com:site
+          scp tutorial.js root@www.walsh-jumper.com:site
+          scp level1.html root@www.walsh-jumper.com:site
+          scp level1.js root@www.walsh-jumper.com:site
+          scp level2.html root@www.walsh-jumper.com:site
+          scp level2.js root@www.walsh-jumper.com:site
+          scp level3.html root@www.walsh-jumper.com:site
+          scp level3.js root@www.walsh-jumper.com:site
+          scp package-lock.json root@www.walsh-jumper.com:site
+          scp package.json root@www.walsh-jumper.com:site
+          scp -r img root@www.walsh-jumper.com:site
+          scp -r Songs root@www.walsh-jumper.com:site
+
 
