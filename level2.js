@@ -23,7 +23,7 @@ function createObject (name, x, y, width, height, color, friction, image, dynami
 function createObjects(windowWidth, windowHeight) {
     objects = []
     objects.push(createObject('grass', (windowWidth/8), windowHeight, windowWidth/4, windowHeight/2.5, 'green', 0, null, 's'));
-    objects.push(createObject('lava', (windowWidth/8 + windowWidth/2.75), (windowHeight + windowHeight/8), windowWidth/2.1, windowHeight/4, 'red', 0, null, 's'))
+    objects.push(createObject('lava', (windowWidth/8), (windowHeight - windowHeight/2), 30, 40, 'red', 0, null, 'k'))
     objects.push(createObject('grass2', (windowWidth - windowWidth/16), windowHeight, (windowWidth - windowWidth/2), windowHeight/0.9, 'green', 0, null, 's'))
     objects.push(createObject('platform', (windowWidth/8 + windowWidth/5), (windowHeight - windowHeight/3.4), windowWidth/25, 10, '#E79548', 0, null, 's'))
     objects.push(createObject('platform2', (windowWidth/8 + windowWidth/2.25), (windowHeight - windowHeight/4.4), windowWidth/20, 10, '#E79548', 0, null, 's'))
@@ -78,6 +78,8 @@ function setup() {
     scene = createObjects(windowWidth, windowHeight)
     setupScene(windowWidth, windowHeight, scene);
 
+    lava_rise();
+
     p1X = windowWidth/20;
     p1Y = windowHeight - windowHeight/3;
 
@@ -96,6 +98,19 @@ function setup() {
     r.position(windowWidth/8, 15);
     r.attribute('align', 'center');
     r.show();
+}
+
+async function lava_rise() {
+        for(var i = 0; i < 5; i++) {
+            objects[objectNames.indexOf('lava')].scale.y *= 5;
+            await objects[objectNames.indexOf('lava')].move(0.5);
+        }
+        for(var j = 0; j < 5; j++) {
+            objects[objectNames.indexOf('lava')].scale.y *= 0.91;
+            await objects[objectNames.indexOf('lava')].move(-0.5);
+        }
+        //await delay(1000);
+        lava_rise();
 }
 
 
