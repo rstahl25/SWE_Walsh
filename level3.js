@@ -52,6 +52,7 @@ function setupScene(windowWidth, windowHeight, objects) {
         sprite = new Sprite(new_object.x, new_object.y, new_object.width, new_object.height, new_object.dynamic);
         sprite.color = new_object.color;
         sprite.friction = new_object.friction;
+        sprite.bounciness = 0;
         sprite.img = new_object.image
         if(i == 7) {
             sprite.bounciness = 1.5;
@@ -89,12 +90,12 @@ function setup() {
 
     // Create elements to display if the game is paused or not.
     p1 = createElement('h2', 'Game Paused');
-    p1.position(windowWidth/2, (windowHeight/2) - 20);
+    p1.position(windowWidth/8, (windowHeight/4) - 20);
     p1.attribute('align', 'center');
     p1.hide();
 
     p2 = createElement('h2', 'Press SPACE to Resume');
-    p2.position(windowWidth/2, (windowHeight/2) + 20);
+    p2.position(windowWidth/8, (windowHeight/4) + 20);
     p2.attribute('align', 'center');
     p2.hide();
 
