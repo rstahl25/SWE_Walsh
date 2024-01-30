@@ -2,6 +2,9 @@ name: install application
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+    - 'main'
 
 jobs:
   install_static_application_on_server:
