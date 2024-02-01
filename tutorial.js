@@ -30,6 +30,7 @@ function createObjects(windowWidth, windowHeight) {
     objects.push(createObject('grass', windowWidth/2, windowHeight, windowWidth, windowHeight/2.5, 'green', 0, null, 's'))
     objects.push(createObject('goal', windowWidth/1.11, (windowHeight - windowHeight/2.25), 50, 550, 0, 0, 'img/goalT.png', 's'))
     objects.push(createObject('instructions', windowWidth/3.5, (windowHeight - windowHeight/1.5), 200, 200, 0, 0, 'img/arrowInstruction.png', 's'))
+    objects.push(createObject('restart', windowWidth/1.05, windowHeight/12, 160, 160, 0, 0, 'img/reload.png', 's'));
     return objects;
 }
 
@@ -48,16 +49,18 @@ function setupScene(windowWidth, windowHeight, objects) {
         sprite.color = object.color;
         sprite.friction = object.friction;
         sprite.bounciness = 0;
+        sprite.img = object.image;
+        if(object.name == 'restart') {
+            sprite.scale = 0.2;
+        }
         if(object.name == 'player') {
             sprite.rotationLock = true;
         }
         if(object.name == 'goal'){
             sprite.layer = 0;
-            sprite.img = object.image;
         }
         if(object.name == 'instructions'){
             sprite.layer = 0;
-            sprite.img = object.image;
             sprite.collider = 'none';
         }
         objects[i] = sprite
@@ -175,6 +178,7 @@ function draw() {
 
     if(objects[objectNames.indexOf('player')].collides(objects[objectNames.indexOf('goal')])) {
         objects[objectNames.indexOf('player')].collider = 's';
+        objects[objectNames.indexOf('player')].visible = false;
         let h2 = createElement('h2', 'Victory!');
         h2.position((windowWidth - windowWidth/8), windowHeight/9);
         let a = createA('https://rstahl25.github.io/SWE_Walsh/level_selection.html', 'Level Selection');
@@ -195,6 +199,16 @@ function draw() {
         a2.style('border-radius: 0.5rem')
         a2.style('padding: 5px')
     } 
+
+    //Set up restart button
+    if((objects[objectNames.indexOf('restart')]).mouse.hovering()) {
+        mouse.cursor = 'pointer';
+    } else mouse.cursor = 'default';
+
+    if ((objects[objectNames.indexOf('restart')]).mouse.presses()) {
+        objects[objectNames.indexOf('player')].x = p1X;
+        objects[objectNames.indexOf('player')].y = p1Y;
+    }
 
     clear();
 }

@@ -32,6 +32,7 @@ function createObjects(windowWidth, windowHeight) {
     objects.push(createObject('platform1', (windowWidth - windowWidth/2.5), (windowHeight - windowHeight/5), windowWidth/25, 10, '#E79548', 0, null, 's'))
     objects.push(createObject('player', windowWidth/20, (windowHeight - windowHeight/3), 30, 40, 'blue', 0, null, 'd'))
     objects.push(createObject('endStructure', (windowWidth - windowWidth/10), (windowHeight - windowHeight/3.25), windowWidth/1.5, windowHeight, 0, 0, 'img/goal3.png', 's'))
+    objects.push(createObject('restart', windowWidth/1.05, windowHeight/12, 160, 160, 0, 0, 'img/reload.png', 's'));
     return objects;
 }
 
@@ -59,6 +60,9 @@ function setupScene(windowWidth, windowHeight, objects) {
             sprite.scale = 0.2
             //sprite.debug = true;
             sprite.layer = 1;
+        }
+        if(new_object.name == 'restart') {
+            sprite.scale = 0.2;
         }
         objects[i] = sprite
     }
@@ -186,6 +190,7 @@ function draw() {
 
     if(objects[objectNames.indexOf('player')].collides(objects[objectNames.indexOf('endStructure')])) {
         objects[objectNames.indexOf('player')].collider = 's';
+        objects[objectNames.indexOf('player')].visible = false;
         let h2 = createElement('h2', 'Victory!');
         h2.position((windowWidth - windowWidth/8), windowHeight/9);
         let a = createA('https://rstahl25.github.io/SWE_Walsh/level_selection.html', 'Level Selection');
@@ -207,6 +212,15 @@ function draw() {
         a2.style('padding: 5px')
     } 
 
+    //Set up restart button
+    if((objects[objectNames.indexOf('restart')]).mouse.hovering()) {
+        mouse.cursor = 'pointer';
+    } else mouse.cursor = 'default';
+
+    if ((objects[objectNames.indexOf('restart')]).mouse.presses()) {
+        objects[objectNames.indexOf('player')].x = p1X;
+        objects[objectNames.indexOf('player')].y = p1Y;
+    }
 
     clear();
 }
