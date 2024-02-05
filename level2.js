@@ -188,7 +188,7 @@ function draw() {
         objects[objectNames.indexOf('player')].collider = 's';
         let h2 = createElement('h2', 'Victory!');
         h2.position((windowWidth - windowWidth/8), windowHeight/9);
-        let a = createA('https://rstahl25.github.io/SWE_Walsh/level_selection.html', 'Level Selection');
+        let a = createA('/level_selection.html', 'Level Selection');
         a.position((windowWidth - windowWidth/6), windowHeight/9 + 50);
         a.style('color', 'maroon');
         a.style('text-decoration', 'none')
@@ -197,7 +197,7 @@ function draw() {
         a.style('border-radius: 0.5rem')
         a.style('padding: 5px')
 
-        let a2 = createA('https://rstahl25.github.io/SWE_Walsh/level3.html', 'Level 3');
+        let a2 = createA('/level3.html', 'Level 3');
         a2.position((windowWidth - windowWidth/12), windowHeight/9 + 50)
         a2.style('color', 'maroon');
         a2.style('text-decoration', 'none')
