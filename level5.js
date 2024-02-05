@@ -22,9 +22,10 @@ function createObject (name, x, y, width, height, color, friction, image, dynami
 function createObjects(windowWidth, windowHeight) {
     objects = []
     objects.push(createObject('player', windowWidth/20, (windowHeight - windowHeight/3), 30, 40, 'maroon', 0, null, 'd'))
-    objects.push(createObject('platform1', windowWidth/1.75, (windowHeight - windowHeight/1.75), 140, 10, '#E79548', 0, null, 's'))
-    objects.push(createObject('platform2', windowWidth/2.25, (windowHeight - windowHeight/2.25), 140, 10, '#E79548', 0, null, 's'))
-    objects.push(createObject('platform3', windowWidth/3.25, (windowHeight - windowHeight/3), 140, 10, '#E79548', 0, null, 's'))
+    objects.push(createObject('platform1', windowWidth/1.75, (windowHeight - windowHeight/1.75), 170, 10, '#E79548', 0, null, 'k'))
+    objects.push(createObject('platform2', windowWidth/2.25, (windowHeight - windowHeight/2.25), 170, 10, '#E79548', 0, null, 'k'))
+    objects.push(createObject('platform3', windowWidth/3.25, (windowHeight - windowHeight/3), 170, 10, '#E79548', 0, null, 'k'))
+    objects.push(createObject('platform4', windowWidth/1.45, (windowHeight - windowHeight/1.45), 170, 10, '#E79548', 0, null, 'k'))
     objects.push(createObject('grass', windowWidth/2, windowHeight, windowWidth, windowHeight/2.5, 'green', 0, null, 's'))
     objects.push(createObject('goal', windowWidth/1.11, (windowHeight - windowHeight/2.25), 50, 550, 0, 0, 'img/goalT.png', 's'))
     return objects;
@@ -35,7 +36,6 @@ var pause = false;
 
 function setupScene(windowWidth, windowHeight, objects) {
     scene = {}
-    //windowWidth *= 2;
     createCanvas(windowWidth, windowHeight);
     rectMode(CENTER);
     textAlign(CENTER);
@@ -46,8 +46,10 @@ function setupScene(windowWidth, windowHeight, objects) {
         sprite.color = object.color;
         sprite.friction = object.friction;
         sprite.bounciness = 0;
+        sprite.drag = 0;
         if(object.name == 'player') {
             sprite.rotationLock = true;
+            sprite.debug = false;
         }
         if(object.name == 'goal'){
             sprite.layer = 0;
@@ -56,10 +58,13 @@ function setupScene(windowWidth, windowHeight, objects) {
         objects[i] = sprite
     }
 
+    //let baller = new Sprite(695, 200, 25, 25, 'd');
+
     console.log(objects)
     console.log(objectNames)
     // console.log(objects[objectNames.indexOf('player')])
 
+    objects[objectNames.indexOf('player')].addCollider((windowWidth/20 + 80), (windowHeight - windowHeight/3), 30);
 
     // Establish world gravity
     world.gravity.y = 10;
@@ -67,7 +72,7 @@ function setupScene(windowWidth, windowHeight, objects) {
 }
 
 function setup() {
-    windowWidth *= 0.8;
+    windowWidth *= 1.5;
     scene = createObjects(windowWidth, windowHeight)
     setupScene(windowWidth, windowHeight, scene);
 
@@ -90,6 +95,11 @@ function setup() {
     r.attribute('align', 'center');
     r.show();
 
+    objects[objectNames.indexOf('platform1')].rotationSpeed = 0.5;
+    objects[objectNames.indexOf('platform2')].rotationSpeed = 0.5;
+    objects[objectNames.indexOf('platform3')].rotationSpeed = 0.5;
+    objects[objectNames.indexOf('platform4')].rotationSpeed = 0.5;
+
     (objects[objectNames.indexOf('goal')]).scale *= 0.4;
 }
 
@@ -97,6 +107,10 @@ function draw() {
 //     // console.log(objects[0])
 //     // console.log(objects[1])
 //     //console.log(objects[7])
+
+    camera.on();
+    camera.zoom = (1/1.5);
+    camera.x = windowWidth * 0.75;
 
     // Allow player horizontal movement
     if(kb.pressing('left')) {
@@ -123,14 +137,22 @@ function draw() {
     if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform1')]))) {
         objects[objectNames.indexOf('player')].bearing = -90;
         objects[objectNames.indexOf('player')].applyForce(650);
+        objects[objectNames.indexOf('player')].rotationLock = false;
     }
     if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform2')]))) {
         objects[objectNames.indexOf('player')].bearing = -90;
         objects[objectNames.indexOf('player')].applyForce(650);
+        objects[objectNames.indexOf('player')].rotationLock = false;
     }
     if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform3')]))) {
         objects[objectNames.indexOf('player')].bearing = -90;
         objects[objectNames.indexOf('player')].applyForce(650);
+        objects[objectNames.indexOf('player')].rotationLock = false;
+    }
+    if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform4')]))) {
+        objects[objectNames.indexOf('player')].bearing = -90;
+        objects[objectNames.indexOf('player')].applyForce(650);
+        objects[objectNames.indexOf('player')].rotationLock = false;
     }
     if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('goal')]))) {
         objects[objectNames.indexOf('player')].bearing = -90;
