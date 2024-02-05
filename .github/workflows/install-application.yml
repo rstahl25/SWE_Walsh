@@ -24,6 +24,7 @@ jobs:
       - name: Copy files
         run: |
           ssh root@www.walsh-jumper.com mkdir -p site
+          npm install p5play root@www.walsh-jumper.com:site
           scp index.html root@www.walsh-jumper.com:site
           scp style.css root@www.walsh-jumper.com:site
           scp title.css root@www.walsh-jumper.com:site
