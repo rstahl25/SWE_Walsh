@@ -1,7 +1,7 @@
 // Set up sprite variables for level
 let objects = []
 let objectNames = []
-let p1, p2, r;
+let p1, p2, r, reload;
 
 
 function createObject (name, x, y, width, height, color, friction, image, dynamic) {
@@ -103,6 +103,10 @@ function setup() {
     r.position(windowWidth/8, 15);
     r.attribute('align', 'center');
     r.show();
+    
+    reload = createButton('hikhvkhvkhvh');
+    reload.position(windowWidth/1.05, windowHeight/12);
+
 }
 
 async function lava_rise() {
@@ -229,6 +233,7 @@ function draw() {
 
     if(objects[objectNames.indexOf('player')].collides(objects[objectNames.indexOf('endStructure')])) {
         objects[objectNames.indexOf('player')].collider = 's';
+        objects[objectNames.indexOf('player')].visible = false;
         let h2 = createElement('h2', 'Victory!');
         h2.position((windowWidth - windowWidth/1.2), windowHeight/9);
         let a = createA('/level4.html', 'Level 4');
