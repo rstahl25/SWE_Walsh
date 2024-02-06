@@ -236,7 +236,7 @@ function draw() {
         objects[objectNames.indexOf('player')].visible = false;
         let h2 = createElement('h2', 'Victory!');
         h2.position((windowWidth - windowWidth/1.2), windowHeight/9);
-        let a = createA('https://rstahl25.github.io/SWE_Walsh/level_selection.html', 'Level Selection');
+        let a = createA('/level4.html', 'Level 4');
         a.position((windowWidth - windowWidth/1.25), windowHeight/9 + 50);
         a.style('color', 'maroon');
         a.style('text-decoration', 'none')
@@ -245,7 +245,7 @@ function draw() {
         a.style('border-radius: 0.5rem')
         a.style('padding: 5px')
 
-        let a2 = createA('https://rstahl25.github.io/SWE_Walsh/level4.html', 'Level 4');
+        let a2 = createA('/level_selection.html', 'Level Selection');
         a2.position((windowWidth - windowWidth/1.15), windowHeight/9 + 50)
         a2.style('color', 'maroon');
         a2.style('text-decoration', 'none')
@@ -266,23 +266,6 @@ function draw() {
     }
 
     camera.y = (objects[objectNames.indexOf('player')].y - windowWidth/45)
-
-
-    // // Update restart button position based on camera position
-    // var resX = (objects[objectNames.indexOf('player')]).x;
-    // var resY = (objects[objectNames.indexOf('player')]).y;
-    // (objects[objectNames.indexOf('restart')]).x = resX + 1000;
-    // (objects[objectNames.indexOf('restart')]).y = resY - 430;
-
-    //Set up restart button
-    // if((objects[objectNames.indexOf('restart')]).mouse.hovering()) {
-    //     mouse.cursor = 'pointer';
-    // } else mouse.cursor = 'default';
-
-    // if ((objects[objectNames.indexOf('restart')]).mouse.presses()) {
-    //     objects[objectNames.indexOf('player')].x = p1X;
-    //     objects[objectNames.indexOf('player')].y = p1Y;
-    // }
 
     clear();
 }
