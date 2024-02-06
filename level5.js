@@ -64,8 +64,6 @@ function setupScene(windowWidth, windowHeight, objects) {
     console.log(objectNames)
     // console.log(objects[objectNames.indexOf('player')])
 
-    objects[objectNames.indexOf('player')].addCollider((windowWidth/20 + 80), (windowHeight - windowHeight/3), 30);
-
     // Establish world gravity
     world.gravity.y = 10;
     
@@ -95,10 +93,13 @@ function setup() {
     r.attribute('align', 'center');
     r.show();
 
-    objects[objectNames.indexOf('platform1')].rotationSpeed = 0.5;
-    objects[objectNames.indexOf('platform2')].rotationSpeed = 0.5;
-    objects[objectNames.indexOf('platform3')].rotationSpeed = 0.5;
-    objects[objectNames.indexOf('platform4')].rotationSpeed = 0.5;
+    objects[objectNames.indexOf('platform1')].rotateTo = 225;
+    objects[objectNames.indexOf('platform2')].rotateTo = 190;
+    objects[objectNames.indexOf('platform3')].rotateTo = 135;
+    if((objects[objectNames.indexOf('platform3')]).bearing = 90) {
+        objects[objectNames.indexOf('platform3')].rotationSpeed = 0;
+    }
+    objects[objectNames.indexOf('platform4')].rotationSpeed = 260;
 
     (objects[objectNames.indexOf('goal')]).scale *= 0.4;
 }
@@ -130,28 +131,41 @@ function draw() {
     }
        
     // Allow player vertical movement with jump limitation
+    /*if((objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform1')]))
+        || (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform2')]))
+        || (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform3')]))
+        || (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform4')]))) {
+
+            objects[objectNames.indexOf('player')].vel.y = 2;
+            objects[objectNames.indexOf('player')].rotationLock = false;
+
+            if (kb.presses('up')) {
+                objects[objectNames.indexOf('player')].bearing = ((objects[objectNames.indexOf('platform3')]).bearing - 180);
+                objects[objectNames.indexOf('player')].applyForce(1250);
+            }
+    }*/
     if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('grass')]))) {
         objects[objectNames.indexOf('player')].bearing = -90;
         objects[objectNames.indexOf('player')].applyForce(650);
     }
     if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform1')]))) {
-        objects[objectNames.indexOf('player')].bearing = -90;
-        objects[objectNames.indexOf('player')].applyForce(650);
+        objects[objectNames.indexOf('player')].bearing = ((objects[objectNames.indexOf('platform1')]).bearing - 90);
+        objects[objectNames.indexOf('player')].applyForce(1250);
         objects[objectNames.indexOf('player')].rotationLock = false;
     }
     if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform2')]))) {
-        objects[objectNames.indexOf('player')].bearing = -90;
-        objects[objectNames.indexOf('player')].applyForce(650);
+        objects[objectNames.indexOf('player')].bearing = ((objects[objectNames.indexOf('platform2')]).bearing - 90);
+        objects[objectNames.indexOf('player')].applyForce(1250);
         objects[objectNames.indexOf('player')].rotationLock = false;
     }
     if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform3')]))) {
-        objects[objectNames.indexOf('player')].bearing = -90;
+        objects[objectNames.indexOf('player')].bearing = ((objects[objectNames.indexOf('platform3')]).bearing - 180);
         objects[objectNames.indexOf('player')].applyForce(650);
         objects[objectNames.indexOf('player')].rotationLock = false;
     }
     if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform4')]))) {
-        objects[objectNames.indexOf('player')].bearing = -90;
-        objects[objectNames.indexOf('player')].applyForce(650);
+        objects[objectNames.indexOf('player')].bearing = ((objects[objectNames.indexOf('platform4')]).bearing - 90);
+        objects[objectNames.indexOf('player')].applyForce(1250);
         objects[objectNames.indexOf('player')].rotationLock = false;
     }
     if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('goal')]))) {
