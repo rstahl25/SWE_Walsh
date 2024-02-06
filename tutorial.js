@@ -21,7 +21,7 @@ function createObject (name, x, y, width, height, color, friction, image, dynami
 
 function createObjects(windowWidth, windowHeight) {
     objects = []
-    objects.push(createObject('player', windowWidth/20, (windowHeight - windowHeight/3), 30, 40, 'maroon', 0, null, 'd'))
+    objects.push(createObject('player', windowWidth/20, (windowHeight - windowHeight/3), 65, 185, 'maroon', 0, 'img/player.png', 'd'))
     objects.push(createObject('platform1', windowWidth/1.75, (windowHeight - windowHeight/1.75), 140, 10, '#E79548', 0, null, 's'))
     objects.push(createObject('platform2', windowWidth/2.25, (windowHeight - windowHeight/2.25), 140, 10, '#E79548', 0, null, 's'))
     objects.push(createObject('platform3', windowWidth/3.25, (windowHeight - windowHeight/3), 140, 10, '#E79548', 0, null, 's'))
@@ -30,6 +30,7 @@ function createObjects(windowWidth, windowHeight) {
     objects.push(createObject('grass', windowWidth/2, windowHeight, windowWidth, windowHeight/2.5, 'green', 0, null, 's'))
     objects.push(createObject('goal', windowWidth/1.11, (windowHeight - windowHeight/2.25), 50, 550, 0, 0, 'img/goalT.png', 's'))
     objects.push(createObject('instructions', windowWidth/3.5, (windowHeight - windowHeight/1.5), 200, 200, 0, 0, 'img/arrowInstruction.png', 's'))
+    objects.push(createObject('restart', windowWidth/1.05, windowHeight/12, 160, 160, 0, 0, 'img/reload.png', 's'));
     return objects;
 }
 
@@ -47,16 +48,21 @@ function setupScene(windowWidth, windowHeight, objects) {
         sprite = new Sprite(object.x, object.y, object.width, object.height, object.dynamic);
         sprite.color = object.color;
         sprite.friction = object.friction;
+        sprite.bounciness = 0;
+        sprite.img = object.image;
+        if(object.name == 'restart') {
+            sprite.scale = 0.2;
+        }
         if(object.name == 'player') {
             sprite.rotationLock = true;
+            sprite.img = object.image;
+            sprite.scale = 0.65;
         }
         if(object.name == 'goal'){
             sprite.layer = 0;
-            sprite.img = object.image;
         }
         if(object.name == 'instructions'){
             sprite.layer = 0;
-            sprite.img = object.image;
             sprite.collider = 'none';
         }
         objects[i] = sprite
@@ -121,23 +127,23 @@ function draw() {
     // Allow player vertical movement with jump limitation
     if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('grass')]))) {
         objects[objectNames.indexOf('player')].bearing = -90;
-        objects[objectNames.indexOf('player')].applyForce(650);
+        objects[objectNames.indexOf('player')].applyForce(6500);
     }
-    if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform1')]))) {
+    else if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform1')]))) {
         objects[objectNames.indexOf('player')].bearing = -90;
-        objects[objectNames.indexOf('player')].applyForce(650);
+        objects[objectNames.indexOf('player')].applyForce(6500);
     }
-    if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform2')]))) {
+    else if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform2')]))) {
         objects[objectNames.indexOf('player')].bearing = -90;
-        objects[objectNames.indexOf('player')].applyForce(650);
+        objects[objectNames.indexOf('player')].applyForce(6500);
     }
-    if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform3')]))) {
+    else if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform3')]))) {
         objects[objectNames.indexOf('player')].bearing = -90;
-        objects[objectNames.indexOf('player')].applyForce(650);
+        objects[objectNames.indexOf('player')].applyForce(6500);
     }
-    if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('goal')]))) {
+    else if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('goal')]))) {
         objects[objectNames.indexOf('player')].bearing = -90;
-        objects[objectNames.indexOf('player')].applyForce(650);
+        objects[objectNames.indexOf('player')].applyForce(6500);
     }
 
     // Allow user to pause and resume game using SPACE.
@@ -174,9 +180,10 @@ function draw() {
 
     if(objects[objectNames.indexOf('player')].collides(objects[objectNames.indexOf('goal')])) {
         objects[objectNames.indexOf('player')].collider = 's';
+        objects[objectNames.indexOf('player')].visible = false;
         let h2 = createElement('h2', 'Victory!');
         h2.position((windowWidth - windowWidth/8), windowHeight/9);
-        let a = createA('https://rstahl25.github.io/SWE_Walsh/level_selection.html', 'Level Selection');
+        let a = createA('/level_selection.html', 'Level Selection');
         a.position((windowWidth - windowWidth/6), windowHeight/9 + 50);
         a.style('color', 'maroon');
         a.style('text-decoration', 'none')
@@ -185,7 +192,7 @@ function draw() {
         a.style('border-radius: 0.5rem')
         a.style('padding: 5px')
 
-        let a2 = createA('https://rstahl25.github.io/SWE_Walsh/level1.html', 'Level 1');
+        let a2 = createA('/level1.html', 'Level 1');
         a2.position((windowWidth - windowWidth/12), windowHeight/9 + 50)
         a2.style('color', 'maroon');
         a2.style('text-decoration', 'none')
@@ -194,6 +201,16 @@ function draw() {
         a2.style('border-radius: 0.5rem')
         a2.style('padding: 5px')
     } 
+
+    //Set up restart button
+    if((objects[objectNames.indexOf('restart')]).mouse.hovering()) {
+        mouse.cursor = 'pointer';
+    } else mouse.cursor = 'default';
+
+    if ((objects[objectNames.indexOf('restart')]).mouse.presses()) {
+        objects[objectNames.indexOf('player')].x = p1X;
+        objects[objectNames.indexOf('player')].y = p1Y;
+    }
 
     clear();
 }

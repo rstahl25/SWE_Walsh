@@ -1,7 +1,7 @@
 // Set up sprite variables for level
 let objects = []
 let objectNames = []
-let p1, p2, r;
+let p1, p2, r, reload;
 
 
 function createObject (name, x, y, width, height, color, friction, image, dynamic) {
@@ -32,7 +32,7 @@ function createObjects(windowWidth, windowHeight) {
     objects.push(createObject('platform4', (windowWidth - windowWidth/2.85), (windowHeight - windowHeight/2.2), windowWidth/40, 10, '#21E0F8', 0, null, 's'))
     objects.push(createObject('platform5', (windowWidth - windowWidth/2), (windowHeight - windowHeight/3), windowWidth/25, 10, '#E79548', 0, null, 's'))
     objects.push(createObject('player', windowWidth/20, (windowHeight - windowHeight/3), 30, 40, 'blue', 0, null, 'd'))
-    objects.push(createObject('endStructure', (windowWidth - windowWidth/10), (windowHeight - (windowHeight - windowHeight/2.82)), windowWidth/1.5, windowHeight*2, 0, 0, 'img/goal3.png', 's'))
+    objects.push(createObject('endStructure', (windowWidth - windowWidth/10), (windowHeight - (windowHeight - windowHeight/2.82)), windowWidth/1.5, windowHeight*2, 0, 0, 'img/goal2.png', 's'))
     objects.push(createObject('end_wall', (windowWidth - windowWidth/3.5), (windowHeight - windowHeight/2 - (windowHeight/7.2)), 10, (windowHeight/6), 'black', 0, null, 's'))
     return objects;
 }
@@ -52,6 +52,7 @@ function setupScene(windowWidth, windowHeight, objects) {
         sprite = new Sprite(new_object.x, new_object.y, new_object.width, new_object.height, new_object.dynamic);
         sprite.color = new_object.color;
         sprite.friction = new_object.friction;
+        sprite.bounciness = 0;
         sprite.img = new_object.image
         if(i == 7) {
             sprite.bounciness = 1.5;
@@ -89,12 +90,12 @@ function setup() {
 
     // Create elements to display if the game is paused or not.
     p1 = createElement('h2', 'Game Paused');
-    p1.position(windowWidth/2, (windowHeight/2) - 20);
+    p1.position(windowWidth/8, (windowHeight/4) - 20);
     p1.attribute('align', 'center');
     p1.hide();
 
     p2 = createElement('h2', 'Press SPACE to Resume');
-    p2.position(windowWidth/2, (windowHeight/2) + 20);
+    p2.position(windowWidth/8, (windowHeight/4) + 20);
     p2.attribute('align', 'center');
     p2.hide();
 
@@ -102,6 +103,10 @@ function setup() {
     r.position(windowWidth/8, 15);
     r.attribute('align', 'center');
     r.show();
+    
+    reload = createButton('hikhvkhvkhvh');
+    reload.position(windowWidth/1.05, windowHeight/12);
+
 }
 
 async function lava_rise() {
@@ -228,9 +233,10 @@ function draw() {
 
     if(objects[objectNames.indexOf('player')].collides(objects[objectNames.indexOf('endStructure')])) {
         objects[objectNames.indexOf('player')].collider = 's';
+        objects[objectNames.indexOf('player')].visible = false;
         let h2 = createElement('h2', 'Victory!');
         h2.position((windowWidth - windowWidth/1.2), windowHeight/9);
-        let a = createA('https://rstahl25.github.io/SWE_Walsh/level_selection.html', 'Level Selection');
+        let a = createA('/level4.html', 'Level 4');
         a.position((windowWidth - windowWidth/1.25), windowHeight/9 + 50);
         a.style('color', 'maroon');
         a.style('text-decoration', 'none')
@@ -239,7 +245,7 @@ function draw() {
         a.style('border-radius: 0.5rem')
         a.style('padding: 5px')
 
-        let a2 = createA('https://rstahl25.github.io/SWE_Walsh/level4.html', 'Level 4');
+        let a2 = createA('/level_selection.html', 'Level Selection');
         a2.position((windowWidth - windowWidth/1.15), windowHeight/9 + 50)
         a2.style('color', 'maroon');
         a2.style('text-decoration', 'none')
