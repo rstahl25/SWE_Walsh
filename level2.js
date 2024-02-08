@@ -30,7 +30,7 @@ function createObjects(windowWidth, windowHeight) {
     objects.push(createObject('wall2', (windowWidth - windowWidth/1.95), (windowHeight - windowHeight/4), 10, windowHeight/9.5, 'red', 0, null, 's'))
     objects.push(createObject('wall3', (windowWidth - windowWidth/1.4), (windowHeight - windowHeight/4), 10, windowHeight/9.5, 'red', 0, null, 's'))
     objects.push(createObject('platform1', (windowWidth - windowWidth/2.5), (windowHeight - windowHeight/5), windowWidth/25, 10, '#E79548', 0, null, 's'))
-    objects.push(createObject('player', windowWidth/20, (windowHeight - windowHeight/3), 30, 40, 'blue', 0, null, 'd'))
+    objects.push(createObject('player', windowWidth/20, (windowHeight - windowHeight/3), 65, 185, 'blue', 0, 'img/player.png', 'd'))
     objects.push(createObject('endStructure', (windowWidth - windowWidth/10), (windowHeight - windowHeight/3.25), windowWidth/1.5, windowHeight, 0, 0, 'img/goal3.png', 's'))
     objects.push(createObject('restart', windowWidth/1.05, windowHeight/12, 160, 160, 0, 0, 'img/reload.png', 's'));
     return objects;
@@ -55,6 +55,7 @@ function setupScene(windowWidth, windowHeight, objects) {
         sprite.img = new_object.image
         if(new_object.name == "player") {
             sprite.rotationLock = true;
+            sprite.scale = 0.65;
         }
         if(new_object.name == "endStructure") {
             sprite.scale = 0.2
@@ -123,22 +124,22 @@ function draw() {
     // Allow player vertical movement with jump limitation
     if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('grass')]))) {
         objects[objectNames.indexOf('player')].bearing = -90;
-        objects[objectNames.indexOf('player')].applyForce(600);
+        objects[objectNames.indexOf('player')].applyForce(6000);
     }
 
     if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform')]))) {
         objects[objectNames.indexOf('player')].bearing = -90;
-        objects[objectNames.indexOf('player')].applyForce(550);
+        objects[objectNames.indexOf('player')].applyForce(6000);
     }
 
     if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform1')]))) {
         objects[objectNames.indexOf('player')].bearing = -90;
-        objects[objectNames.indexOf('player')].applyForce(550);
+        objects[objectNames.indexOf('player')].applyForce(6000);
     }
 
     if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('grass2')]))) {
         objects[objectNames.indexOf('player')].bearing = -90;
-        objects[objectNames.indexOf('player')].applyForce(550);
+        objects[objectNames.indexOf('player')].applyForce(6000);
     }
 
     if(objects[objectNames.indexOf('player')].collides(objects[objectNames.indexOf('lava')])) {

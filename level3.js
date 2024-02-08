@@ -31,7 +31,7 @@ function createObjects(windowWidth, windowHeight) {
     objects.push(createObject('platform3', (windowWidth/8 + windowWidth/2.4), (windowHeight - windowHeight/2), windowWidth/35, 10, '#E79548', 0, null, 's'))
     objects.push(createObject('platform4', (windowWidth - windowWidth/2.85), (windowHeight - windowHeight/2.2), windowWidth/40, 10, '#21E0F8', 0, null, 's'))
     objects.push(createObject('platform5', (windowWidth - windowWidth/2), (windowHeight - windowHeight/3), windowWidth/25, 10, '#E79548', 0, null, 's'))
-    objects.push(createObject('player', windowWidth/20, (windowHeight - windowHeight/3), 30, 40, 'blue', 0, null, 'd'))
+    objects.push(createObject('player', windowWidth/20, (windowHeight - windowHeight/3), 65, 185, 'blue', 0, 'img/player.png', 'd'))
     objects.push(createObject('endStructure', (windowWidth - windowWidth/10), (windowHeight - (windowHeight - windowHeight/2.82)), windowWidth/1.5, windowHeight*2, 0, 0, 'img/goal2.png', 's'))
     objects.push(createObject('end_wall', (windowWidth - windowWidth/3.5), (windowHeight - windowHeight/2 - (windowHeight/7.2)), 10, (windowHeight/6), 'black', 0, null, 's'))
     return objects;
@@ -59,6 +59,7 @@ function setupScene(windowWidth, windowHeight, objects) {
         }
         if(i == 9) {
             sprite.rotationLock = true;
+            sprite.scale = 0.65;
         }
         if(i == 10) {
             sprite.scale = 0.2
@@ -155,43 +156,43 @@ function draw() {
     // Allow player vertical movement with jump limitation
     if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('grass')]))) {
         objects[objectNames.indexOf('player')].bearing = -90;
-        objects[objectNames.indexOf('player')].applyForce(550);
+        objects[objectNames.indexOf('player')].applyForce(6500);
     }
 
     if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform')]))) {
         objects[objectNames.indexOf('player')].bearing = -90;
-        objects[objectNames.indexOf('player')].applyForce(550);
+        objects[objectNames.indexOf('player')].applyForce(6500);
     }
 
     if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform1')]))) {
         objects[objectNames.indexOf('player')].bearing = -90;
-        objects[objectNames.indexOf('player')].applyForce(550);
+        objects[objectNames.indexOf('player')].applyForce(6500);
     }
 
     if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform2')]))) {
         objects[objectNames.indexOf('player')].bearing = -90;
-        objects[objectNames.indexOf('player')].applyForce(550);
+        objects[objectNames.indexOf('player')].applyForce(6500);
     }
 
     if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform3')]))) {
         objects[objectNames.indexOf('player')].bearing = -90;
-        objects[objectNames.indexOf('player')].applyForce(550);
+        objects[objectNames.indexOf('player')].applyForce(6500);
     }
 
     if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform4')]))) {
         objects[objectNames.indexOf('player')].bearing = -90;
-        objects[objectNames.indexOf('player')].applyForce(550);
+        objects[objectNames.indexOf('player')].applyForce(6500);
     }
 
     if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform5')]))) {
         objects[objectNames.indexOf('player')].bearing = -90;
-        objects[objectNames.indexOf('player')].applyForce(550);
+        objects[objectNames.indexOf('player')].applyForce(6500);
     }
 
 
     if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('grass2')]))) {
         objects[objectNames.indexOf('player')].bearing = -90;
-        objects[objectNames.indexOf('player')].applyForce(550);
+        objects[objectNames.indexOf('player')].applyForce(6500);
     }
 
     if(objects[objectNames.indexOf('player')].collides(objects[objectNames.indexOf('lava')])) {
