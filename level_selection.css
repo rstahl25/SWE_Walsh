@@ -1,6 +1,6 @@
 body {
     background-color: whitesmoke;
-    background-image: url('/img/Picture1.png');
+    background-image: url('/img/lvl_selection.png');
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: 99% 99%;
@@ -48,16 +48,20 @@ a {
         right: 29.75vw;
     }
     &.lvlTwo {
+        bottom: 29.25vh;
+        right: 48vw;
+    }
+    &.lvlThree {
         bottom: 50.5vh;
         right: 45vw;
     }
-    &.founders {
+    &.lvlFour {
         bottom: 53.5vh;
         right: 7vw;
     }
-    &.barrette {
-        bottom: 29.25vh;
-        right: 48vw;
+    &.lvlFive {
+        bottom: 47vh;
+        right: 80.5vw;
     }
 
     &:hover {
