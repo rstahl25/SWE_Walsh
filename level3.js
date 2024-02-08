@@ -159,38 +159,38 @@ function draw() {
         objects[objectNames.indexOf('player')].applyForce(6500);
     }
 
-    if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform')]))) {
+    else if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform')]))) {
         objects[objectNames.indexOf('player')].bearing = -90;
         objects[objectNames.indexOf('player')].applyForce(6500);
     }
 
-    if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform1')]))) {
+    else if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform1')]))) {
         objects[objectNames.indexOf('player')].bearing = -90;
         objects[objectNames.indexOf('player')].applyForce(6500);
     }
 
-    if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform2')]))) {
+    else if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform2')]))) {
         objects[objectNames.indexOf('player')].bearing = -90;
         objects[objectNames.indexOf('player')].applyForce(6500);
     }
 
-    if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform3')]))) {
+    else if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform3')]))) {
         objects[objectNames.indexOf('player')].bearing = -90;
         objects[objectNames.indexOf('player')].applyForce(6500);
     }
 
-    if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform4')]))) {
+    else if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform4')]))) {
         objects[objectNames.indexOf('player')].bearing = -90;
         objects[objectNames.indexOf('player')].applyForce(6500);
     }
 
-    if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform5')]))) {
+    else if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform5')]))) {
         objects[objectNames.indexOf('player')].bearing = -90;
         objects[objectNames.indexOf('player')].applyForce(6500);
     }
 
 
-    if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('grass2')]))) {
+    else if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('grass2')]))) {
         objects[objectNames.indexOf('player')].bearing = -90;
         objects[objectNames.indexOf('player')].applyForce(6500);
     }

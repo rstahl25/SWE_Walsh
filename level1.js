@@ -101,7 +101,6 @@ function setup() {
     r.show();
 }
 
-
 function draw() {
 
     // console.log(objects[0])
@@ -128,35 +127,30 @@ function draw() {
     // Allow player vertical movement with jump limitation
     if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('grass')]))) {
         objects[objectNames.indexOf('player')].bearing = -90;
-        objects[objectNames.indexOf('player')].applyForce(5500);
+        objects[objectNames.indexOf('player')].applyForce(6500);
     }
-
-    if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform')]))) {
+    else if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform')]))) {
         objects[objectNames.indexOf('player')].bearing = -90;
-        objects[objectNames.indexOf('player')].applyForce(5500);
+        objects[objectNames.indexOf('player')].applyForce(6500);
+        
     }
-
-    if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform1')]))) {
+    else if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform1')]))) {
         objects[objectNames.indexOf('player')].bearing = -90;
-        objects[objectNames.indexOf('player')].applyForce(5500);
+        objects[objectNames.indexOf('player')].applyForce(6500);
     }
-
-    if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform2')]))) {
+    else if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform2')]))) {
         objects[objectNames.indexOf('player')].bearing = -90;
-        objects[objectNames.indexOf('player')].applyForce(5500);
+        objects[objectNames.indexOf('player')].applyForce(6500);
     }
-
-    if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('grass2')]))) {
+    else if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('grass2')]))) {
         objects[objectNames.indexOf('player')].bearing = -90;
-        objects[objectNames.indexOf('player')].applyForce(5500);
+        objects[objectNames.indexOf('player')].applyForce(6500);
     }
-
-    if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('goal')]))) {
+    else if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('goal')]))) {
         objects[objectNames.indexOf('player')].bearing = -90;
-        objects[objectNames.indexOf('player')].applyForce(5500);
+        objects[objectNames.indexOf('player')].applyForce(6500);
     }
-
-    if(objects[objectNames.indexOf('player')].collides(objects[objectNames.indexOf('lava')])) {
+    else if(objects[objectNames.indexOf('player')].collides(objects[objectNames.indexOf('lava')])) {
         objects[objectNames.indexOf('player')].x = p1X;
         objects[objectNames.indexOf('player')].y = p1Y;
     }
@@ -223,7 +217,10 @@ function draw() {
     }
 
     clear();
+
+
 }
+
 
 let assert, should, chai;
 
@@ -236,6 +233,7 @@ if(typeof window == 'undefined') {
     test_createObject();
     test_createObjects();
     test_sprite_qualities();
+    cooldown()
 }
 
 function test_setup() {
