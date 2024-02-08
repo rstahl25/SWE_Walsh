@@ -233,7 +233,6 @@ if(typeof window == 'undefined') {
     test_createObject();
     test_createObjects();
     test_sprite_qualities();
-    cooldown()
 }
 
 function test_setup() {
