@@ -22,7 +22,7 @@ function createObject (name, x, y, width, height, color, friction, image, dynami
 function createObjects(windowWidth, windowHeight) {
     objects = []
     objects.push(createObject('player', windowWidth/20, (windowHeight - windowHeight/3), 30, 40, 'maroon', 0, null, 'd'))
-    objects.push(createObject('platform1', windowWidth/1.75, (windowHeight - windowHeight/1.75), 170, 10, '#E79548', 0, null, 'k'))
+    objects.push(createObject('platform1', windowWidth/4.5, (windowHeight - windowHeight/1.75), 170, 10, '#E79548', 0, null, 'k'))
     objects.push(createObject('platform2', windowWidth/2.25, (windowHeight - windowHeight/2.25), 170, 10, '#E79548', 0, null, 'k'))
     objects.push(createObject('platform3', windowWidth/3.25, (windowHeight - windowHeight/3), 170, 10, '#E79548', 0, null, 'k'))
     objects.push(createObject('platform4', windowWidth/1.45, (windowHeight - windowHeight/1.45), 170, 10, '#E79548', 0, null, 'k'))
@@ -42,11 +42,33 @@ function setupScene(windowWidth, windowHeight, objects) {
 
     for(var i = 0; i < objects.length; i++) {
         var object = objects[i];
+
+        function rec_i(j, offsetX) {
+        if(!(j < 5)) {
+            return;
+        }
+        else {
+            offsetX += offsetX;
+            sprite = new Sprite(object.x + offsetX, object.y, object.width, object.height, object.dynamic);
+            sprite.color = object.color;
+            sprite.friction = object.friction;
+            sprite.bounciness = 0;
+            sprite.drag = 0;
+
+            rec_i(j + 1, offsetX);
+            }
+        }
+
+        if(i == 1) {
+            rec_i(0, 200);
+        }
+
         sprite = new Sprite(object.x, object.y, object.width, object.height, object.dynamic);
         sprite.color = object.color;
         sprite.friction = object.friction;
         sprite.bounciness = 0;
         sprite.drag = 0;
+
         if(object.name == 'player') {
             sprite.rotationLock = true;
             sprite.debug = false;
@@ -92,14 +114,6 @@ function setup() {
     r.position(50, 15);
     r.attribute('align', 'center');
     r.show();
-
-    objects[objectNames.indexOf('platform1')].rotateTo = 225;
-    objects[objectNames.indexOf('platform2')].rotateTo = 190;
-    objects[objectNames.indexOf('platform3')].rotateTo = 135;
-    if((objects[objectNames.indexOf('platform3')]).bearing = 90) {
-        objects[objectNames.indexOf('platform3')].rotationSpeed = 0;
-    }
-    objects[objectNames.indexOf('platform4')].rotationSpeed = 260;
 
     (objects[objectNames.indexOf('goal')]).scale *= 0.4;
 }
@@ -149,23 +163,23 @@ function draw() {
         objects[objectNames.indexOf('player')].applyForce(650);
     }
     if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform1')]))) {
-        objects[objectNames.indexOf('player')].bearing = ((objects[objectNames.indexOf('platform1')]).bearing - 90);
-        objects[objectNames.indexOf('player')].applyForce(1250);
+        objects[objectNames.indexOf('player')].bearing = -90;
+        objects[objectNames.indexOf('player')].applyForce(650);
         objects[objectNames.indexOf('player')].rotationLock = false;
     }
     if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform2')]))) {
-        objects[objectNames.indexOf('player')].bearing = ((objects[objectNames.indexOf('platform2')]).bearing - 90);
-        objects[objectNames.indexOf('player')].applyForce(1250);
+        objects[objectNames.indexOf('player')].bearing = -90;
+        objects[objectNames.indexOf('player')].applyForce(650);
         objects[objectNames.indexOf('player')].rotationLock = false;
     }
     if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform3')]))) {
-        objects[objectNames.indexOf('player')].bearing = ((objects[objectNames.indexOf('platform3')]).bearing - 180);
+        objects[objectNames.indexOf('player')].bearing = -90;
         objects[objectNames.indexOf('player')].applyForce(650);
         objects[objectNames.indexOf('player')].rotationLock = false;
     }
     if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform4')]))) {
-        objects[objectNames.indexOf('player')].bearing = ((objects[objectNames.indexOf('platform4')]).bearing - 90);
-        objects[objectNames.indexOf('player')].applyForce(1250);
+        objects[objectNames.indexOf('player')].bearing = (-90);
+        objects[objectNames.indexOf('player')].applyForce(650);
         objects[objectNames.indexOf('player')].rotationLock = false;
     }
     if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('goal')]))) {
