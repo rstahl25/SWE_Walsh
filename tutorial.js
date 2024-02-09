@@ -141,10 +141,7 @@ function draw() {
         objects[objectNames.indexOf('player')].bearing = -90;
         objects[objectNames.indexOf('player')].applyForce(6500);
     }
-    else if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('goal')]))) {
-        objects[objectNames.indexOf('player')].bearing = -90;
-        objects[objectNames.indexOf('player')].applyForce(6500);
-    }
+
 
     // Allow user to pause and resume game using SPACE.
     if (kb.presses('Space')) {
