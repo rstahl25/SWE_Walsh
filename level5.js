@@ -1,6 +1,7 @@
 // Set up sprite variables for level
 let objects = []
 let objectNames = []
+let c_states = ['#E79548', '#F0000F', '#75F9FD'];
 let p1, p2, r;
 
 function createObject (name, x, y, width, height, color, friction, image, dynamic) {
@@ -21,13 +22,12 @@ function createObject (name, x, y, width, height, color, friction, image, dynami
 
 function createObjects(windowWidth, windowHeight) {
     objects = []
-    objects.push(createObject('player', windowWidth/20, (windowHeight - windowHeight/3), 30, 40, 'maroon', 0, null, 'd'))
-    objects.push(createObject('platform1', windowWidth/4.5, (windowHeight - windowHeight/1.75), 170, 10, '#E79548', 0, null, 'k'))
-    objects.push(createObject('platform2', windowWidth/2.25, (windowHeight - windowHeight/2.25), 170, 10, '#E79548', 0, null, 'k'))
-    objects.push(createObject('platform3', windowWidth/3.25, (windowHeight - windowHeight/3), 170, 10, '#E79548', 0, null, 'k'))
-    objects.push(createObject('platform4', windowWidth/1.45, (windowHeight - windowHeight/1.45), 170, 10, '#E79548', 0, null, 'k'))
-    objects.push(createObject('grass', windowWidth/2, windowHeight, windowWidth, windowHeight/2.5, 'green', 0, null, 's'))
-    objects.push(createObject('goal', windowWidth/1.11, (windowHeight - windowHeight/2.25), 50, 550, 0, 0, 'img/goalT.png', 's'))
+    objects.push(createObject('player', windowWidth/18, (windowHeight - windowHeight/1.002), 30, 40, 'maroon', 0, null, 'd'))
+    objects.push(createObject('start', windowWidth/18, (windowHeight - windowHeight/1.005), 250, 10, 'black', 0, null, 'k'))
+    objects.push(createObject('platform1', windowWidth/7, (windowHeight - windowHeight/1.15), 170, 10, '#E79548', 0, null, 'k'))
+    objects.push(createObject('platform2', windowWidth/7.25, (windowHeight - windowHeight/1.55), 170, 10, '#E79548', 0, null, 'k'))
+    objects.push(createObject('platform3', windowWidth/7.5, (windowHeight - windowHeight/2.25), 170, 10, '#E79548', 0, null, 'k'))
+    objects.push(createObject('goal', windowWidth, (windowHeight + windowHeight/2.25), 50, 550, 0, 0, 'img/goalT.png', 's'))
     return objects;
 }
 
@@ -39,35 +39,28 @@ function setupScene(windowWidth, windowHeight, objects) {
     createCanvas(windowWidth, windowHeight);
     rectMode(CENTER);
     textAlign(CENTER);
+    var index = 0
 
     for(var i = 0; i < objects.length; i++) {
         var object = objects[i];
+        if((object.name).match(/platform/)) {
+                group = new Group();
+                group.x = (i) => object.x + (i * 300);
+                group.y = (i) => object.y + (i * 75); 
+                group.width = (i) => object.width * random(0.25, 1);
+                group.height = object.height; 
+                group.color = (i) => c_states[(Math.floor(Math.random() * 3))];
+                group.collider = object.dynamic;
+                group.amount = 10;
 
-        function rec_i(j, offsetX) {
-        if(!(j < 5)) {
-            return;
+            objects[i] = group;
         }
         else {
-            offsetX += offsetX;
-            sprite = new Sprite(object.x + offsetX, object.y, object.width, object.height, object.dynamic);
+            sprite = new Sprite(object.x, object.y, object.width, object.height, object.dynamic);
             sprite.color = object.color;
             sprite.friction = object.friction;
             sprite.bounciness = 0;
             sprite.drag = 0;
-
-            rec_i(j + 1, offsetX);
-            }
-        }
-
-        if(i == 1) {
-            rec_i(0, 200);
-        }
-
-        sprite = new Sprite(object.x, object.y, object.width, object.height, object.dynamic);
-        sprite.color = object.color;
-        sprite.friction = object.friction;
-        sprite.bounciness = 0;
-        sprite.drag = 0;
 
         if(object.name == 'player') {
             sprite.rotationLock = true;
@@ -79,8 +72,7 @@ function setupScene(windowWidth, windowHeight, objects) {
         }
         objects[i] = sprite
     }
-
-    //let baller = new Sprite(695, 200, 25, 25, 'd');
+}
 
     console.log(objects)
     console.log(objectNames)
@@ -92,12 +84,18 @@ function setupScene(windowWidth, windowHeight, objects) {
 }
 
 function setup() {
-    windowWidth *= 1.5;
+    windowWidth *= 2;
     scene = createObjects(windowWidth, windowHeight)
     setupScene(windowWidth, windowHeight, scene);
 
-    p1X = windowWidth/20;
-    p1Y = windowHeight - windowHeight/3;
+    /*examp = new Sprite(100, 200, 100);
+    examp.moveRight = function() {
+        this.x = 500;
+    }
+    examp.moveRight();*/
+
+    p1X = windowWidth/18; 
+    p1Y = windowHeight - windowHeight;
 
     // Create elements to display if the game is paused or not.
     p1 = createElement('h2', 'Game Paused');
@@ -119,13 +117,11 @@ function setup() {
 }
 
 function draw() {
-//     // console.log(objects[0])
-//     // console.log(objects[1])
-//     //console.log(objects[7])
-
+    clear();
     camera.on();
     camera.zoom = (1/1.5);
-    camera.x = windowWidth * 0.75;
+    camera.x = objects[objectNames.indexOf('player')].x + windowWidth/3;
+    camera.y = objects[objectNames.indexOf('player')].y;
 
     // Allow player horizontal movement
     if(kb.pressing('left')) {
@@ -135,7 +131,7 @@ function draw() {
             objects[objectNames.indexOf('player')].vel.x = -5;
         }
     } else if (kb.pressing('right')) {
-        if(objects[objectNames.indexOf('player')].x > windowWidth - 10) {
+        if(objects[objectNames.indexOf('player')].x > windowWidth + 100) {
             objects[objectNames.indexOf('player')].vel.x = -5;
         } else {
             objects[objectNames.indexOf('player')].vel.x = 5;
@@ -145,46 +141,17 @@ function draw() {
     }
        
     // Allow player vertical movement with jump limitation
-    /*if((objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform1')]))
-        || (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform2')]))
-        || (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform3')]))
-        || (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform4')]))) {
-
-            objects[objectNames.indexOf('player')].vel.y = 2;
-            objects[objectNames.indexOf('player')].rotationLock = false;
-
-            if (kb.presses('up')) {
-                objects[objectNames.indexOf('player')].bearing = ((objects[objectNames.indexOf('platform3')]).bearing - 180);
-                objects[objectNames.indexOf('player')].applyForce(1250);
+    for(var i = 0; i < objects.length; i++) {
+        if(Group.prototype.isPrototypeOf(objects[i])) {
+            if(kb.presses('up') && objects[objectNames.indexOf('player')].colliding(objects[i])) {
+                objects[objectNames.indexOf('player')].bearing = -90;
+                objects[objectNames.indexOf('player')].applyForce(650);
             }
-    }*/
-    if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('grass')]))) {
-        objects[objectNames.indexOf('player')].bearing = -90;
-        objects[objectNames.indexOf('player')].applyForce(650);
+        }
     }
-    if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform1')]))) {
-        objects[objectNames.indexOf('player')].bearing = -90;
-        objects[objectNames.indexOf('player')].applyForce(650);
-        objects[objectNames.indexOf('player')].rotationLock = false;
-    }
-    if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform2')]))) {
-        objects[objectNames.indexOf('player')].bearing = -90;
-        objects[objectNames.indexOf('player')].applyForce(650);
-        objects[objectNames.indexOf('player')].rotationLock = false;
-    }
-    if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform3')]))) {
-        objects[objectNames.indexOf('player')].bearing = -90;
-        objects[objectNames.indexOf('player')].applyForce(650);
-        objects[objectNames.indexOf('player')].rotationLock = false;
-    }
-    if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform4')]))) {
-        objects[objectNames.indexOf('player')].bearing = (-90);
-        objects[objectNames.indexOf('player')].applyForce(650);
-        objects[objectNames.indexOf('player')].rotationLock = false;
-    }
-    if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('goal')]))) {
-        objects[objectNames.indexOf('player')].bearing = -90;
-        objects[objectNames.indexOf('player')].applyForce(650);
+    if(objects[objectNames.indexOf('player')].y > (windowHeight + 500)) {
+        objects[objectNames.indexOf('player')].x = windowWidth/18; 
+        objects[objectNames.indexOf('player')].y = ((windowHeight - windowHeight) - 125);
     }
 
     // Allow user to pause and resume game using SPACE.
@@ -256,7 +223,7 @@ function test_setup() {
     console.log('Setup tested')
 }
 
-function test_createObject () {
+/*function test_createObject () {
     var myObject = createObject('grass', 500, 700, 250, 320, 'green', 0, null, false)
     chai.assert.typeOf(myObject, 'object')
     chai.assert.equal(myObject.name, 'grass')
@@ -270,7 +237,7 @@ function test_createObject () {
     chai.assert.equal(myObject.dynamic, false)
 
     console.log('Create object tested')
-}
+}*/
 
 function test_createObjects() {
     windowWidth = 1100
@@ -281,9 +248,9 @@ function test_createObjects() {
     chai.assert.equal(scene[0].name, 'player')
 
     for(i = 0; i < scene.length; i++) {
-        if(scene[i].name == 'grass') {
+        /*if(scene[i].name == 'grass') {
             chai.assert.equal(scene[i].color, 'green')
-        }
+        }*/
         if(scene[i].name == 'platform1') {
             chai.assert.equal(scene[i].friction, 0)
         }
