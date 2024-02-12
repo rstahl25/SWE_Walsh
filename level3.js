@@ -254,6 +254,18 @@ function draw() {
         a2.style('border: 3px solid black')
         a2.style('border-radius: 0.5rem')
         a2.style('padding: 5px')
+
+        var timeleft = 5;
+        var downloadTimer = setInterval(function(){
+          if(timeleft <= 0){
+            clearInterval(downloadTimer);
+            document.getElementById("countdown").innerHTML = "Finished";
+            window.location.href = '/maintenance.html';
+          } else {
+            document.getElementById("countdown").innerHTML = "Next level in " + timeleft + " seconds";
+          }
+          timeleft -= 1;
+        }, 1000);
     } 
 
     
