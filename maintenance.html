@@ -21,8 +21,50 @@
             h2 {
                 margin-top: 75vh;
             }
+            .talkbubble {
+                display: flex;
+                justify-content: center;
+                font-size: 2vh;
+                color: black;
+                align-items: center;
+                text-align: center;
+                top: 24vh;
+                right: 35vw;
+                width: 8vw;
+                height: 10vh;
+                background: white;
+                position: absolute;
+                -moz-border-radius: 10px;
+                -webkit-border-radius: 10px;
+                border-radius: 10px;
+                button {
+                    background-color: white;
+                    border: none;
+                    color: black;
+                    cursor: pointer;
+                    padding: 2.1vh 1vw;
+                    border-radius: 10px;
+                    font-size: 1.8vh;
+                }
+            }
+            .talkbubble:before {
+                content: "";
+                position: absolute;
+                right: 100%;
+                top: 3vh;
+                width: 0;
+                height: 0;
+                border-top: 13px solid transparent;
+                border-right: 26px solid white;
+                border-bottom: 13px solid transparent;
+            }
         </style>
     </head>
     <h1>We apologize but this level is under maintenance</h1>
     <h2>SWORDS UP!!!</h2>
+    <div class="talkbubble">
+        <a href="/level_selection.html">
+            <button>Click Here to go to Level Selection!!</button>
+        </a>
+    </div>
 </html>
