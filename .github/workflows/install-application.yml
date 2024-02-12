@@ -29,6 +29,7 @@ jobs:
           scp title.css root@www.walsh-jumper.com:site
           scp level_selection.html root@www.walsh-jumper.com:site
           scp level_selection.css root@www.walsh-jumper.com:site
+          scp timeout.css root@www.walsh-jumper.com:site
           scp maintenance.html root@www.walsh-jumper.com:site
           scp tutorial.html root@www.walsh-jumper.com:site
           scp tutorial.js root@www.walsh-jumper.com:site
