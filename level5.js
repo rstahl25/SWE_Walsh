@@ -2,6 +2,7 @@
 let objects = []
 let objectNames = []
 let c_states = ['#E79548', '#F0000F', '#75F9FD'];
+let current_colors = [];
 let p1, p2, r;
 
 function createObject (name, x, y, width, height, color, friction, image, dynamic) {
@@ -22,7 +23,7 @@ function createObject (name, x, y, width, height, color, friction, image, dynami
 
 function createObjects(windowWidth, windowHeight) {
     objects = []
-    objects.push(createObject('player', windowWidth/18, (windowHeight - windowHeight/1.002), 30, 40, 'maroon', 0, null, 'd'))
+    objects.push(createObject('player', windowWidth/15, (windowHeight - windowHeight/1.002), 30, 40, 'maroon', 0, null, 'd'))
     objects.push(createObject('start', windowWidth/18, (windowHeight - windowHeight/1.005), 250, 10, 'black', 0, null, 'k'))
     objects.push(createObject('platform1', windowWidth/7, (windowHeight - windowHeight/1.15), 170, 10, '#E79548', 0, null, 'k'))
     objects.push(createObject('platform2', windowWidth/7.25, (windowHeight - windowHeight/1.55), 170, 10, '#E79548', 0, null, 'k'))
@@ -39,19 +40,19 @@ function setupScene(windowWidth, windowHeight, objects) {
     createCanvas(windowWidth, windowHeight);
     rectMode(CENTER);
     textAlign(CENTER);
-    var index = 0
 
     for(var i = 0; i < objects.length; i++) {
         var object = objects[i];
+        var index = 0;
         if((object.name).match(/platform/)) {
                 group = new Group();
                 group.x = (i) => object.x + (i * 300);
                 group.y = (i) => object.y + (i * 75); 
                 group.width = (i) => object.width * random(0.25, 1);
                 group.height = object.height; 
-                group.color = (i) => c_states[(Math.floor(Math.random() * 3))];
+                group.color = (i) => c_states[Math.floor(Math.random() * 3)];
                 group.collider = object.dynamic;
-                group.amount = 10;
+                group.amount = 9;
 
             objects[i] = group;
         }
@@ -73,11 +74,6 @@ function setupScene(windowWidth, windowHeight, objects) {
         objects[i] = sprite
     }
 }
-
-    console.log(objects)
-    console.log(objectNames)
-    // console.log(objects[objectNames.indexOf('player')])
-
     // Establish world gravity
     world.gravity.y = 10;
     
@@ -88,11 +84,52 @@ function setup() {
     scene = createObjects(windowWidth, windowHeight)
     setupScene(windowWidth, windowHeight, scene);
 
-    /*examp = new Sprite(100, 200, 100);
-    examp.moveRight = function() {
-        this.x = 500;
-    }
-    examp.moveRight();*/
+    /*var platform1 = objects[objectNames.indexOf('platform1')];
+    var platform2 = objects[objectNames.indexOf('platform2')];
+    var platform3 = objects[objectNames.indexOf('platform3')];*/
+
+    var count1 = Math.floor(Math.random() * 3);
+    var count2 = ((count1 + 1) % 3);
+    var count3 = ((count1 - 1) % 3);
+
+    /*setInterval(c_change = function() {
+        count1++;
+        count2++;
+        count3++;
+            for(var i = 0; i < 9; i++) {
+                (objects[objectNames.indexOf('platform1')])[i].color = c_states[((count1 + i) % 3)]; 
+                (objects[objectNames.indexOf('platform2')])[i].color = c_states[((count2 + i) % 3)];
+                (objects[objectNames.indexOf('platform3')])[i].color = c_states[((count3 + i) % 3)];
+                return c_states[((count3 + i) % 3)];
+            }
+      }, 1000);*/
+
+      //current_colors.push(c_change());
+
+      async function change_c() {
+        count1++;
+        count2++;
+        count3++;
+        for(var i = 0; i < 9; i++) {
+            (objects[objectNames.indexOf('platform1')])[i].color = c_states[((count1 + i) % 3)]; 
+            (objects[objectNames.indexOf('platform2')])[i].color = c_states[((count2 + i) % 3)];
+            (objects[objectNames.indexOf('platform3')])[i].color = c_states[((count3 + i) % 3)];
+
+            current_colors.push(c_states[((count1 + i) % 3)]);
+            current_colors.push(c_states[((count2 + i) % 3)]);
+            current_colors.push(c_states[((count3 + i) % 3)]);
+            //current_colors.push((objects[objectNames.indexOf('platform3')])[i].color);
+        }
+        await delay(2000);
+        change_c();
+      }
+
+      change_c();
+
+      examp2 = new Sprite(500, 15, 100, 's');
+      if((objects[objectNames.indexOf('platform1')])[0].color) {
+        examp2.color = (objects[objectNames.indexOf('platform1')])[0].color;
+      }
 
     p1X = windowWidth/18; 
     p1Y = windowHeight - windowHeight;
@@ -114,6 +151,92 @@ function setup() {
     r.show();
 
     (objects[objectNames.indexOf('goal')]).scale *= 0.4;
+
+    //objects[3][0].color = 'green';
+
+    var pl1 = 0;
+    var pl2 = 3;
+
+    async function update_bounce_brown() {
+        //for(var i = 2;;) {
+            for(var j = 0; j < ((objects[objectNames.indexOf('platform1')]).length); j = j + pl2) {
+                objects[2][j].bounciness = 0;
+                
+                await delay(4000);
+
+                objects[2][j].bounciness = 1;
+
+                await delay(2000);
+
+                update_bounce_brown();
+            }
+            for(var j = 2; j < ((objects[objectNames.indexOf('platform1')]).length); j = j + pl2) {
+                objects[3][j].bounciness = 0;
+                
+                await delay(4000);
+
+                objects[3][j].bounciness = 1;
+
+                await delay(2000);
+
+                update_bounce_brown();
+            }
+            for(var j = 1; j < ((objects[objectNames.indexOf('platform1')]).length); j = j + pl2) {
+                objects[4][j].bounciness = 0;
+                
+                await delay(4000);
+
+                objects[4][j].bounciness = 1;
+
+                await delay(2000);
+
+                update_bounce_brown();
+            }
+        //}
+    }
+    async function update_bounce_blue() {
+        //for(var i = 2;;) {
+            for(var j = 0; j < ((objects[objectNames.indexOf('platform1')]).length); j = j + pl2) {
+                objects[2][j].bounciness = 1;
+                
+                await delay(2000);
+
+                objects[2][j].bounciness = 0;
+
+                await delay(4000);
+
+                update_bounce_blue();
+            }
+            for(var j = 2; j < ((objects[objectNames.indexOf('platform1')]).length); j = j + pl2) {
+                objects[3][j].bounciness = 1;
+                
+                await delay(2000);
+
+                objects[3][j].bounciness = 0;
+
+                await delay(4000);
+
+                update_bounce_blue();
+            }
+            for(var j = 1; j < ((objects[objectNames.indexOf('platform1')]).length); j = j + pl2) {
+                objects[4][j].bounciness = 1;
+                
+                await delay(2000);
+
+                objects[4][j].bounciness = 0;
+
+                await delay(4000);
+
+                update_bounce_blue();
+            }
+        //}
+    }
+        if(current_colors[0] == '#E79548') {
+            update_bounce_brown();
+        }
+        else if(current_colors[0] == '#F0000F') {
+            update_bounce_blue();
+        }
 }
 
 function draw() {
@@ -122,6 +245,10 @@ function draw() {
     camera.zoom = (1/1.5);
     camera.x = objects[objectNames.indexOf('player')].x + windowWidth/3;
     camera.y = objects[objectNames.indexOf('player')].y;
+
+    /*var platform1 = objects[objectNames.indexOf('platform1')];
+    var platform2 = objects[objectNames.indexOf('platform2')];
+    var platform3 = objects[objectNames.indexOf('platform3')];*/
 
     // Allow player horizontal movement
     if(kb.pressing('left')) {
@@ -141,14 +268,20 @@ function draw() {
     }
        
     // Allow player vertical movement with jump limitation
+
     for(var i = 0; i < objects.length; i++) {
-        if(Group.prototype.isPrototypeOf(objects[i])) {
-            if(kb.presses('up') && objects[objectNames.indexOf('player')].colliding(objects[i])) {
+        if(kb.presses('up') && Group.prototype.isPrototypeOf(objects[i])) {
+            objects[objectNames.indexOf('player')].bearing = -90;
+            objects[objectNames.indexOf('player')].applyForce(650);
+            break;
+        }
+    }
+    /*for(var i = 0; i < platform1.length; i++) {
+        if(kb.presses('up') && objects[objectNames.indexOf('player')].colliding((objects[objectNames.indexOf('platform1')])[i])) {
                 objects[objectNames.indexOf('player')].bearing = -90;
                 objects[objectNames.indexOf('player')].applyForce(650);
             }
-        }
-    }
+        }*/
     if(objects[objectNames.indexOf('player')].y > (windowHeight + 500)) {
         objects[objectNames.indexOf('player')].x = windowWidth/18; 
         objects[objectNames.indexOf('player')].y = ((windowHeight - windowHeight) - 125);
