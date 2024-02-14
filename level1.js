@@ -31,6 +31,8 @@ function createObjects(windowWidth, windowHeight) {
     objects.push(createObject('goal', (windowWidth - windowWidth/10), (windowHeight - windowHeight/2.25), windowWidth/5, 10, 'black', 0, null, 's'))
     objects.push(createObject('player', windowWidth/20, (windowHeight - windowHeight/3), 65, 185, 'blue', 0, 'img/player.png', 'd'))
     objects.push(createObject('endStructure', (windowWidth - windowWidth/10), (windowHeight - windowHeight/1.65), windowWidth/1.5, windowHeight*2, 0, 0, 'img/goal1.png', 's'))
+    objects.push(createObject('rotator1', windowWidth/4, (windowHeight - windowHeight/1.6), windowWidth/9, 10, 'red', 0, null, 'k'))
+    objects.push(createObject('rotator2', (windowWidth - windowWidth/2.5), (windowHeight - windowHeight/1.6), windowWidth/10, 10, 'red', 0, null, 'k'))
     objects.push(createObject('restart', windowWidth/1.05, windowHeight/12, 160, 160, 0, 0, 'img/reload.png', 's'));
     return objects;
 }
@@ -63,6 +65,10 @@ function setupScene(windowWidth, windowHeight, objects) {
         }
         if(new_object.name == 'restart') {
             sprite.scale = 0.2;
+        }
+        if(new_object.name == "rotator1" || new_object.name == "rotator2") {
+            sprite.rotationSpeed = 2;
+            sprite.offset.x = 40;
         }
         objects[i] = sprite
     }
@@ -151,6 +157,14 @@ function draw() {
         objects[objectNames.indexOf('player')].applyForce(6500);
     }
     else if(objects[objectNames.indexOf('player')].collides(objects[objectNames.indexOf('lava')])) {
+        objects[objectNames.indexOf('player')].x = p1X;
+        objects[objectNames.indexOf('player')].y = p1Y;
+    }
+    else if(objects[objectNames.indexOf('player')].collides(objects[objectNames.indexOf('rotator1')])) {
+        objects[objectNames.indexOf('player')].x = p1X;
+        objects[objectNames.indexOf('player')].y = p1Y;
+    }
+    else if(objects[objectNames.indexOf('player')].collides(objects[objectNames.indexOf('rotator2')])) {
         objects[objectNames.indexOf('player')].x = p1X;
         objects[objectNames.indexOf('player')].y = p1Y;
     }
