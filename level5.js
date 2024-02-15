@@ -28,7 +28,8 @@ function createObjects(windowWidth, windowHeight) {
     objects.push(createObject('platform1', windowWidth/7, (windowHeight - windowHeight/1.15), 170, 10, '#E79548', 0, null, 'k'))
     objects.push(createObject('platform2', windowWidth/7.25, (windowHeight - windowHeight/1.55), 170, 10, '#E79548', 0, null, 'k'))
     objects.push(createObject('platform3', windowWidth/7.5, (windowHeight - windowHeight/2.25), 170, 10, '#E79548', 0, null, 'k'))
-    objects.push(createObject('goal', windowWidth, (windowHeight + windowHeight/2.25), 50, 550, 0, 0, 'img/goalT.png', 's'))
+    objects.push(createObject('goal', windowWidth + 100, (windowHeight + windowHeight/2.25), 50, 550, 0, 0, 'img/goal5.png', 's'))
+    objects.push(createObject('end', windowWidth + 100, (windowHeight + windowHeight/1.68), 450, 10, 'black', 0, null, 's'))
     return objects;
 }
 
@@ -84,55 +85,75 @@ function setup() {
     scene = createObjects(windowWidth, windowHeight)
     setupScene(windowWidth, windowHeight, scene);
 
-    /*var platform1 = objects[objectNames.indexOf('platform1')];
-    var platform2 = objects[objectNames.indexOf('platform2')];
-    var platform3 = objects[objectNames.indexOf('platform3')];*/
+    p1X = windowWidth/18; 
+    p1Y = windowHeight - windowHeight;
 
     var count1 = Math.floor(Math.random() * 3);
     var count2 = ((count1 + 1) % 3);
     var count3 = ((count1 - 1) % 3);
-
-    /*setInterval(c_change = function() {
-        count1++;
-        count2++;
-        count3++;
-            for(var i = 0; i < 9; i++) {
-                (objects[objectNames.indexOf('platform1')])[i].color = c_states[((count1 + i) % 3)]; 
-                (objects[objectNames.indexOf('platform2')])[i].color = c_states[((count2 + i) % 3)];
-                (objects[objectNames.indexOf('platform3')])[i].color = c_states[((count3 + i) % 3)];
-                return c_states[((count3 + i) % 3)];
-            }
-      }, 1000);*/
-
-      //current_colors.push(c_change());
 
       async function change_c() {
         count1++;
         count2++;
         count3++;
         for(var i = 0; i < 9; i++) {
-            (objects[objectNames.indexOf('platform1')])[i].color = c_states[((count1 + i) % 3)]; 
+            (objects[objectNames.indexOf('platform1')])[i].color = c_states[((count1 + i) % 3)];
+            switch(((count1 + i) % 3)) {
+                case 0: 
+                    (objects[objectNames.indexOf('platform1')])[i].friction = 0;
+                    (objects[objectNames.indexOf('platform1')])[i].bounciness = 0;
+                    break;
+                case 1: 
+                    (objects[objectNames.indexOf('platform1')])[i].bounciness = 0;
+                    (objects[objectNames.indexOf('platform1')])[i].friction = 1;
+                    break;
+                case 2: 
+                    (objects[objectNames.indexOf('platform1')])[i].friction = 0;
+                    (objects[objectNames.indexOf('platform1')])[i].bounciness = 1.5;
+                    break;
+            }
+
             (objects[objectNames.indexOf('platform2')])[i].color = c_states[((count2 + i) % 3)];
+            switch(((count2 + i) % 3)) {
+                case 0: 
+                    (objects[objectNames.indexOf('platform2')])[i].friction = 0;
+                    (objects[objectNames.indexOf('platform2')])[i].bounciness = 0;
+                    break;
+                case 1: 
+                    (objects[objectNames.indexOf('platform2')])[i].bounciness = 0;
+                    (objects[objectNames.indexOf('platform2')])[i].friction = 1;
+                    break;
+                case 2: 
+                    (objects[objectNames.indexOf('platform2')])[i].friction = 0;
+                    (objects[objectNames.indexOf('platform2')])[i].bounciness = 1.5;
+                    break;
+            }
+
             (objects[objectNames.indexOf('platform3')])[i].color = c_states[((count3 + i) % 3)];
+            switch(((count2 + i) % 3)) {
+                case 0: 
+                    (objects[objectNames.indexOf('platform2')])[i].friction = 0;
+                    (objects[objectNames.indexOf('platform2')])[i].bounciness = 0;
+                    break;
+                case 1: 
+                    (objects[objectNames.indexOf('platform2')])[i].bounciness = 0;
+                    (objects[objectNames.indexOf('platform2')])[i].friction = 1;
+                    break;
+                case 2: 
+                    (objects[objectNames.indexOf('platform2')])[i].friction = 0;
+                    (objects[objectNames.indexOf('platform2')])[i].bounciness = 1.5;
+                    break;
+            }
 
             current_colors.push(c_states[((count1 + i) % 3)]);
             current_colors.push(c_states[((count2 + i) % 3)]);
             current_colors.push(c_states[((count3 + i) % 3)]);
-            //current_colors.push((objects[objectNames.indexOf('platform3')])[i].color);
         }
         await delay(2000);
         change_c();
       }
 
       change_c();
-
-      examp2 = new Sprite(500, 15, 100, 's');
-      if((objects[objectNames.indexOf('platform1')])[0].color) {
-        examp2.color = (objects[objectNames.indexOf('platform1')])[0].color;
-      }
-
-    p1X = windowWidth/18; 
-    p1Y = windowHeight - windowHeight;
 
     // Create elements to display if the game is paused or not.
     p1 = createElement('h2', 'Game Paused');
@@ -150,93 +171,9 @@ function setup() {
     r.attribute('align', 'center');
     r.show();
 
-    (objects[objectNames.indexOf('goal')]).scale *= 0.4;
-
-    //objects[3][0].color = 'green';
-
-    var pl1 = 0;
-    var pl2 = 3;
-
-    async function update_bounce_brown() {
-        //for(var i = 2;;) {
-            for(var j = 0; j < ((objects[objectNames.indexOf('platform1')]).length); j = j + pl2) {
-                objects[2][j].bounciness = 0;
-                
-                await delay(4000);
-
-                objects[2][j].bounciness = 1;
-
-                await delay(2000);
-
-                update_bounce_brown();
-            }
-            for(var j = 2; j < ((objects[objectNames.indexOf('platform1')]).length); j = j + pl2) {
-                objects[3][j].bounciness = 0;
-                
-                await delay(4000);
-
-                objects[3][j].bounciness = 1;
-
-                await delay(2000);
-
-                update_bounce_brown();
-            }
-            for(var j = 1; j < ((objects[objectNames.indexOf('platform1')]).length); j = j + pl2) {
-                objects[4][j].bounciness = 0;
-                
-                await delay(4000);
-
-                objects[4][j].bounciness = 1;
-
-                await delay(2000);
-
-                update_bounce_brown();
-            }
-        //}
-    }
-    async function update_bounce_blue() {
-        //for(var i = 2;;) {
-            for(var j = 0; j < ((objects[objectNames.indexOf('platform1')]).length); j = j + pl2) {
-                objects[2][j].bounciness = 1;
-                
-                await delay(2000);
-
-                objects[2][j].bounciness = 0;
-
-                await delay(4000);
-
-                update_bounce_blue();
-            }
-            for(var j = 2; j < ((objects[objectNames.indexOf('platform1')]).length); j = j + pl2) {
-                objects[3][j].bounciness = 1;
-                
-                await delay(2000);
-
-                objects[3][j].bounciness = 0;
-
-                await delay(4000);
-
-                update_bounce_blue();
-            }
-            for(var j = 1; j < ((objects[objectNames.indexOf('platform1')]).length); j = j + pl2) {
-                objects[4][j].bounciness = 1;
-                
-                await delay(2000);
-
-                objects[4][j].bounciness = 0;
-
-                await delay(4000);
-
-                update_bounce_blue();
-            }
-        //}
-    }
-        if(current_colors[0] == '#E79548') {
-            update_bounce_brown();
-        }
-        else if(current_colors[0] == '#F0000F') {
-            update_bounce_blue();
-        }
+    (objects[objectNames.indexOf('goal')]).scale *= 0.25;
+    (objects[objectNames.indexOf('goal')]).ellipse = (400, 500, 200, 200);
+    (objects[objectNames.indexOf('goal')]).debug = true;
 }
 
 function draw() {
@@ -245,11 +182,7 @@ function draw() {
     camera.zoom = (1/1.5);
     camera.x = objects[objectNames.indexOf('player')].x + windowWidth/3;
     camera.y = objects[objectNames.indexOf('player')].y;
-
-    /*var platform1 = objects[objectNames.indexOf('platform1')];
-    var platform2 = objects[objectNames.indexOf('platform2')];
-    var platform3 = objects[objectNames.indexOf('platform3')];*/
-
+      
     // Allow player horizontal movement
     if(kb.pressing('left')) {
         if(objects[objectNames.indexOf('player')].x < 10) {
@@ -268,20 +201,26 @@ function draw() {
     }
        
     // Allow player vertical movement with jump limitation
-
-    for(var i = 0; i < objects.length; i++) {
-        if(kb.presses('up') && Group.prototype.isPrototypeOf(objects[i])) {
-            objects[objectNames.indexOf('player')].bearing = -90;
-            objects[objectNames.indexOf('player')].applyForce(650);
-            break;
-        }
+    if(kb.presses('up')) {
+        objects[objectNames.indexOf('player')].bearing = -90;
+        objects[objectNames.indexOf('player')].applyForce(650);
     }
-    /*for(var i = 0; i < platform1.length; i++) {
-        if(kb.presses('up') && objects[objectNames.indexOf('player')].colliding((objects[objectNames.indexOf('platform1')])[i])) {
+    for(var i = 0; i < (objects[objectNames.indexOf('platform1')]).length; i++) {
+        for(var j = 2; j < 5; j++) {
+            if(kb.presses('up') && objects[objectNames.indexOf('player')].colliding((objects[j])[i])) {
                 objects[objectNames.indexOf('player')].bearing = -90;
                 objects[objectNames.indexOf('player')].applyForce(650);
             }
-        }*/
+        }
+    }
+    for(var i = 0; i < (objects[objectNames.indexOf('platform1')]).length; i++) {
+        for(var j = 2; j < 5; j++) {
+            if(objects[objectNames.indexOf('player')].colliding((objects[j])[i]) && (objects[j][i]).friction > 0) {
+                objects[objectNames.indexOf('player')].x = p1X;
+                objects[objectNames.indexOf('player')].y = p1Y;
+            }
+        }
+    }
     if(objects[objectNames.indexOf('player')].y > (windowHeight + 500)) {
         objects[objectNames.indexOf('player')].x = windowWidth/18; 
         objects[objectNames.indexOf('player')].y = ((windowHeight - windowHeight) - 125);
@@ -317,9 +256,9 @@ function draw() {
     if(objects[objectNames.indexOf('player')].collides(objects[objectNames.indexOf('goal')])) {
         objects[objectNames.indexOf('player')].collider = 's';
         let h2 = createElement('h2', 'Victory!');
-        h2.position((windowWidth - windowWidth/8), windowHeight/9);
+        h2.position(800, 175);
         let a = createA('/level_selection.html', 'Level Selection');
-        a.position((windowWidth - windowWidth/6), windowHeight/9 + 50);
+        a.position(785, 250);
         a.style('color', 'maroon');
         a.style('text-decoration', 'none')
         a.style('background-color', 'white')
@@ -327,15 +266,15 @@ function draw() {
         a.style('border-radius: 0.5rem')
         a.style('padding: 5px')
 
-        let a2 = createA('/level1.html', 'Level 1');
-        a2.position((windowWidth - windowWidth/12), windowHeight/9 + 50)
+        /*let a2 = createA('/level1.html', 'Level 1');
+        a2.position(700, 400)
         a2.style('color', 'maroon');
         a2.style('text-decoration', 'none')
         a2.style('background-color', 'white')
         a2.style('border: 3px solid black')
         a2.style('border-radius: 0.5rem')
-        a2.style('padding: 5px')
-    } 
+        a2.style('padding: 5px') */
+    }
 
     clear();
 }
@@ -356,22 +295,6 @@ function test_setup() {
     console.log('Setup tested')
 }
 
-/*function test_createObject () {
-    var myObject = createObject('grass', 500, 700, 250, 320, 'green', 0, null, false)
-    chai.assert.typeOf(myObject, 'object')
-    chai.assert.equal(myObject.name, 'grass')
-    chai.assert.equal(myObject.x, 500)
-    chai.assert.equal(myObject.y, 700)
-    chai.assert.equal(myObject.width, 250)
-    chai.assert.equal(myObject.height, 320)
-    chai.assert.equal(myObject.color, 'green')
-    chai.assert.equal(myObject.friction, 0)
-    chai.assert.equal(myObject.image, null)
-    chai.assert.equal(myObject.dynamic, false)
-
-    console.log('Create object tested')
-}*/
-
 function test_createObjects() {
     windowWidth = 1100
     windowHeight = 900
@@ -381,9 +304,6 @@ function test_createObjects() {
     chai.assert.equal(scene[0].name, 'player')
 
     for(i = 0; i < scene.length; i++) {
-        /*if(scene[i].name == 'grass') {
-            chai.assert.equal(scene[i].color, 'green')
-        }*/
         if(scene[i].name == 'platform1') {
             chai.assert.equal(scene[i].friction, 0)
         }
