@@ -23,12 +23,12 @@ function createObject (name, x, y, width, height, color, friction, image, dynami
 
 function createObjects(windowWidth, windowHeight) {
     objects = []
-    objects.push(createObject('player', windowWidth/15, (windowHeight - windowHeight/1.002), 30, 40, 'maroon', 0, null, 'd'))
-    objects.push(createObject('start', windowWidth/18, (windowHeight - windowHeight/1.005), 250, 10, 'black', 0, null, 'k'))
+    objects.push(createObject('player', windowWidth/15, (windowHeight - windowHeight/1.002), 30, windowHeight/5, 'maroon', 0, 'img/player.png', 'd'))
+    objects.push(createObject('start', windowWidth/18, (windowHeight - windowHeight/1.005), 250, 10, 'black', 0, null, 's'))
     objects.push(createObject('platform1', windowWidth/7, (windowHeight - windowHeight/1.15), 170, 10, '#E79548', 0, null, 'k'))
     objects.push(createObject('platform2', windowWidth/7.25, (windowHeight - windowHeight/1.55), 170, 10, '#E79548', 0, null, 'k'))
     objects.push(createObject('platform3', windowWidth/7.5, (windowHeight - windowHeight/2.25), 170, 10, '#E79548', 0, null, 'k'))
-    objects.push(createObject('goal', windowWidth + 100, (windowHeight + windowHeight/2.25), 50, 550, 0, 0, 'img/goal5.png', 's'))
+    objects.push(createObject('goal', windowWidth + 100, (windowHeight + windowHeight/2.25), 1100, 525, 0, 0, 'img/goal5.png', 's'))
     objects.push(createObject('end', windowWidth + 100, (windowHeight + windowHeight/1.68), 450, 10, 'black', 0, null, 's'))
     return objects;
 }
@@ -66,6 +66,7 @@ function setupScene(windowWidth, windowHeight, objects) {
 
         if(object.name == 'player') {
             sprite.rotationLock = true;
+            sprite.image = object.image;
             sprite.debug = false;
         }
         if(object.name == 'goal'){
@@ -109,7 +110,7 @@ function setup() {
                     break;
                 case 2: 
                     (objects[objectNames.indexOf('platform1')])[i].friction = 0;
-                    (objects[objectNames.indexOf('platform1')])[i].bounciness = 1.5;
+                    (objects[objectNames.indexOf('platform1')])[i].bounciness = 1.25;
                     break;
             }
 
@@ -125,7 +126,7 @@ function setup() {
                     break;
                 case 2: 
                     (objects[objectNames.indexOf('platform2')])[i].friction = 0;
-                    (objects[objectNames.indexOf('platform2')])[i].bounciness = 1.5;
+                    (objects[objectNames.indexOf('platform2')])[i].bounciness = 1.25;
                     break;
             }
 
@@ -141,7 +142,7 @@ function setup() {
                     break;
                 case 2: 
                     (objects[objectNames.indexOf('platform2')])[i].friction = 0;
-                    (objects[objectNames.indexOf('platform2')])[i].bounciness = 1.5;
+                    (objects[objectNames.indexOf('platform2')])[i].bounciness = 1.25;
                     break;
             }
 
@@ -172,8 +173,7 @@ function setup() {
     r.show();
 
     (objects[objectNames.indexOf('goal')]).scale *= 0.25;
-    (objects[objectNames.indexOf('goal')]).ellipse = (400, 500, 200, 200);
-    (objects[objectNames.indexOf('goal')]).debug = true;
+    (objects[objectNames.indexOf('player')]).scale *= 0.5;
 }
 
 function draw() {
@@ -201,15 +201,19 @@ function draw() {
     }
        
     // Allow player vertical movement with jump limitation
-    if(kb.presses('up')) {
+    /*if(kb.presses('up')) {
         objects[objectNames.indexOf('player')].bearing = -90;
         objects[objectNames.indexOf('player')].applyForce(650);
+    }*/
+    if(kb.presses('up') &&  objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('start')])) {
+        objects[objectNames.indexOf('player')].bearing = -90;
+        objects[objectNames.indexOf('player')].applyForce(2400);
     }
     for(var i = 0; i < (objects[objectNames.indexOf('platform1')]).length; i++) {
         for(var j = 2; j < 5; j++) {
             if(kb.presses('up') && objects[objectNames.indexOf('player')].colliding((objects[j])[i])) {
                 objects[objectNames.indexOf('player')].bearing = -90;
-                objects[objectNames.indexOf('player')].applyForce(650);
+                objects[objectNames.indexOf('player')].applyForce(2400);
             }
         }
     }
@@ -256,7 +260,7 @@ function draw() {
     if(objects[objectNames.indexOf('player')].collides(objects[objectNames.indexOf('goal')])) {
         objects[objectNames.indexOf('player')].collider = 's';
         let h2 = createElement('h2', 'Victory!');
-        h2.position(800, 175);
+        h2.position(785, 250);
         let a = createA('/level_selection.html', 'Level Selection');
         a.position(785, 250);
         a.style('color', 'maroon');
