@@ -1,7 +1,7 @@
 // Set up sprite variables for level
 let objects = []
 let objectNames = []
-let p1, p2, r, reload;
+let p1, p2, r;
 
 
 function createObject (name, x, y, width, height, color, friction, image, dynamic) {
@@ -22,18 +22,19 @@ function createObject (name, x, y, width, height, color, friction, image, dynami
 
 function createObjects(windowWidth, windowHeight) {
     objects = []
-    objects.push(createObject('grass', (windowWidth/8), windowHeight, windowWidth/4, windowHeight/2.5, 'green', 0, null, 's'));
-    objects.push(createObject('lava', (windowWidth/8 + windowWidth/2.75), (windowHeight +  windowHeight/8), windowWidth/2.1, windowWidth/8, 'red', 0, null, 'k'))
-    objects.push(createObject('grass2', (windowWidth - windowWidth/25), windowHeight, (windowWidth - windowWidth/2), windowHeight/0.9, 'green', 0, null, 's'))
-    objects.push(createObject('platform', (windowWidth/8 + windowWidth/5), (windowHeight - windowHeight/3.4), windowWidth/25, 10, '#E79548', 0, null, 's'))
-    objects.push(createObject('platform2', (windowWidth/8 + windowWidth/2.25), (windowHeight - windowHeight/4), windowWidth/20, 10, '#E79548', 0, null, 's'))
-    objects.push(createObject('platform1', (windowWidth/8 + windowWidth/3.3), (windowHeight - windowHeight/2.5), windowWidth/15, 10, '#E79548', 0, null, 's'))
-    objects.push(createObject('platform3', (windowWidth/8 + windowWidth/2.4), (windowHeight - windowHeight/2), windowWidth/35, 10, '#E79548', 0, null, 's'))
-    objects.push(createObject('platform4', (windowWidth - windowWidth/2.85), (windowHeight - windowHeight/2.2), windowWidth/40, 10, '#21E0F8', 0, null, 's'))
-    objects.push(createObject('platform5', (windowWidth - windowWidth/2), (windowHeight - windowHeight/3), windowWidth/25, 10, '#E79548', 0, null, 's'))
-    objects.push(createObject('player', windowWidth/20, (windowHeight - windowHeight/3), 65, 185, 'blue', 0, 'img/player.png', 'd'))
-    objects.push(createObject('endStructure', (windowWidth - windowWidth/10), (windowHeight - (windowHeight - windowHeight/2.82)), windowWidth/1.5, windowHeight*2, 0, 0, 'img/goal2.png', 's'))
-    objects.push(createObject('end_wall', (windowWidth - windowWidth/3.5), (windowHeight - windowHeight/2 - (windowHeight/7.2)), 10, (windowHeight/6), 'black', 0, null, 's'))
+    objects.push(createObject('grass', 0, windowHeight, windowWidth/2.7, windowHeight/2.5, 'green', 0, null, 's'));
+    objects.push(createObject('lava', windowWidth/2.85, windowHeight, windowWidth/3, windowHeight/32, 'red', 0, null, 's'))
+    objects.push(createObject('grass2', (windowWidth/2 + windowWidth/4), windowHeight/1.5, (windowWidth - windowWidth/2), windowHeight/1.5, 'green', 0, null, 's'))
+    objects.push(createObject('platform', windowWidth/3, (windowHeight - windowHeight/6), windowWidth/25, 10, 'blue', 0, null, 'k'))
+    objects.push(createObject('lava2', windowWidth * 1.5, windowHeight, windowWidth, windowHeight/32, 'red', 0, null, 's'));
+    objects.push(createObject('platform2', windowWidth + (windowWidth/12), windowHeight/1.25, windowWidth/25, 10, 'yellow', 0, null, 'k'));
+    objects.push(createObject('platform3', windowWidth + (windowWidth/4), windowHeight/1.25, windowWidth/25, 10, 'yellow', 10, null, 'k'));
+    objects.push(createObject('platform4', (windowWidth + (windowWidth/1.45)), windowHeight/1.15, windowWidth/25, 10, 'yellow', 0, null, 'k'));
+    objects.push(createObject('platform5', (windowWidth + (windowWidth/1.15)), windowHeight/2, windowWidth/20, 10, 'orange', 0, null, 's'));
+    objects.push(createObject('levelEnd', (windowWidth *2) + windowWidth/2, windowHeight * 0.75, windowWidth, windowHeight /2, 'green', 0, null, 's'));
+    objects.push(createObject('player', windowWidth/20, (windowHeight - windowHeight/1.5), 65, 185, 'blue', 10, 'img/player.png', 'd'));
+    objects.push(createObject('endStructure', (windowWidth * 2) + windowWidth/4, windowHeight/3, windowWidth/6, windowHeight/3, 0, 0, 'img/goal4.png', 's'));
+    // objects.push(createObject('restart', windowWidth/1.05, windowHeight/12, 160, 160, 0, 0, 'img/reload.png', 's'));
     return objects;
 }
 
@@ -54,18 +55,18 @@ function setupScene(windowWidth, windowHeight, objects) {
         sprite.friction = new_object.friction;
         sprite.bounciness = 0;
         sprite.img = new_object.image
-        if(i == 7) {
-            sprite.bounciness = 1.5;
-        }
-        if(i == 9) {
+        if(new_object.name == 'player') {
             sprite.rotationLock = true;
             sprite.scale = 0.65;
         }
-        if(i == 10) {
-            sprite.scale = 0.2
+        if(new_object.name == 'endStructure') {
+            sprite.scale = 0.2;
+            //sprite.debug = true;
             sprite.layer = 1;
-            sprite.diameter = windowWidth/13;
         }
+        // if(new_object.name == 'restart') {
+        //     sprite.scale = 0.2;
+        // }
         objects[i] = sprite
     }
 
@@ -80,11 +81,8 @@ function setupScene(windowWidth, windowHeight, objects) {
 }
 
 function setup() {
-    windowWidth *= 2;
     scene = createObjects(windowWidth, windowHeight)
     setupScene(windowWidth, windowHeight, scene);
-
-    lava_rise();
 
     p1X = windowWidth/20;
     p1Y = windowHeight - windowHeight/3;
@@ -101,31 +99,13 @@ function setup() {
     p2.hide();
 
     r = createElement('h2', 'Press SPACE to Pause');
-    r.position(windowWidth/8, 15);
+    r.position(50, 15);
     r.attribute('align', 'center');
     r.show();
-    
-    reload = createButton('hikhvkhvkhvh');
-    reload.position(windowWidth/1.05, windowHeight/12);
 
+    // reload = createButton('hikhvkhvkhvh');
+    // reload.position(windowWidth/1.05, windowHeight/12);
 }
-
-async function lava_rise() {
-        for(var i = 0; i < 5; i++) {
-            objects[objectNames.indexOf('lava')].scale.y *= 1.1;
-            await (objects[objectNames.indexOf('lava')]);   //promise = true
-            //await objects[objectNames.indexOf('lava')].move(0.5);
-            await delay(500);
-        }
-        for(var j = 0; j < 5; j++) {
-            objects[objectNames.indexOf('lava')].scale.y *= 0.91;
-            await (objects[objectNames.indexOf('lava')]);   
-            //await objects[objectNames.indexOf('lava')].move(-0.5);
-            await delay(500);
-        }
-        lava_rise();
-}
-
 
 function draw() {
 
@@ -133,18 +113,15 @@ function draw() {
     // console.log(objects[1])
     //console.log(objects[7])
 
-    //overhead camera
-    camera.off();
-
     // Allow player horizontal movement
     if(kb.pressing('left')) {
-        if(objects[objectNames.indexOf('player')].x < 0) {
+        if(objects[objectNames.indexOf('player')].x < 10) {
             objects[objectNames.indexOf('player')].vel.x = 5;
         } else {
             objects[objectNames.indexOf('player')].vel.x = -5;
         }
     } else if (kb.pressing('right')) {
-        if(objects[objectNames.indexOf('player')].x > windowWidth - 10) {
+        if(objects[objectNames.indexOf('player')].x > (windowWidth * 2) + windowWidth/2) {
             objects[objectNames.indexOf('player')].vel.x = -5;
         } else {
             objects[objectNames.indexOf('player')].vel.x = 5;
@@ -158,46 +135,102 @@ function draw() {
         objects[objectNames.indexOf('player')].bearing = -90;
         objects[objectNames.indexOf('player')].applyForce(6500);
     }
-
     else if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform')]))) {
         objects[objectNames.indexOf('player')].bearing = -90;
         objects[objectNames.indexOf('player')].applyForce(6500);
+        
     }
-
-    else if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform1')]))) {
-        objects[objectNames.indexOf('player')].bearing = -90;
-        objects[objectNames.indexOf('player')].applyForce(6500);
-    }
-
-    else if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform2')]))) {
-        objects[objectNames.indexOf('player')].bearing = -90;
-        objects[objectNames.indexOf('player')].applyForce(6500);
-    }
-
     else if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform3')]))) {
         objects[objectNames.indexOf('player')].bearing = -90;
         objects[objectNames.indexOf('player')].applyForce(6500);
     }
-
     else if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform4')]))) {
         objects[objectNames.indexOf('player')].bearing = -90;
         objects[objectNames.indexOf('player')].applyForce(6500);
     }
-
+    else if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform2')]))) {
+        objects[objectNames.indexOf('player')].bearing = -90;
+        objects[objectNames.indexOf('player')].applyForce(6500);
+    }
     else if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform5')]))) {
         objects[objectNames.indexOf('player')].bearing = -90;
         objects[objectNames.indexOf('player')].applyForce(6500);
     }
-
-
     else if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('grass2')]))) {
         objects[objectNames.indexOf('player')].bearing = -90;
         objects[objectNames.indexOf('player')].applyForce(6500);
     }
-
-    if(objects[objectNames.indexOf('player')].collides(objects[objectNames.indexOf('lava')])) {
+    else if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('levelEnd')]))) {
+        objects[objectNames.indexOf('player')].bearing = -90;
+        objects[objectNames.indexOf('player')].applyForce(6500);
+    }
+    else if(objects[objectNames.indexOf('player')].collides(objects[objectNames.indexOf('lava')]) || objects[objectNames.indexOf('player')].collides(objects[objectNames.indexOf('lava2')])) {
         objects[objectNames.indexOf('player')].x = p1X;
         objects[objectNames.indexOf('player')].y = p1Y;
+    }
+
+    // Checkpoint.
+    if (objects[objectNames.indexOf('player')].x >= (windowWidth/2 + windowWidth/4)) {
+        p1X = (windowWidth/2 + windowWidth/4);
+        p1Y = (windowHeight/4);
+    }
+    else {
+        p1X = windowWidth/20;
+        p1Y = windowHeight - windowHeight/3;
+    }
+
+    // Moving platforms.
+    if (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform')])) {
+        if (objects[objectNames.indexOf('platform')].y < (windowHeight/3)) {
+            objects[objectNames.indexOf('platform')].vel.y = 0;
+        }
+        else {
+            objects[objectNames.indexOf('platform')].vel.y = -1.5;
+        }
+    }
+    else {
+        if (objects[objectNames.indexOf('platform')].y > (windowHeight - windowHeight/6)) {
+            objects[objectNames.indexOf('platform')].vel.y = 0;
+        }
+        else {
+            objects[objectNames.indexOf('platform')].vel.y = 1.5;
+        }
+    }
+
+    if (objects[objectNames.indexOf('platform2')].y <= windowHeight/3) {
+        objects[objectNames.indexOf('platform2')].vel.y = 1;
+    }
+    else if(objects[objectNames.indexOf('platform2')].y >= windowHeight/1.5) {
+        objects[objectNames.indexOf('platform2')].vel.y = -1;
+    }
+
+    if (objects[objectNames.indexOf('platform3')].x <= (windowWidth + (windowWidth/4))) {
+        objects[objectNames.indexOf('platform3')].vel.x = 1.5;
+        if (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform3')])) {
+            objects[objectNames.indexOf('player')].vel.x = 1.5;
+        }
+    }
+    else if(objects[objectNames.indexOf('platform3')].x >= (windowWidth + (windowWidth/1.75))) {
+        objects[objectNames.indexOf('platform3')].vel.x = -1;
+        if (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform3')])) {
+            objects[objectNames.indexOf('player')].vel.x = -1;
+        }
+    }
+
+    if (objects[objectNames.indexOf('platform4')].y <= windowHeight/2) {
+        objects[objectNames.indexOf('platform4')].vel.y = 1;
+    }
+    else if(objects[objectNames.indexOf('platform4')].y >= windowHeight/1.15) {
+        objects[objectNames.indexOf('platform4')].vel.y = -1;
+    }
+
+    // Camera following player.
+    if((objects[objectNames.indexOf('player')]).x >=(objects[objectNames.indexOf('platform5')]).x) {
+        camera.x = camera.x;
+    }
+
+    else {
+        camera.x = objects[objectNames.indexOf('player')].x + windowWidth/3;
     }
 
     // Allow user to pause and resume game using SPACE.
@@ -225,20 +258,15 @@ function draw() {
         r.show();
     }
 
-    // Fix bounce bug for platform
-    if(objects[objectNames.indexOf('player')].collides(objects[objectNames.indexOf('platform4')])) {
-        objects[objectNames.indexOf('player')].vel.y = -10
-    }
-
     // Put in logic for victory condition
 
     if(objects[objectNames.indexOf('player')].collides(objects[objectNames.indexOf('endStructure')])) {
         objects[objectNames.indexOf('player')].collider = 's';
         objects[objectNames.indexOf('player')].visible = false;
         let h2 = createElement('h2', 'Victory!');
-        h2.position((windowWidth - windowWidth/1.2), windowHeight/9);
-        let a = createA('/level4.html', 'Level 4');
-        a.position((windowWidth - windowWidth/1.25), windowHeight/9 + 50);
+        h2.position((windowWidth - windowWidth/8), windowHeight/9);
+        let a = createA('/level_selection.html', 'Level Selection');
+        a.position((windowWidth - windowWidth/6), windowHeight/9 + 50);
         a.style('color', 'maroon');
         a.style('text-decoration', 'none')
         a.style('background-color', 'white')
@@ -246,8 +274,8 @@ function draw() {
         a.style('border-radius: 0.5rem')
         a.style('padding: 5px')
 
-        let a2 = createA('/level_selection.html', 'Level Selection');
-        a2.position((windowWidth - windowWidth/1.15), windowHeight/9 + 50)
+        let a2 = createA('/maintenance.html', 'Level 5');
+        a2.position((windowWidth - windowWidth/12), windowHeight/9 + 50)
         a2.style('color', 'maroon');
         a2.style('text-decoration', 'none')
         a2.style('background-color', 'white')
@@ -255,12 +283,13 @@ function draw() {
         a2.style('border-radius: 0.5rem')
         a2.style('padding: 5px')
 
+
         var timeleft = 5;
         var downloadTimer = setInterval(function(){
           if(timeleft <= 0){
             clearInterval(downloadTimer);
             document.getElementById("countdown").innerHTML = "Finished";
-            window.location.href = '/level4.html';
+            window.location.href = '/maintenance.html';
           } else {
             document.getElementById("countdown").innerHTML = "Next level in " + timeleft + " seconds";
           }
@@ -268,20 +297,21 @@ function draw() {
         }, 1000);
     } 
 
-    
+    //Set up restart button
+    // if((objects[objectNames.indexOf('restart')]).mouse.hovering()) {
+    //     mouse.cursor = 'pointer';
+    // } else mouse.cursor = 'default';
 
-    if(camera.x >= ((objects[objectNames.indexOf('endStructure')]).x + windowWidth/2)) {
-        camera.x = camera.x;
-    }
-
-    else if(camera.x <= (objects[objectNames.indexOf('endStructure')]).x + windowWidth/3) {
-        camera.x = objects[objectNames.indexOf('player')].x + windowWidth/2.2;
-    }
-
-    camera.y = (objects[objectNames.indexOf('player')].y - windowWidth/45)
+    // if ((objects[objectNames.indexOf('restart')]).mouse.presses()) {
+    //     objects[objectNames.indexOf('player')].x = p1X;
+    //     objects[objectNames.indexOf('player')].y = p1Y;
+    // }
 
     clear();
+
+
 }
+
 
 let assert, should, chai;
 
@@ -329,6 +359,10 @@ function test_createObjects() {
         if(scene[i].name == 'lava') {
             chai.assert.equal(scene[i].color, 'red')
         }
+
+        if(scene[i].name == 'platform') {
+            chai.assert.equal(scene[i].color, 'blue')
+        }
         
     }
     console.log('Create scene tested')
@@ -336,8 +370,8 @@ function test_createObjects() {
 
 function test_sprite_qualities() {
     //console.log(objects)
-    let player = objects[9]
-    let endGoal = objects[10]
+    let player = objects[10]
+    let endGoal = objects[11]
     //console.log(player)
     //console.log(endGoal)
 
@@ -355,4 +389,3 @@ function test_sprite_qualities() {
     console.log("End goal tested")
 
 }
-
