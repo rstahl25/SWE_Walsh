@@ -22,7 +22,7 @@ function createObject (name, x, y, width, height, color, friction, image, dynami
 
 function createObjects(windowWidth, windowHeight) {
     objects = []
-    objects.push(createObject('grass', windowWidth/12, windowHeight, windowWidth/5, windowHeight/2.5, 'green', 0, null, 's'));
+    objects.push(createObject('grass', 0, windowHeight, windowWidth/2.7, windowHeight/2.5, 'green', 0, null, 's'));
     objects.push(createObject('lava', windowWidth/2.85, windowHeight, windowWidth/3, windowHeight/32, 'red', 0, null, 's'))
     objects.push(createObject('grass2', (windowWidth/2 + windowWidth/4), windowHeight/1.5, (windowWidth - windowWidth/2), windowHeight/1.5, 'green', 0, null, 's'))
     objects.push(createObject('platform', windowWidth/3, (windowHeight - windowHeight/6), windowWidth/25, 10, 'blue', 0, null, 'k'))
@@ -185,7 +185,7 @@ function draw() {
             objects[objectNames.indexOf('platform')].vel.y = 0;
         }
         else {
-            objects[objectNames.indexOf('platform')].vel.y = -1;
+            objects[objectNames.indexOf('platform')].vel.y = -1.5;
         }
     }
     else {
@@ -193,7 +193,7 @@ function draw() {
             objects[objectNames.indexOf('platform')].vel.y = 0;
         }
         else {
-            objects[objectNames.indexOf('platform')].vel.y = 1;
+            objects[objectNames.indexOf('platform')].vel.y = 1.5;
         }
     }
 
@@ -225,12 +225,12 @@ function draw() {
     }
 
     // Camera following player.
-    if(camera.x >= ((objects[objectNames.indexOf('levelEnd')]).x - windowWidth/4)) {
+    if((objects[objectNames.indexOf('player')]).x >=(objects[objectNames.indexOf('platform5')]).x) {
         camera.x = camera.x;
     }
 
-    else if (camera.x <= ((objects[objectNames.indexOf('levelEnd')]).x - windowWidth/4)){
-        camera.x = objects[objectNames.indexOf('player')].x + windowWidth/2.2;
+    else {
+        camera.x = objects[objectNames.indexOf('player')].x + windowWidth/3;
     }
 
     // Allow user to pause and resume game using SPACE.
