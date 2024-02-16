@@ -28,7 +28,7 @@ function createObjects(windowWidth, windowHeight) {
     objects.push(createObject('platform1', windowWidth/7, (windowHeight - windowHeight/1.15), 170, 10, '#E79548', 0, null, 'k'))
     objects.push(createObject('platform2', windowWidth/7.25, (windowHeight - windowHeight/1.55), 170, 10, '#E79548', 0, null, 'k'))
     objects.push(createObject('platform3', windowWidth/7.5, (windowHeight - windowHeight/2.25), 170, 10, '#E79548', 0, null, 'k'))
-    objects.push(createObject('goal', windowWidth + 100, (windowHeight + windowHeight/2.25), 1100, 525, 0, 0, 'img/goal5.png', 's'))
+    objects.push(createObject('goal', windowWidth + 100, (windowHeight + windowHeight/2.25), 800, 525, 0, 0, 'img/goal5.png', 's'))
     objects.push(createObject('end', windowWidth + 100, (windowHeight + windowHeight/1.68), 450, 10, 'black', 0, null, 's'))
     return objects;
 }
@@ -72,6 +72,7 @@ function setupScene(windowWidth, windowHeight, objects) {
         if(object.name == 'goal'){
             sprite.layer = 0;
             sprite.img = object.image;
+            sprite.debug = true;
         }
         objects[i] = sprite
     }
@@ -131,18 +132,18 @@ function setup() {
             }
 
             (objects[objectNames.indexOf('platform3')])[i].color = c_states[((count3 + i) % 3)];
-            switch(((count2 + i) % 3)) {
+            switch(((count3 + i) % 3)) {
                 case 0: 
-                    (objects[objectNames.indexOf('platform2')])[i].friction = 0;
-                    (objects[objectNames.indexOf('platform2')])[i].bounciness = 0;
+                    (objects[objectNames.indexOf('platform3')])[i].friction = 0;
+                    (objects[objectNames.indexOf('platform3')])[i].bounciness = 0;
                     break;
                 case 1: 
-                    (objects[objectNames.indexOf('platform2')])[i].bounciness = 0;
-                    (objects[objectNames.indexOf('platform2')])[i].friction = 1;
+                    (objects[objectNames.indexOf('platform3')])[i].bounciness = 0;
+                    (objects[objectNames.indexOf('platform3')])[i].friction = 1;
                     break;
                 case 2: 
-                    (objects[objectNames.indexOf('platform2')])[i].friction = 0;
-                    (objects[objectNames.indexOf('platform2')])[i].bounciness = 1.25;
+                    (objects[objectNames.indexOf('platform3')])[i].friction = 0;
+                    (objects[objectNames.indexOf('platform3')])[i].bounciness = 1.25;
                     break;
             }
 
@@ -205,6 +206,10 @@ function draw() {
         objects[objectNames.indexOf('player')].bearing = -90;
         objects[objectNames.indexOf('player')].applyForce(650);
     }*/
+    if(kb.presses('up')) {
+        objects[objectNames.indexOf('player')].bearing = -90;
+        objects[objectNames.indexOf('player')].applyForce(2400);
+    }
     if(kb.presses('up') &&  objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('start')])) {
         objects[objectNames.indexOf('player')].bearing = -90;
         objects[objectNames.indexOf('player')].applyForce(2400);
@@ -255,30 +260,32 @@ function draw() {
         r.show();
     }
 
-    // Put in logic for victory condition
-
     if(objects[objectNames.indexOf('player')].collides(objects[objectNames.indexOf('goal')])) {
         objects[objectNames.indexOf('player')].collider = 's';
-        let h2 = createElement('h2', 'Victory!');
-        h2.position(785, 250);
+        objects[objectNames.indexOf('player')].visible = false;
+        let h2 = createElement('h2', 'Game Complete!');
+        h2.position((windowWidth - windowWidth/1.35 - 5), windowHeight/6);
         let a = createA('/level_selection.html', 'Level Selection');
-        a.position(785, 250);
+        a.position((windowWidth - windowWidth/1.35 + 20), windowHeight/4);
         a.style('color', 'maroon');
         a.style('text-decoration', 'none')
         a.style('background-color', 'white')
         a.style('border: 3px solid black')
         a.style('border-radius: 0.5rem')
         a.style('padding: 5px')
-
-        /*let a2 = createA('/level1.html', 'Level 1');
-        a2.position(700, 400)
-        a2.style('color', 'maroon');
-        a2.style('text-decoration', 'none')
-        a2.style('background-color', 'white')
-        a2.style('border: 3px solid black')
-        a2.style('border-radius: 0.5rem')
-        a2.style('padding: 5px') */
     }
+
+        var timeleft = 5;
+        var downloadTimer = setInterval(function(){
+          if(timeleft <= 0){
+            clearInterval(downloadTimer);
+            document.getElementById("countdown").innerHTML = "Finished";
+            window.location.href = '/level_selection.html';
+          } else {
+            document.getElementById("countdown").innerHTML = "Next level in " + timeleft + " seconds";
+          }
+          timeleft -= 1;
+        }, 1000);
 
     clear();
 }
