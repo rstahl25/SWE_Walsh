@@ -38,6 +38,8 @@ jobs:
           scp level2.js root@www.walsh-jumper.com:site
           scp level3.html root@www.walsh-jumper.com:site
           scp level3.js root@www.walsh-jumper.com:site
+          scp level4.html root@www.walsh-jumper.com:site
+          scp level4.js root@www.walsh-jumper.com:site
           scp package-lock.json root@www.walsh-jumper.com:site
           scp package.json root@www.walsh-jumper.com:site
           scp -r img root@www.walsh-jumper.com:site
