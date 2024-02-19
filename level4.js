@@ -175,7 +175,7 @@ function draw() {
         objects[objectNames.indexOf('player')].y = p1Y;
     }
 
-    if(frameCount> 350) {
+    if(frameCount> 500) {
         h3.hide();
         h3_2.hide();
     }
