@@ -1,7 +1,7 @@
 // Set up sprite variables for level
 let objects = []
 let objectNames = []
-let p1, p2, r, reload;
+let p1, p2, r, reload, h3, h3_2;
 
 
 function createObject (name, x, y, width, height, color, friction, image, dynamic) {
@@ -101,12 +101,18 @@ function setup() {
     p2.hide();
 
     r = createElement('h2', 'Press SPACE to Pause');
-    r.position(windowWidth/8, 15);
+    r.position(windowWidth/64, 15);
     r.attribute('align', 'center');
     r.show();
     
     reload = createButton('hikhvkhvkhvh');
     reload.position(windowWidth/1.05, windowHeight/12);
+
+    h3 = createElement('h3', 'Light blue platforms are bouncier than regular ones!')
+    h3.position(windowWidth/64, 75)
+
+    h3_2 = createElement('h3', "Use these to reach areas you couldn't normally")
+    h3_2.position(windowWidth/64, 125)
 
 }
 
@@ -198,6 +204,11 @@ function draw() {
     if(objects[objectNames.indexOf('player')].collides(objects[objectNames.indexOf('lava')])) {
         objects[objectNames.indexOf('player')].x = p1X;
         objects[objectNames.indexOf('player')].y = p1Y;
+    }
+
+    if(frameCount> 350) {
+        h3.hide();
+        h3_2.hide();
     }
 
     // Allow user to pause and resume game using SPACE.

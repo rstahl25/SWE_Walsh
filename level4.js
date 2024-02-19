@@ -1,7 +1,7 @@
 // Set up sprite variables for level
 let objects = []
 let objectNames = []
-let p1, p2, r;
+let p1, p2, r, h3, h3_2;
 
 
 function createObject (name, x, y, width, height, color, friction, image, dynamic) {
@@ -27,9 +27,9 @@ function createObjects(windowWidth, windowHeight) {
     objects.push(createObject('grass2', (windowWidth/2 + windowWidth/4), windowHeight/1.5, (windowWidth - windowWidth/2), windowHeight/1.5, 'green', 0, null, 's'))
     objects.push(createObject('platform', windowWidth/3, (windowHeight - windowHeight/6), windowWidth/25, 10, 'blue', 0, null, 'k'))
     objects.push(createObject('lava2', windowWidth * 1.5, windowHeight, windowWidth, windowHeight/32, 'red', 0, null, 's'));
-    objects.push(createObject('platform2', windowWidth + (windowWidth/12), windowHeight/1.25, windowWidth/25, 10, 'yellow', 0, null, 'k'));
+    objects.push(createObject('platform2', windowWidth + (windowWidth/12), windowHeight/1.25, windowWidth/25, 10, 'blue', 0, null, 'k'));
     objects.push(createObject('platform3', windowWidth + (windowWidth/4), windowHeight/1.25, windowWidth/25, 10, 'yellow', 10, null, 'k'));
-    objects.push(createObject('platform4', (windowWidth + (windowWidth/1.45)), windowHeight/1.15, windowWidth/25, 10, 'yellow', 0, null, 'k'));
+    objects.push(createObject('platform4', (windowWidth + (windowWidth/1.45)), windowHeight/1.15, windowWidth/25, 10, 'blue', 0, null, 'k'));
     objects.push(createObject('platform5', (windowWidth + (windowWidth/1.15)), windowHeight/2, windowWidth/20, 10, 'orange', 0, null, 's'));
     objects.push(createObject('levelEnd', (windowWidth *2) + windowWidth/2, windowHeight * 0.75, windowWidth, windowHeight /2, 'green', 0, null, 's'));
     objects.push(createObject('player', windowWidth/20, (windowHeight - windowHeight/1.5), 65, 185, 'blue', 10, 'img/player.png', 'd'));
@@ -103,6 +103,12 @@ function setup() {
     r.attribute('align', 'center');
     r.show();
 
+    h3 = createElement('h3', 'Dark blue platforms lift you vertically')
+    h3.position(windowWidth/64, 75)
+
+    h3_2 = createElement('h3', "Yellow platforms move you horizontally")
+    h3_2.position(windowWidth/64, 125)
+
     // reload = createButton('hikhvkhvkhvh');
     // reload.position(windowWidth/1.05, windowHeight/12);
 }
@@ -168,6 +174,12 @@ function draw() {
         objects[objectNames.indexOf('player')].x = p1X;
         objects[objectNames.indexOf('player')].y = p1Y;
     }
+
+    if(frameCount> 350) {
+        h3.hide();
+        h3_2.hide();
+    }
+
 
     // Checkpoint.
     if (objects[objectNames.indexOf('player')].x >= (windowWidth/2 + windowWidth/4)) {
