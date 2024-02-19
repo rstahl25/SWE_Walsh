@@ -28,8 +28,8 @@ function createObjects(windowWidth, windowHeight) {
     objects.push(createObject('platform1', windowWidth/7, (windowHeight - windowHeight/1.15), 170, 10, '#E79548', 0, null, 'k'))
     objects.push(createObject('platform2', windowWidth/7.25, (windowHeight - windowHeight/1.55), 170, 10, '#E79548', 0, null, 'k'))
     objects.push(createObject('platform3', windowWidth/7.5, (windowHeight - windowHeight/2.25), 170, 10, '#E79548', 0, null, 'k'))
-    objects.push(createObject('goal', windowWidth + 100, (windowHeight + windowHeight/2.25), 800, 525, 0, 0, 'img/goal5.png', 's'))
-    objects.push(createObject('end', windowWidth + 100, (windowHeight + windowHeight/1.68), 450, 10, 'black', 0, null, 's'))
+    objects.push(createObject('goal', windowWidth + windowWidth/6, (windowHeight + windowHeight/2.25), 500, 250, 0, 0, 'img/goal5.png', 's'))
+    objects.push(createObject('end', windowWidth + windowWidth/7, (windowHeight + windowHeight/1.68), 560, 10, 'black', 0, null, 's'))
     return objects;
 }
 
@@ -93,6 +93,7 @@ function setup() {
     var count1 = Math.floor(Math.random() * 3);
     var count2 = ((count1 + 1) % 3);
     var count3 = ((count1 - 1) % 3);
+    var speed = 0;
 
       async function change_c() {
         count1++;
@@ -150,8 +151,13 @@ function setup() {
             current_colors.push(c_states[((count1 + i) % 3)]);
             current_colors.push(c_states[((count2 + i) % 3)]);
             current_colors.push(c_states[((count3 + i) % 3)]);
+
+            speed += 3;
+            if(speed >= 500) {
+                speed -= 500;
+            }
         }
-        await delay(2000);
+        await delay(2000 - speed);
         change_c();
       }
 
@@ -179,7 +185,7 @@ function setup() {
 
 function draw() {
     clear();
-    camera.on();
+    camera.off();
     camera.zoom = (1/1.5);
     camera.x = objects[objectNames.indexOf('player')].x + windowWidth/3;
     camera.y = objects[objectNames.indexOf('player')].y;
@@ -192,7 +198,7 @@ function draw() {
             objects[objectNames.indexOf('player')].vel.x = -5;
         }
     } else if (kb.pressing('right')) {
-        if(objects[objectNames.indexOf('player')].x > windowWidth + 100) {
+        if(objects[objectNames.indexOf('player')].x > windowWidth + 500) {
             objects[objectNames.indexOf('player')].vel.x = -5;
         } else {
             objects[objectNames.indexOf('player')].vel.x = 5;
@@ -202,14 +208,10 @@ function draw() {
     }
        
     // Allow player vertical movement with jump limitation
-    /*if(kb.presses('up')) {
-        objects[objectNames.indexOf('player')].bearing = -90;
-        objects[objectNames.indexOf('player')].applyForce(650);
-    }*/
-    if(kb.presses('up')) {
+    /*if(kb.presses('up') && (objects[objectNames.indexOf('player')].x < (windowWidth - 250))) {
         objects[objectNames.indexOf('player')].bearing = -90;
         objects[objectNames.indexOf('player')].applyForce(2400);
-    }
+    }*/
     if(kb.presses('up') &&  objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('start')])) {
         objects[objectNames.indexOf('player')].bearing = -90;
         objects[objectNames.indexOf('player')].applyForce(2400);
@@ -263,10 +265,15 @@ function draw() {
     if(objects[objectNames.indexOf('player')].collides(objects[objectNames.indexOf('goal')])) {
         objects[objectNames.indexOf('player')].collider = 's';
         objects[objectNames.indexOf('player')].visible = false;
-        let h2 = createElement('h2', 'Game Complete!');
-        h2.position((windowWidth - windowWidth/1.35 - 5), windowHeight/6);
+
+        document.getElementById("shine").innerHTML = "Game Completed";
+        var glim = document.getElementById("shine");
+        glim.style.fontSize = '30px';
+        glim.style.left = '51vw';
+        glim.style.top = '17vh';
+
         let a = createA('/level_selection.html', 'Level Selection');
-        a.position((windowWidth - windowWidth/1.35 + 20), windowHeight/4);
+        a.position((windowWidth - windowWidth/1.375), windowHeight/4);
         a.style('color', 'maroon');
         a.style('text-decoration', 'none')
         a.style('background-color', 'white')
