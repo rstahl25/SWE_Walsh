@@ -28,7 +28,7 @@ function createObjects(windowWidth, windowHeight) {
     objects.push(createObject('platform1', windowWidth/7, (windowHeight - windowHeight/1.15), 170, 10, '#E79548', 0, null, 'k'))
     objects.push(createObject('platform2', windowWidth/7.25, (windowHeight - windowHeight/1.55), 170, 10, '#E79548', 0, null, 'k'))
     objects.push(createObject('platform3', windowWidth/7.5, (windowHeight - windowHeight/2.25), 170, 10, '#E79548', 0, null, 'k'))
-    objects.push(createObject('goal', windowWidth + windowWidth/6, (windowHeight + windowHeight/2.25), 500, 250, 0, 0, 'img/goal5.png', 's'))
+    objects.push(createObject('goal', windowWidth + windowWidth/6, (windowHeight + windowHeight/2.25), 1200, 950, 0, 0, 'img/goal5.png', 's'))
     objects.push(createObject('end', windowWidth + windowWidth/7, (windowHeight + windowHeight/1.68), 560, 10, 'black', 0, null, 's'))
     return objects;
 }
@@ -72,7 +72,7 @@ function setupScene(windowWidth, windowHeight, objects) {
         if(object.name == 'goal'){
             sprite.layer = 0;
             sprite.img = object.image;
-            sprite.debug = true;
+            //sprite.debug = true;
         }
         objects[i] = sprite
     }
@@ -112,7 +112,7 @@ function setup() {
                     break;
                 case 2: 
                     (objects[objectNames.indexOf('platform1')])[i].friction = 0;
-                    (objects[objectNames.indexOf('platform1')])[i].bounciness = 1.25;
+                    (objects[objectNames.indexOf('platform1')])[i].bounciness = 1.05;
                     break;
             }
 
@@ -128,7 +128,7 @@ function setup() {
                     break;
                 case 2: 
                     (objects[objectNames.indexOf('platform2')])[i].friction = 0;
-                    (objects[objectNames.indexOf('platform2')])[i].bounciness = 1.25;
+                    (objects[objectNames.indexOf('platform2')])[i].bounciness = 1.05;
                     break;
             }
 
@@ -144,7 +144,7 @@ function setup() {
                     break;
                 case 2: 
                     (objects[objectNames.indexOf('platform3')])[i].friction = 0;
-                    (objects[objectNames.indexOf('platform3')])[i].bounciness = 1.25;
+                    (objects[objectNames.indexOf('platform3')])[i].bounciness = 1.05;
                     break;
             }
 
