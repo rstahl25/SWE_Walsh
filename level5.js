@@ -165,12 +165,12 @@ function setup() {
 
     // Create elements to display if the game is paused or not.
     p1 = createElement('h2', 'Game Paused');
-    p1.position(windowWidth/2, (windowHeight/2) - 20);
+    p1.position(500, 200);
     p1.attribute('align', 'center');
     p1.hide();
 
     p2 = createElement('h2', 'Press SPACE to Resume');
-    p2.position(windowWidth/2, (windowHeight/2) + 20);
+    p2.position(500, 250);
     p2.attribute('align', 'center');
     p2.hide();
 
