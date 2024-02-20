@@ -274,7 +274,7 @@ function draw() {
         a.style('border-radius: 0.5rem')
         a.style('padding: 5px')
 
-        let a2 = createA('/maintenance.html', 'Level 5');
+        let a2 = createA('/level5.html', 'Level 5');
         a2.position((windowWidth - windowWidth/12), windowHeight/9 + 50)
         a2.style('color', 'maroon');
         a2.style('text-decoration', 'none')
@@ -289,7 +289,7 @@ function draw() {
           if(timeleft <= 0){
             clearInterval(downloadTimer);
             document.getElementById("countdown").innerHTML = "Finished";
-            window.location.href = '/maintenance.html';
+            window.location.href = '/level5.html';
           } else {
             document.getElementById("countdown").innerHTML = "Next level in " + timeleft + " seconds";
           }
