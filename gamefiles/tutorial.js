@@ -180,7 +180,7 @@ function draw() {
         objects[objectNames.indexOf('player')].visible = false;
         let h2 = createElement('h2', 'Victory!');
         h2.position((windowWidth - windowWidth/8), windowHeight/9);
-        let a = createA('/level_selection.html', 'Level Selection');
+        let a = createA('/gamefiles/level_selection.html', 'Level Selection');
         a.position((windowWidth - windowWidth/6), windowHeight/9 + 50);
         a.style('color', 'maroon');
         a.style('text-decoration', 'none')
@@ -189,7 +189,7 @@ function draw() {
         a.style('border-radius: 0.5rem')
         a.style('padding: 5px')
 
-        let a2 = createA('/level1.html', 'Level 1');
+        let a2 = createA('/gamefiles/level1.html', 'Level 1');
         a2.position((windowWidth - windowWidth/12), windowHeight/9 + 50)
         a2.style('color', 'maroon');
         a2.style('text-decoration', 'none')
@@ -203,7 +203,7 @@ function draw() {
           if(timeleft <= 0){
             clearInterval(downloadTimer);
             document.getElementById("countdown").innerHTML = "Finished";
-            window.location.href = '/level1.html';
+            window.location.href = '/gamefiles/level1.html';
           } else {
             document.getElementById("countdown").innerHTML = "Next level in " + timeleft + " seconds";
           }
