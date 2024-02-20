@@ -106,8 +106,8 @@ function setup() {
     r.attribute('align', 'center');
     r.show();
 
-    let h2 = createElement('h2', 'Watch out for red obstacles that reset you!')
-    h2.position(30, 125)
+    let h3 = createElement('h3', 'Watch out for red obstacles that reset you!')
+    h3.position(30, 125)
 }
 
 function draw() {
