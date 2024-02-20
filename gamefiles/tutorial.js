@@ -21,16 +21,16 @@ function createObject (name, x, y, width, height, color, friction, image, dynami
 
 function createObjects(windowWidth, windowHeight) {
     objects = []
-    objects.push(createObject('player', windowWidth/20, (windowHeight - windowHeight/3), 65, 185, 'maroon', 0, 'img/player.png', 'd'))
+    objects.push(createObject('player', windowWidth/20, (windowHeight - windowHeight/3), 65, 185, 'maroon', 0, '../img/player.png', 'd'))
     objects.push(createObject('platform1', windowWidth/1.75, (windowHeight - windowHeight/1.75), 140, 10, '#E79548', 0, null, 's'))
     objects.push(createObject('platform2', windowWidth/2.25, (windowHeight - windowHeight/2.25), 140, 10, '#E79548', 0, null, 's'))
     objects.push(createObject('platform3', windowWidth/3.25, (windowHeight - windowHeight/3), 140, 10, '#E79548', 0, null, 's'))
     objects.push(createObject('wall', windowWidth/1.45, (windowHeight - windowHeight/2.25), 10, windowHeight/2, 'black', 0, null, 's'))
     objects.push(createObject('wall2', windowWidth/1.3, windowHeight/4, 10, windowHeight/2, 'black', 0, null, 's'))
     objects.push(createObject('grass', windowWidth/2, windowHeight, windowWidth, windowHeight/2.5, 'green', 0, null, 's'))
-    objects.push(createObject('goal', windowWidth/1.11, (windowHeight - windowHeight/2.25), 50, 550, 0, 0, 'img/goalT.png', 's'))
-    objects.push(createObject('instructions', windowWidth/3.5, (windowHeight - windowHeight/1.5), 200, 200, 0, 0, 'img/arrowInstruction.png', 's'))
-    objects.push(createObject('restart', windowWidth/1.05, windowHeight/12, 160, 160, 0, 0, 'img/reload.png', 's'));
+    objects.push(createObject('goal', windowWidth/1.11, (windowHeight - windowHeight/2.25), 50, 550, 0, 0, '../img/goalT.png', 's'))
+    objects.push(createObject('instructions', windowWidth/3.5, (windowHeight - windowHeight/1.5), 200, 200, 0, 0, '../img/arrowInstruction.png', 's'))
+    objects.push(createObject('restart', windowWidth/1.05, windowHeight/12, 160, 160, 0, 0, '../img/reload.png', 's'));
     return objects;
 }
 
