@@ -34,6 +34,9 @@ function createObjects(windowWidth, windowHeight) {
     objects.push(createObject('levelEnd', (windowWidth *2) + windowWidth/2, windowHeight * 0.75, windowWidth, windowHeight /2, 'green', 0, null, 's'));
     objects.push(createObject('player', windowWidth/20, (windowHeight - windowHeight/1.5), 65, 185, 'blue', 10, 'img/player.png', 'd'));
     objects.push(createObject('endStructure', (windowWidth * 2) + windowWidth/4, windowHeight/3, windowWidth/6, windowHeight/3, 0, 0, 'img/goal4.png', 's'));
+    objects.push(createObject('fireball1', windowWidth + (windowWidth/5), windowHeight, 30, 30, 'red', 0, 'img/game_fireball.png', 'k'));
+    objects.push(createObject('fireball2', windowWidth + (windowWidth/3), windowHeight, 30, 30, 'red', 0, 'img/game_fireball.png', 'k'));
+    objects.push(createObject('fireball3', windowWidth + (windowWidth/1.5), windowHeight, 30, 30, 'red', 0, 'img/game_fireball.png', 'k'));
     // objects.push(createObject('restart', windowWidth/1.05, windowHeight/12, 160, 160, 0, 0, 'img/reload.png', 's'));
     return objects;
 }
@@ -63,6 +66,9 @@ function setupScene(windowWidth, windowHeight, objects) {
             sprite.scale = 0.2;
             //sprite.debug = true;
             sprite.layer = 1;
+        }
+        if(new_object.image == 'img/game_fireball.png') {
+            sprite.scale = 0.075;
         }
         // if(new_object.name == 'restart') {
         //     sprite.scale = 0.2;
@@ -234,6 +240,24 @@ function draw() {
     }
     else if(objects[objectNames.indexOf('platform4')].y >= windowHeight/1.15) {
         objects[objectNames.indexOf('platform4')].vel.y = -1;
+    }
+
+    // Fireballs that reset player
+    objects[objectNames.indexOf('fireball1')].vel.y = cos(frameCount * 1.75) * 20;
+    objects[objectNames.indexOf('fireball2')].vel.y = cos(frameCount * 2.2) * 10;
+    objects[objectNames.indexOf('fireball3')].vel.y = cos(frameCount * 2) * 15;
+
+    if(objects[objectNames.indexOf('player')].collides(objects[objectNames.indexOf('fireball1')])) {
+        objects[objectNames.indexOf('player')].x = p1X;
+        objects[objectNames.indexOf('player')].y = p1Y;
+    }
+    if(objects[objectNames.indexOf('player')].collides(objects[objectNames.indexOf('fireball2')])) {
+        objects[objectNames.indexOf('player')].x = p1X;
+        objects[objectNames.indexOf('player')].y = p1Y;
+    }
+    if(objects[objectNames.indexOf('player')].collides(objects[objectNames.indexOf('fireball3')])) {
+        objects[objectNames.indexOf('player')].x = p1X;
+        objects[objectNames.indexOf('player')].y = p1Y;
     }
 
     // Camera following player.
