@@ -33,7 +33,7 @@ function createObjects(windowWidth, windowHeight) {
     objects.push(createObject('platform5', (windowWidth + (windowWidth/1.15)), windowHeight/2, windowWidth/20, 10, 'orange', 0, null, 's'));
     objects.push(createObject('levelEnd', (windowWidth *2) + windowWidth/2, windowHeight * 0.75, windowWidth, windowHeight /2, 'green', 0, null, 's'));
     objects.push(createObject('player', windowWidth/20, (windowHeight - windowHeight/1.5), 65, 185, 'blue', 10, 'img/player.png', 'd'));
-    objects.push(createObject('endStructure', (windowWidth * 2) + windowWidth/4, windowHeight/3, windowWidth/4, windowHeight*1.8, 0, 0, 'img/goal4.png', 's'));
+    objects.push(createObject('endStructure', (windowWidth * 2) + windowWidth/4, windowHeight/3, 400, 1275, 0, 0, 'img/goal4.png', 'd'));
     objects.push(createObject('fireball1', windowWidth + (windowWidth/5), windowHeight, 30, 30, 'red', 0, 'img/game_fireball.png', 'k'));
     objects.push(createObject('fireball2', windowWidth + (windowWidth/3), windowHeight, 30, 30, 'red', 0, 'img/game_fireball.png', 'k'));
     objects.push(createObject('fireball3', windowWidth + (windowWidth/1.5), windowHeight, 30, 30, 'red', 0, 'img/game_fireball.png', 'k'));
