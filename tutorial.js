@@ -24,7 +24,7 @@ function createObjects(windowWidth, windowHeight) {
     objects.push(createObject('player', windowWidth/20, (windowHeight - windowHeight/3), 65, 185, 'maroon', 0, 'img/player.png', 'd'))
     objects.push(createObject('platform1', windowWidth/1.75, (windowHeight - windowHeight/1.75), 140, 10, '#E79548', 0, null, 's'))
     objects.push(createObject('platform2', windowWidth/2.25, (windowHeight - windowHeight/2.25), 140, 10, '#E79548', 0, null, 's'))
-    objects.push(createObject('platform3', windowWidth/3.25, (windowHeight - windowHeight/3), 140, 10, '#E79548', 0, null, 's'))
+    objects.push(createObject('platform3', windowWidth/3.25, (windowHeight - windowHeight/3.25), 140, 10, '#E79548', 0, null, 's'))
     objects.push(createObject('wall', windowWidth/1.45, (windowHeight - windowHeight/2.25), 10, windowHeight/2, 'black', 0, null, 's'))
     objects.push(createObject('wall2', windowWidth/1.3, windowHeight/4, 10, windowHeight/2, 'black', 0, null, 's'))
     objects.push(createObject('grass', windowWidth/2, windowHeight, windowWidth, windowHeight/2.5, 'green', 0, null, 's'))
@@ -127,19 +127,19 @@ function draw() {
     // Allow player vertical movement with jump limitation
     if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('grass')]))) {
         objects[objectNames.indexOf('player')].bearing = -90;
-        objects[objectNames.indexOf('player')].applyForce(6500);
+        objects[objectNames.indexOf('player')].applyForce(7500);
     }
     else if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform1')]))) {
         objects[objectNames.indexOf('player')].bearing = -90;
-        objects[objectNames.indexOf('player')].applyForce(6500);
+        objects[objectNames.indexOf('player')].applyForce(7500);
     }
     else if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform2')]))) {
         objects[objectNames.indexOf('player')].bearing = -90;
-        objects[objectNames.indexOf('player')].applyForce(6500);
+        objects[objectNames.indexOf('player')].applyForce(7500);
     }
     else if (kb.presses('up') && (objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('platform3')]))) {
         objects[objectNames.indexOf('player')].bearing = -90;
-        objects[objectNames.indexOf('player')].applyForce(6500);
+        objects[objectNames.indexOf('player')].applyForce(7500);
     }
 
 
