@@ -23,3 +23,7 @@ jobs:
       - name: test levels
         run: |
           node level1.js
+          node level2.js
+          node level3.js
+          node level4.js
+          node level5.js
