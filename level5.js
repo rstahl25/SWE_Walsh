@@ -30,7 +30,7 @@ function createObjects(windowWidth, windowHeight) {
     objects.push(createObject('platform3', windowWidth/7.5, (windowHeight - windowHeight/2.25), 170, 10, '#E79548', 0, null, 'k'))
     objects.push(createObject('goal', windowWidth + windowWidth/6, (windowHeight + windowHeight/2.25), 1200, 875, 0, 0, 'img/goal5.png', 'd'))
     objects.push(createObject('end', windowWidth + windowWidth/7, (windowHeight + windowHeight/1.68), 560, 10, 'black', 0, null, 's'))
-    objects.push(createObject('step', windowWidth, (windowHeight + windowHeight/3.8), 120, 10, '#E79548', 0, null, 's'))
+    objects.push(createObject('step', (windowWidth + windowWidth/256), (windowHeight + windowHeight/3.8), 120, 10, '#E79548', 0, null, 's'))
     return objects;
 }
 
@@ -222,6 +222,11 @@ function draw() {
         objects[objectNames.indexOf('player')].bearing = -90;
         objects[objectNames.indexOf('player')].applyForce(2400);
     }
+
+    if(objects[objectNames.indexOf('goal')].collides(objects[objectNames.indexOf('end')])){
+        objects[objectNames.indexOf('goal')].collider = 's'
+    }
+
     for(var i = 0; i < (objects[objectNames.indexOf('platform1')]).length; i++) {
         for(var j = 2; j < 5; j++) {
             if(kb.presses('up') && objects[objectNames.indexOf('player')].colliding((objects[j])[i])) {
