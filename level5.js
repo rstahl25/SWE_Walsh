@@ -288,18 +288,6 @@ function draw() {
         a.style('padding: 5px')
     }
 
-        var timeleft = 5;
-        var downloadTimer = setInterval(function(){
-          if(timeleft <= 0){
-            clearInterval(downloadTimer);
-            document.getElementById("countdown").innerHTML = "Finished";
-            window.location.href = '/level_selection.html';
-          } else {
-            document.getElementById("countdown").innerHTML = "Next level in " + timeleft + " seconds";
-          }
-          timeleft -= 1;
-        }, 1000);
-
     clear();
 }
 
