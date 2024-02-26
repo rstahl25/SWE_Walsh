@@ -30,7 +30,7 @@ function createObjects(windowWidth, windowHeight) {
     objects.push(createObject('platform1', (windowWidth - windowWidth/2.5), (windowHeight - windowHeight/3.5), windowWidth/25, 10, '#E79548', 0, null, 's'))
     objects.push(createObject('goal', (windowWidth - windowWidth/10), (windowHeight - windowHeight/2.25), windowWidth/5, 10, 'black', 0, null, 's'))
     objects.push(createObject('player', windowWidth/20, (windowHeight - windowHeight/3), 65, 185, 'blue', 0, 'img/player.png', 'd'))
-    objects.push(createObject('endStructure', (windowWidth - windowWidth/10), (windowHeight - windowHeight/1.65), windowWidth/1.5, windowHeight*2, 0, 0, 'img/goal1.png', 's'))
+    objects.push(createObject('endStructure', (windowWidth - windowWidth/10), (windowHeight - windowHeight/1.65), 1500, 1500, 0, 0, 'img/goal1.png', 'd'))
     objects.push(createObject('rotator1', windowWidth/2.75, (windowHeight - windowHeight/1.7), windowWidth/9, 10, 'red', 0, null, 'k'))
     objects.push(createObject('rotator2', (windowWidth - windowWidth/2.5), (windowHeight - windowHeight/1.6), windowWidth/10, 10, 'red', 0, null, 'k'))
     objects.push(createObject('restart', windowWidth/1.05, windowHeight/12, 160, 160, 0, 0, 'img/reload.png', 's'));
