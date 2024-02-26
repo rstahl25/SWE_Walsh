@@ -172,6 +172,10 @@ function draw() {
         objects[objectNames.indexOf('player')].y = p1Y;
     }
 
+    if(objects[objectNames.indexOf('endStructure')].collides(objects[objectNames.indexOf('goal')])){
+        objects[objectNames.indexOf('endStructure')].collider = 's'
+    }
+
     // Allow user to pause and resume game using SPACE.
     if (kb.presses('Space')) {
         if (pause === true) {

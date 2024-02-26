@@ -206,6 +206,10 @@ function draw() {
         objects[objectNames.indexOf('player')].y = p1Y;
     }
 
+    if(objects[objectNames.indexOf('endStructure')].collides(objects[objectNames.indexOf('grass2')])){
+        objects[objectNames.indexOf('endStructure')].collider = 's'
+    }
+
     if(frameCount> 500) {
         h3.hide();
         h3_2.hide();
