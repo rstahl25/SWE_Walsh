@@ -30,7 +30,7 @@ function createObjects(windowWidth, windowHeight) {
     objects.push(createObject('platform3', windowWidth/7.5, (windowHeight - windowHeight/2.25), 170, 10, '#E79548', 0, null, 'k'))
     objects.push(createObject('goal', windowWidth + windowWidth/6, (windowHeight + windowHeight/2.25), 1200, 875, 0, 0, 'img/goal5.png', 'd'))
     objects.push(createObject('end', windowWidth + windowWidth/7, (windowHeight + windowHeight/1.68), 560, 10, 'black', 0, null, 's'))
-    objects.push(createObject('step', windowWidth + windowWidth/64, (windowHeight + windowHeight/3.8), 120, 10, '#E79548', 0, null, 's'))
+    objects.push(createObject('step', windowWidth, (windowHeight + windowHeight/3.8), 120, 10, '#E79548', 0, null, 's'))
     return objects;
 }
 
