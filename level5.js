@@ -28,9 +28,8 @@ function createObjects(windowWidth, windowHeight) {
     objects.push(createObject('platform1', windowWidth/7, (windowHeight - windowHeight/1.15), 170, 10, '#E79548', 0, null, 'k'))
     objects.push(createObject('platform2', windowWidth/7.25, (windowHeight - windowHeight/1.55), 170, 10, '#E79548', 0, null, 'k'))
     objects.push(createObject('platform3', windowWidth/7.5, (windowHeight - windowHeight/2.25), 170, 10, '#E79548', 0, null, 'k'))
-    objects.push(createObject('goal', windowWidth + windowWidth/6, (windowHeight + windowHeight/2.25), 1200, 875, 0, 0, 'img/goal5.png', 'd'))
-    objects.push(createObject('end', windowWidth + windowWidth/7, (windowHeight + windowHeight/1.68), 560, 10, 'black', 0, null, 's'))
-    objects.push(createObject('step', (windowWidth + windowWidth/256), (windowHeight + windowHeight/3.8), 120, 10, '#E79548', 0, null, 's'))
+    objects.push(createObject('goal', windowWidth/7 + 3000, (windowHeight + windowHeight/2.25), 1200, 875, 0, 0, 'img/goal5.png', 'd'))
+    objects.push(createObject('end', windowWidth/7 + 3000, (windowHeight + windowHeight/1.68), 500, 10, 'black', 0, null, 's'))
     return objects;
 }
 
@@ -199,7 +198,7 @@ function draw() {
             objects[objectNames.indexOf('player')].vel.x = -5;
         }
     } else if (kb.pressing('right')) {
-        if(objects[objectNames.indexOf('player')].x > windowWidth + 500) {
+        if(objects[objectNames.indexOf('player')].x > windowWidth + 1200) {
             objects[objectNames.indexOf('player')].vel.x = -5;
         } else {
             objects[objectNames.indexOf('player')].vel.x = 5;
@@ -214,11 +213,6 @@ function draw() {
         objects[objectNames.indexOf('player')].applyForce(2400);
     }*/
     if(kb.presses('up') &&  objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('start')])) {
-        objects[objectNames.indexOf('player')].bearing = -90;
-        objects[objectNames.indexOf('player')].applyForce(2400);
-    }
-    
-    else if(kb.presses('up') &&  objects[objectNames.indexOf('player')].colliding(objects[objectNames.indexOf('step')])) {
         objects[objectNames.indexOf('player')].bearing = -90;
         objects[objectNames.indexOf('player')].applyForce(2400);
     }
@@ -243,7 +237,7 @@ function draw() {
             }
         }
     }
-    if(objects[objectNames.indexOf('player')].y > (windowHeight + 500)) {
+    if(objects[objectNames.indexOf('player')].y > (objects[objectNames.indexOf('end')].y)) {
         objects[objectNames.indexOf('player')].x = windowWidth/18; 
         objects[objectNames.indexOf('player')].y = ((windowHeight - windowHeight) - 125);
     }
@@ -280,11 +274,11 @@ function draw() {
         document.getElementById("shine").innerHTML = "Game Completed";
         var glim = document.getElementById("shine");
         glim.style.fontSize = '30px';
-        glim.style.left = '51vw';
+        glim.style.left = '45vw';
         glim.style.top = '17vh';
 
         let a = createA('/level_selection.html', 'Level Selection');
-        a.position((windowWidth - windowWidth/1.375), windowHeight/4);
+        a.position((windowWidth - windowWidth/1.3), windowHeight/4);
         a.style('color', 'maroon');
         a.style('text-decoration', 'none')
         a.style('background-color', 'white')
